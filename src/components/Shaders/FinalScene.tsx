@@ -36,8 +36,9 @@ export function FinalScene({ texture }: { texture: any }) {
       targetColor: "#D3FF7D",
       secondColor: "#FF39E1",
       background: "#000000",
+      speed: 1.0,
     }),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -56,13 +57,13 @@ export function FinalScene({ texture }: { texture: any }) {
 
   useFrame(() => {
     program.uniforms.uTargetColor.value = hexToFloatArray(
-      testUniforms.targetColor
+      testUniforms.targetColor,
     );
     program.uniforms.uSecondColor.value = hexToFloatArray(
-      testUniforms.secondColor
+      testUniforms.secondColor,
     );
     program.uniforms.uBackground.value = hexToFloatArray(
-      testUniforms.background
+      testUniforms.background,
     );
   });
   // program.uniforms.uTargetColor.value = hexToFloatArray(
@@ -82,7 +83,7 @@ export function FinalScene({ texture }: { texture: any }) {
           uBackground: { value: hexToFloatArray(testUniforms.background) },
         },
       }),
-    [texture]
+    [texture],
   );
   const updateBounds = () => {
     console.log("resize detected");
