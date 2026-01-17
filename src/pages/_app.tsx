@@ -18,7 +18,7 @@ const clash = localFont({
       style: "normal",
     },
   ],
-  variable: "--font-univers",
+  variable: "--font-clash",
   display: "swap",
 });
 
@@ -56,10 +56,28 @@ const univers_cond = localFont({
   display: "swap",
 });
 
+const HaasGroteskDSPro = localFont({
+  src: [
+    {
+      path: "../fonts/NHaasGroteskDSPro-55Rg.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/NHaasGroteskDSPro-65Md.woff2",
+      weight: "500",
+      style: "medium",
+    },
+  ],
+  variable: "--font-Haas",
+  display: "swap",
+});
+
+
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <div
-      className={`${clash.variable} ${univers.variable} ${univers_cond.variable} font-sans`}
+      className={`${clash.variable} ${univers.variable} ${univers_cond.variable} ${HaasGroteskDSPro.variable} font-sans`}
     >
       <ReactLenis root />
       <AnimatePresence>
