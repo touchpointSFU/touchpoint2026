@@ -5,14 +5,8 @@ import { useEffect, useLayoutEffect, useMemo } from "react";
 import postVert from "@/components/Shaders/post.vert";
 import postFrag from "@/components/Shaders/post.frag";
 import { useFrame, useOGL } from "react-ogl";
-import { Pane } from "tweakpane";
-import { p } from "motion/react-client";
-import test from "node:test";
-import { hex } from "motion";
 
 export function FinalScene({ texture }: { texture: any }) {
-  const pane = useMemo(() => new Pane(), []);
-
   function hexToFloatArray(hex: string) {
     let cleanHex = hex.replace("#", "");
 
@@ -36,33 +30,20 @@ export function FinalScene({ texture }: { texture: any }) {
       targetColor: "#D3FF7D",
       secondColor: "#FF39E1",
       background: "#000000",
+      speed: 1.0,
     }),
-    []
+    [],
   );
-
-  useEffect(() => {
-    console.log(pane);
-    console.log(program.uniforms);
-    pane.addBinding(testUniforms, "targetColor", {
-      label: "initial",
-    });
-    pane.addBinding(testUniforms, "secondColor", {
-      label: "final",
-    });
-    pane.addBinding(testUniforms, "background", {
-      label: "background",
-    });
-  }, []);
 
   useFrame(() => {
     program.uniforms.uTargetColor.value = hexToFloatArray(
-      testUniforms.targetColor
+      testUniforms.targetColor,
     );
     program.uniforms.uSecondColor.value = hexToFloatArray(
-      testUniforms.secondColor
+      testUniforms.secondColor,
     );
     program.uniforms.uBackground.value = hexToFloatArray(
-      testUniforms.background
+      testUniforms.background,
     );
   });
   // program.uniforms.uTargetColor.value = hexToFloatArray(
@@ -82,12 +63,9 @@ export function FinalScene({ texture }: { texture: any }) {
           uBackground: { value: hexToFloatArray(testUniforms.background) },
         },
       }),
-    [texture]
+    [texture],
   );
   const updateBounds = () => {
-    console.log("resize detected");
-    console.log(size, gl);
-    const newInfo = gl.canvas.getBoundingClientRect();
     program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height];
   };
   useLayoutEffect(() => {
