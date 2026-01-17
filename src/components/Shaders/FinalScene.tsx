@@ -5,14 +5,8 @@ import { useEffect, useLayoutEffect, useMemo } from "react";
 import postVert from "@/components/Shaders/post.vert";
 import postFrag from "@/components/Shaders/post.frag";
 import { useFrame, useOGL } from "react-ogl";
-import { Pane } from "tweakpane";
-import { p } from "motion/react-client";
-import test from "node:test";
-import { hex } from "motion";
 
 export function FinalScene({ texture }: { texture: any }) {
-  const pane = useMemo(() => new Pane(), []);
-
   function hexToFloatArray(hex: string) {
     let cleanHex = hex.replace("#", "");
 
@@ -40,20 +34,6 @@ export function FinalScene({ texture }: { texture: any }) {
     }),
     [],
   );
-
-  useEffect(() => {
-    console.log(pane);
-    console.log(program.uniforms);
-    pane.addBinding(testUniforms, "targetColor", {
-      label: "initial",
-    });
-    pane.addBinding(testUniforms, "secondColor", {
-      label: "final",
-    });
-    pane.addBinding(testUniforms, "background", {
-      label: "background",
-    });
-  }, []);
 
   useFrame(() => {
     program.uniforms.uTargetColor.value = hexToFloatArray(
@@ -86,9 +66,6 @@ export function FinalScene({ texture }: { texture: any }) {
     [texture],
   );
   const updateBounds = () => {
-    console.log("resize detected");
-    console.log(size, gl);
-    const newInfo = gl.canvas.getBoundingClientRect();
     program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height];
   };
   useLayoutEffect(() => {
