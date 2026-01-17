@@ -73,7 +73,6 @@ const HaasGroteskDSPro = localFont({
   display: "swap",
 });
 
-
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <div

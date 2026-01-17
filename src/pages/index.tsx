@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
-import circleInnovation from "/public/circle-innovation-logo-white.png";
+
+import circleInnovation from "@/assets/circle-innovation.svg";
 
 import { Fragment, useEffect, useMemo, useRef } from "react";
 import { Mesh, Program, RenderTarget, Triangle, Vec3 } from "ogl";
@@ -38,7 +38,12 @@ export default function Home() {
         </time>
       </hgroup>
 
-      <div className="absolute z-10 font-Haas bottom-16 gap-5 flex flex-col md:flex-row items-center">
+      <a
+        className="absolute z-10 font-Haas bottom-16 gap-5 flex flex-col md:flex-row items-center"
+        href="https://circleinnovation.ca/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <span className="text-[1rem] text-muted-foreground">
           In partnership with
         </span>
@@ -46,9 +51,9 @@ export default function Home() {
         <Image
           className="max-w-30 md:max-w-40"
           src={circleInnovation}
-          alt="Circle Innovation"
+          alt="Logo: Circle Innovation"
         />
-      </div>
+      </a>
 
       <div className="absolute inset-0">
         <OGLCanvas>
@@ -101,10 +106,7 @@ const Shader = () => {
       const handleMouseMove = (e: MouseEvent) => {
         const mO = mousePos.current.old;
         const mN = mousePos.current.new;
-        console.log(
-          "mouse move",
-          Math.sqrt(Math.pow(mN.x - mO.x, 2) + Math.pow(mN.y - mO.y, 2)),
-        );
+
         if (mouseAccel.current < 50)
           mouseAccel.current +=
             10 * Math.sqrt(Math.pow(mN.x - mO.x, 2) + Math.pow(mN.y - mO.y, 2));
@@ -127,7 +129,6 @@ const Shader = () => {
   }, []);
 
   useFrame((root, time) => {
-    // console.log(root.renderer);
     mesh.program.uniforms.uTime.value = time * 0.001;
     mesh.program.uniforms.uMouse.value = [
       mousePos.current.old.x,
