@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
   --theme-pink: #ff39e1;
   --theme-green: #d3ff7d;
 }
@@ -10,18 +10,16 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-univers);
+  --font-sans: var(--font-Haas);
   --font-custom: var(--font-universCondensed);
   --font-display: var(--font-clash);
   --font-Haas: var(--font-Haas);
   --color-touchpoint-green: var(--theme-green);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 body {
@@ -33,22 +31,22 @@ body {
 @utility text-display {
   font-size: 2rem; /* 32px */
 
-    @media (width >= 390px) {
+  @media (width >= 390px) {
     font-size: 3rem; /* 64px */
   }
-  
+
   @media (width >= 768px) {
     font-size: 4rem; /* 64px */
   }
-  
+
   @media (width >= 1024px) {
     font-size: 5rem; /* 80px */
   }
-  
+
   @media (width >= 1280px) {
     font-size: 6rem; /* 96px */
   }
-  
+
   @media (width >= 1920px) {
     font-size: 7.5rem; /* 120px */
   }
@@ -56,14 +54,14 @@ body {
 @utility text-description {
   font-size: 1rem; /* 32px */
 
-      @media (width >= 390px) {
+  @media (width >= 390px) {
     font-size: 1.25rem; /* 64px */
   }
-  
+
   @media (width >= 768px) {
     font-size: 2rem; /* 64px */
   }
-  
+
   @media (width >= 1920px) {
     font-size: 3rem; /* 120px */
   }

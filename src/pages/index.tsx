@@ -16,37 +16,38 @@ import basicFrag from "@/components/Shaders/metaballs.frag";
 export default function Home() {
   return (
     <motion.div
-      initial={{ scale: 0.95, opacity: 0, y: 0 }}
-      animate={{ scale: 1, opacity: 1, y: 0 }}
-      exit={{ scale: 0.95, opacity: 0, y: -64 }}
-      transition={{ duration: 0.5 }}
       key="home-page"
       className={`flex flex-col leading-none min-h-dvh items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
     >
-      <hgroup className="relative z-10 text-center">
+      <motion.hgroup
+        className="relative z-10 text-center"
+        initial={{ scale: 0.95, opacity: 0, y: 0 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.95, opacity: 0, y: -64 }}
+        transition={{ duration: 0.5 }}
+        key="home_text"
+      >
         <h1 className="font-display text-[#FF39E1] mb-4 md:mb-8 min-[1920px]:mb-10.5 text-display font-semibold">
           Touchpoint 2026
         </h1>
-        <p className="text-description font-Haas text-touchpoint-green mb-2 md:mb-4 min-[1920px]:mb-6 ">
+        <p className="text-description font-medium text-touchpoint-green mb-2 md:mb-4 min-[1920px]:mb-6 ">
           SFU Surrey Engineering Building
         </p>
         <time
-          className="text-touchpoint-green text-description font-bold"
+          className="text-touchpoint-green text-description font-medium"
           dateTime="2026-03-21"
         >
           03.21.2026
         </time>
-      </hgroup>
+      </motion.hgroup>
 
       <a
-        className="absolute z-10 font-Haas bottom-16 gap-5 flex flex-col md:flex-row items-center"
+        className="absolute z-10 bottom-16 gap-5 flex flex-col md:flex-row items-center"
         href="https://circleinnovation.ca/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span className="text-[1rem] text-muted-foreground">
-          In partnership with
-        </span>
+        <span className="text-base">In partnership with</span>
 
         <Image
           className="max-w-30 md:max-w-40"

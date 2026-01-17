@@ -27,7 +27,7 @@ export default function Document() {
         />
         <meta name="twitter:image" content="/twitter-image.png" />
       </Head>
-      <body className="antialiased">
+      <body className="antialiased bg-background">
         <Main />
         <NextScript />
       </body>
