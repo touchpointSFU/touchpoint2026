@@ -5,6 +5,23 @@ import type { AppProps } from "next/app";
 import localFont from "next/font/local";
 import Script from "next/script";
 
+const clash = localFont({
+  src: [
+    {
+      path: "../fonts/ClashDisplay-Semibold.woff",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../fonts/ClashDisplay-Semibold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+  ],
+  variable: "--font-univers",
+  display: "swap",
+});
+
 const univers = localFont({
   src: [
     {
@@ -41,7 +58,9 @@ const univers_cond = localFont({
 
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
-    <div className={`${univers.variable} ${univers_cond.variable} font-sans`}>
+    <div
+      className={`${clash.variable} ${univers.variable} ${univers_cond.variable} font-sans`}
+    >
       <ReactLenis root />
       <AnimatePresence>
         <Component key={router.route} {...pageProps} />

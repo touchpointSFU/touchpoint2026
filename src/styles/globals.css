@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --theme-pink: #ff39e1;
+  --theme-green: #d3ff7d;
 }
 
 @theme inline {
@@ -10,7 +12,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-univers);
   --font-custom: var(--font-universCondensed);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-clash);
 }
 
 @media (prefers-color-scheme: dark) {
