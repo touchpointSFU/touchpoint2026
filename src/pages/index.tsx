@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 
-import circleInnovation from "@/assets/circle-innovation.svg";
+import circleInnovation from "@/assets/Circle-Innovation-RGB-Horiz-Reverse.svg";
 
 import { Fragment, useEffect, useMemo, useRef } from "react";
 import { Mesh, Program, RenderTarget, Triangle, Vec3 } from "ogl";
