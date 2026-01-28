@@ -14,7 +14,8 @@
   --font-custom: var(--font-universCondensed);
   --font-display: var(--font-clash);
   --font-Haas: var(--font-Haas);
-  --color-touchpoint-green: var(--theme-green);
+  --color-theme-green: var(--theme-green);
+  --color-theme-pink: var(--theme-pink);
 }
 
 html {

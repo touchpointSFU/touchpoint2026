@@ -4,7 +4,15 @@ import Image from "next/image";
 import circleInnovation from "@/assets/Circle-Innovation-RGB-Horiz-Reverse.svg";
 
 import { Fragment, useEffect, useMemo, useRef } from "react";
-import { Mesh, Program, RenderTarget, Triangle, Vec3 } from "ogl";
+import {
+  Mesh,
+  Program,
+  RenderTarget,
+  Triangle,
+  Vec3,
+  Text,
+  Geometry,
+} from "ogl";
 
 import { OGLCanvas } from "@/components/OGLCanvas/OGLCanvas";
 import { FinalScene } from "@/components/Shaders/FinalScene";
@@ -12,6 +20,8 @@ import { useFrame, useOGL } from "react-ogl";
 
 import basicVert from "@/components/Shaders/basic.vert";
 import basicFrag from "@/components/Shaders/metaballs.frag";
+import font from "@/assets/ClashDisplay-Semibold.json";
+import { MSDFText } from "@/components/Shaders/MSDF/MDSFText";
 
 export default function Home() {
   return (
@@ -19,51 +29,6 @@ export default function Home() {
       key="home-page"
       className={`flex flex-col leading-none min-h-dvh items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
     >
-      <motion.hgroup
-        className="relative z-10 text-center"
-        initial={{ scale: 0.95, opacity: 0, y: 0 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.95, opacity: 0, y: -64 }}
-        transition={{ duration: 0.5 }}
-        key="home_text"
-      >
-        <h1 className="font-display text-theme-pink mb-4 md:mb-8 min-[1920px]:mb-10.5 text-display font-semibold">
-          Touchpoint 2026
-        </h1>
-        <p className="text-description font-medium text-theme-green mb-2 md:mb-4 min-[1920px]:mb-6 ">
-          SFU Surrey Engineering Building
-        </p>
-        <time
-          className="text-theme-green text-description font-medium"
-          dateTime="2026-03-21"
-        >
-          03.21.2026
-        </time>
-        <a
-          className="bg-background border border-theme-pink text-theme-pink focus:bg-theme-pink focus:text-background hover:bg-theme-pink hover:text-background font-display font-semibold text-2xl px-4 py-2 rounded flex mx-auto w-fit my-4"
-          href="https://www.eventbrite.ca/o/touchpoint-conferences-7821386119"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Get tickets
-        </a>
-      </motion.hgroup>
-
-      <a
-        className="absolute z-10 bottom-16 gap-5 flex flex-col md:flex-row items-center"
-        href="https://circleinnovation.ca/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span className="text-base">In partnership with</span>
-
-        <Image
-          className="max-w-30 md:max-w-40"
-          src={circleInnovation}
-          alt="Logo: Circle Innovation"
-        />
-      </a>
-
       <div className="absolute inset-0">
         <OGLCanvas>
           <Shader />
@@ -75,6 +40,30 @@ export default function Home() {
 
 const Shader = () => {
   const { gl, canvas, renderer } = useOGL();
+  // useEffect(() => {
+  //   gl.clearColor(1, 1, 0, 1);
+  // }, [gl]);
+  const text = new Text({
+    font,
+    text: "test",
+  });
+
+  // Pass the generated buffers into a geometry
+  const geometry = new Geometry(gl, {
+    position: { size: 3, data: text.buffers.position },
+    uv: { size: 2, data: text.buffers.uv },
+    // id provides a per-character index, for effects that may require it
+    id: { size: 1, data: text.buffers.id },
+    index: { data: text.buffers.index },
+  });
+
+  const meshT = new Mesh(gl, {
+    geometry,
+    program: new Program(gl, {
+      vertex: basicVert,
+      fragment: basicFrag,
+    }),
+  });
 
   const renderTarget = useMemo(() => new RenderTarget(gl), []);
 
@@ -155,12 +144,15 @@ const Shader = () => {
       root.renderer.height,
     ];
     mesh.program.uniforms.uMetablobs.value = metablobs.current;
-    renderer.render({ scene: mesh, target: renderTarget });
+    // renderer.render({ scene: mesh });
   });
 
   return (
     <Fragment>
-      <FinalScene texture={renderTarget.texture} />
+      <MSDFText
+        text="Hello"
+        // textureSrc="/assets/fonts/ClashDisplay-Semibold.png"
+      />
     </Fragment>
   );
 };
