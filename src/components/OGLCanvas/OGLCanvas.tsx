@@ -1,4 +1,4 @@
-import { createContext, useRef } from "react";
+import { createContext, useEffect, useRef } from "react";
 import { Canvas } from "react-ogl";
 
 export const OGLCanvasContext = createContext<{
@@ -9,9 +9,12 @@ export const OGLCanvasContext = createContext<{
 
 export const OGLCanvas = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<any>(null);
+
   return (
     <OGLCanvasContext value={{ canvas: ref }}>
-      <Canvas ref={ref}>{children}</Canvas>
+      <Canvas ref={ref} orthographic>
+        {children}
+      </Canvas>
     </OGLCanvasContext>
   );
 };

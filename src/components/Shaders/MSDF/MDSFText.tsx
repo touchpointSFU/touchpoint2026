@@ -7,7 +7,7 @@ import {
   Geometry,
   Mesh,
 } from "ogl";
-import { render, useOGL } from "react-ogl";
+import { render, useFrame, useOGL } from "react-ogl";
 import src from "@/assets/ClashDisplay-Semibold.png";
 import font from "@/assets/ClashDisplay-Semibold.json";
 import fragment100 from "./frag100.frag";
@@ -16,8 +16,8 @@ import vertex100 from "./vert100.vert";
 import vertex300 from "./vert300.vert";
 import { useEffect } from "react";
 
-export const MSDFText = ({ text }: { text: string }) => {
-  const { gl, plane, renderer } = useOGL();
+export const MSDFText = ({ text, plane }: { text: string; plane: any }) => {
+  const { gl, renderer, scene } = useOGL();
 
   const texture = new Texture(gl, { generateMipmaps: false });
   const textureImage = new Image();
@@ -41,16 +41,17 @@ export const MSDFText = ({ text }: { text: string }) => {
     fragment: fragmentShader,
     vertex: vertexShader,
     uniforms: {
-      uColor: { value: new Color("#545050") },
+      uColor: { value: new Color("#FFFFFF") },
       tMap: { value: texture },
     },
   });
 
   const renderText = new Text({
-    align: "center",
+    align: "left",
     font,
-    letterSpacing: -0.05,
-    size: 1,
+    letterSpacing: 0,
+    size: 100,
+    lineHeight: 1,
     text: text,
     wordSpacing: 0,
   });
@@ -62,16 +63,38 @@ export const MSDFText = ({ text }: { text: string }) => {
     index: { data: renderText.buffers.index },
   });
 
+  const mesh = new Mesh(gl, {
+    geometry,
+    program,
+  });
+
+  const planeNew = new Mesh(gl, {
+    geometry: plane,
+    program: new Program(gl, {
+      vertex: `
+        attribute vec3 position;
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+        void main() {
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragment: `
+        void main() {
+          gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+      `,
+    }),
+  });
+  mesh.position.x = -1;
+  mesh.position.y = 1;
   useEffect(() => {
     console.log(renderText);
     console.log(src);
     geometry.computeBoundingBox();
+    // planeNew.setParent(scene);
+    console.log(planeNew);
   }, []);
 
-  //   const mesh = new Mesh(gl, {
-  //     geometry,
-  //     program,
-  //   });
-
-  return <mesh geometry={geometry} program={program} />;
+  return mesh;
 };

@@ -9,6 +9,7 @@ import {
   Program,
   RenderTarget,
   Triangle,
+  Plane,
   Vec3,
   Text,
   Geometry,
@@ -39,120 +40,51 @@ export default function Home() {
 }
 
 const Shader = () => {
-  const { gl, canvas, renderer } = useOGL();
-  // useEffect(() => {
-  //   gl.clearColor(1, 1, 0, 1);
-  // }, [gl]);
-  const text = new Text({
-    font,
-    text: "test",
-  });
-
-  // Pass the generated buffers into a geometry
-  const geometry = new Geometry(gl, {
-    position: { size: 3, data: text.buffers.position },
-    uv: { size: 2, data: text.buffers.uv },
-    // id provides a per-character index, for effects that may require it
-    id: { size: 1, data: text.buffers.id },
-    index: { data: text.buffers.index },
-  });
-
-  const meshT = new Mesh(gl, {
-    geometry,
-    program: new Program(gl, {
-      vertex: basicVert,
-      fragment: basicFrag,
-    }),
-  });
+  const { gl, canvas, renderer, camera } = useOGL();
+  useEffect(() => {
+    gl.clearColor(0, 1, 0, 1);
+  }, []);
 
   const renderTarget = useMemo(() => new RenderTarget(gl), []);
 
   const mousePos = useRef({ old: { x: 0, y: 0 }, new: { x: 0, y: 0 } });
   const mouseAccel = useRef(0);
-
-  const mesh = new Mesh(gl, {
-    geometry: new Triangle(gl),
-    program: new Program(gl, {
-      vertex: basicVert,
-      fragment: basicFrag,
-      uniforms: {
-        uTime: { value: 0.0 },
-        uMouse: { value: [0.0, 0.0] },
-        uResolution: { value: [gl.canvas.width, gl.canvas.height] },
-        uMetablobs: { value: [] },
-        uSpeed: { value: matchMedia("(pointer:fine)").matches ? 0.5 : 4 },
-        uMobile: { value: matchMedia("(pointer:fine)").matches ? false : true },
-      },
-    }),
+  const plane = new Plane(gl, {
+    width: 1,
+    height: 1,
   });
 
-  const metablobs = useRef(
-    Array.from(
-      { length: 50 },
-      () =>
-        new Vec3(
-          2 * Math.random() - 1.0,
-          2 * Math.random() - 1.0,
-          Math.random() * 0.3,
-          // 1.2
-        ),
-    ),
-  );
-
+  const triangle = new Triangle(gl);
+  const text = MSDFText({ text: "Schedule", plane: plane });
   useEffect(() => {
-    if (matchMedia("(pointer:fine)").matches) {
-      const handleMouseMove = (e: MouseEvent) => {
-        const mO = mousePos.current.old;
-        const mN = mousePos.current.new;
-
-        if (mouseAccel.current < 50)
-          mouseAccel.current +=
-            10 * Math.sqrt(Math.pow(mN.x - mO.x, 2) + Math.pow(mN.y - mO.y, 2));
-        const rect = gl.canvas.getBoundingClientRect();
-        const x = e.clientX / rect.width - 0.5;
-        // const y = 1.0 - e.clientY / gl.canvas.height;
-        const y = 0.5 - e.clientY / rect.height;
-        mousePos.current.old = { ...mousePos.current.new };
-        mousePos.current.new = { x, y };
-        metablobs.current.map((mb) => {
-          mb.x += Math.random() >= 0.5 ? 0.05 : -0.05;
-          mb.y += Math.random() >= 0.5 ? 0.05 : -0.05;
-        });
-      };
-      window.addEventListener("mousemove", handleMouseMove);
-      return () => {
-        window.removeEventListener("mousemove", handleMouseMove);
-      };
-    }
+    const handleResize = () => {
+      console.log(camera);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useFrame((root, time) => {
-    mesh.program.uniforms.uTime.value = time * 0.001;
-    mesh.program.uniforms.uMouse.value = [
-      mousePos.current.old.x,
-      mousePos.current.old.y,
-    ];
-    if (mouseAccel.current > 0.5) mouseAccel.current *= 0.9; // Apply damping to decelerate more naturally
-    if (matchMedia("(pointer:fine)").matches)
-      mesh.program.uniforms.uSpeed.value = mouseAccel.current;
-    // mesh.program.uniforms.uMouse.value = [
-    //   mousePositionN.current[0],
-    //   mousePositionN.current[1],
-    // ];
-    mesh.program.uniforms.uResolution.value = [
-      root.renderer.width,
-      root.renderer.height,
-    ];
-    mesh.program.uniforms.uMetablobs.value = metablobs.current;
-    // renderer.render({ scene: mesh });
+  useFrame((state, time) => {
+    const bounds = [renderer.width, renderer.height];
+    state.camera.left = 0;
+    state.camera.right = bounds[0];
+    state.camera.top = 0;
+    state.camera.bottom = -bounds[1];
+    state.camera.updateProjectionMatrix();
   });
 
   return (
     <Fragment>
-      <MSDFText
-        text="Hello"
-        // textureSrc="/assets/fonts/ClashDisplay-Semibold.png"
-      />
+      {/* <orbitControls /> */}
+      <gridHelper />
+      <axesHelper />
+      {/* <transform position={[-1, 1, 0]}> */}
+      <primitive object={text} />
+      <mesh>
+        <plane />
+        <normalProgram />
+      </mesh>
+      {/* </transform> */}
     </Fragment>
   );
 };
