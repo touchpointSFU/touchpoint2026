@@ -13,7 +13,12 @@ export const OGLCanvas = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <OGLCanvasContext value={{ canvas: ref }}>
-      <Canvas ref={ref} orthographic camera={{ top: eps, left: -eps }}>
+      <Canvas
+        ref={ref}
+        orthographic
+        camera={{ top: eps, left: -eps }}
+        onCreated={(state) => void state.gl.clearColor(0, 0, 0, 1)}
+      >
         {children}
       </Canvas>
     </OGLCanvasContext>

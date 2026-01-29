@@ -10,6 +10,8 @@ out vec4 FragColor;
 
 uniform vec3 uColor;
 uniform sampler2D tMap;
+uniform float uWidth;
+uniform float uDPR;
  
 varying vec2 vUv;
  

@@ -16,11 +16,12 @@ import {
 } from "ogl";
 
 import { OGLCanvas } from "@/components/OGLCanvas/OGLCanvas";
-import { FinalScene } from "@/components/Shaders/FinalScene";
+import { FinalMSDF } from "@/components/Shaders/MSDF/FinalMSDF";
 import { useFrame, useOGL } from "react-ogl";
 
 import basicVert from "@/components/Shaders/basic.vert";
-import basicFrag from "@/components/Shaders/metaballs.frag";
+import vert100 from "@/components/Shaders/MSDF/vert100.vert";
+import basicFrag from "@/components/Shaders/MSDF/metaballs.frag";
 import font from "@/assets/ClashDisplay-Semibold.json";
 import { MSDFText } from "@/components/Shaders/MSDF/MDSFText";
 
@@ -40,12 +41,37 @@ export default function Home() {
 }
 
 const Shader = () => {
+  const eps = 1e-6; // tiny non-zero bounds
   const { gl, canvas, renderer, camera } = useOGL();
   useEffect(() => {
-    gl.clearColor(0, 1, 0, 1);
+    // gl.clearColor(0, 1, 0, 1);
   }, []);
 
+  const sizeRef = useRef({ width: renderer.width, height: renderer.height });
+
+  const text = MSDFText({
+    text: "Schedule\nand speakers",
+    test: sizeRef.current.width,
+  });
+
   const renderTarget = useMemo(() => new RenderTarget(gl), []);
+  const renderTarget2 = useMemo(() => new RenderTarget(gl), []);
+
+  const mesh = new Mesh(gl, {
+    geometry: new Triangle(gl),
+    program: new Program(gl, {
+      vertex: basicVert,
+      fragment: basicFrag,
+      uniforms: {
+        uTime: { value: 0.0 },
+        uMouse: { value: [0.0, 0.0] },
+        uResolution: { value: [gl.canvas.width, gl.canvas.height] },
+        uSpeed: { value: matchMedia("(pointer:fine)").matches ? 0.5 : 4 },
+        uMobile: { value: matchMedia("(pointer:fine)").matches ? false : true },
+        uTexture: { value: renderTarget.texture },
+      },
+    }),
+  });
 
   const mousePos = useRef({ old: { x: 0, y: 0 }, new: { x: 0, y: 0 } });
   const mouseAccel = useRef(0);
@@ -55,22 +81,42 @@ const Shader = () => {
   });
 
   const triangle = new Triangle(gl);
-  const text = MSDFText({ text: "Schedule", plane: plane });
+
   useEffect(() => {
     const handleResize = () => {
       console.log(camera);
+      console.log(renderer);
+      console.log(canvas);
+      renderer.render({
+        scene: text,
+        target: renderTarget,
+      });
+      renderer.render({
+        scene: mesh,
+        target: renderTarget2,
+      });
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useFrame((state, time) => {
+    // state.gl.clearColor(0, 0, 0, 1);
     const bounds = [renderer.width, renderer.height];
     // state.camera.left = 0;
-    state.camera.right = bounds[0] / 80;
+    state.camera.right = renderer.width;
     // state.camera.top = 0;
-    state.camera.bottom = -bounds[1] / 80;
+    state.camera.bottom = -renderer.height;
     state.camera.updateProjectionMatrix();
+    mesh.program.uniforms.uTime.value = time * 0.001;
+    renderer.render({
+      scene: text,
+      target: renderTarget,
+    });
+    renderer.render({
+      scene: mesh,
+      target: renderTarget2,
+    });
   });
 
   return (
@@ -78,13 +124,8 @@ const Shader = () => {
       {/* <orbitControls /> */}
       <gridHelper />
       <axesHelper />
-      {/* <transform position={[-1, 1, 0]}> */}
-      <primitive object={text} />
-      <mesh>
-        <plane />
-        <normalProgram />
-      </mesh>
-      {/* </transform> */}
+
+      <FinalMSDF texture={renderTarget2.texture} />
     </Fragment>
   );
 };

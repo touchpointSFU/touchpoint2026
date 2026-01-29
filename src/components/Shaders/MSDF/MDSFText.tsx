@@ -6,6 +6,7 @@ import {
   Text,
   Geometry,
   Mesh,
+  Vec3,
 } from "ogl";
 import { render, useFrame, useOGL } from "react-ogl";
 import src from "@/assets/ClashDisplay-Semibold.png";
@@ -14,10 +15,21 @@ import fragment100 from "./frag100.frag";
 import fragment300 from "./frag300.frag";
 import vertex100 from "./vert100.vert";
 import vertex300 from "./vert300.vert";
-import { useEffect } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 
-export const MSDFText = ({ text, plane }: { text: string; plane: any }) => {
-  const { gl, renderer, scene } = useOGL();
+export const MSDFText = ({ text, test }: { text: string; test: number }) => {
+  const { gl, renderer, scene, camera } = useOGL();
+  const textMemo = useRef(
+    new Text({
+      align: "left",
+      font,
+      letterSpacing: 0,
+      size: test / 6,
+      lineHeight: 1,
+      text: text,
+      wordSpacing: 0,
+    }),
+  );
 
   const texture = new Texture(gl, { generateMipmaps: false });
   const textureImage = new Image();
@@ -43,24 +55,31 @@ export const MSDFText = ({ text, plane }: { text: string; plane: any }) => {
     uniforms: {
       uColor: { value: new Color("#FFFFFF") },
       tMap: { value: texture },
+      uWidth: { value: renderer.width },
+      uHeight: { value: renderer.height },
+      uDPR: { value: renderer.dpr },
+      modelViewMatrix: { value: camera.viewMatrix },
+      projectionMatrix: { value: camera.projectionMatrix },
     },
   });
+
+  const sizeRef = useRef({ width: renderer.width, height: renderer.height });
 
   const renderText = new Text({
     align: "left",
     font,
     letterSpacing: 0,
-    size: 1,
+    size: renderer.width / 6,
     lineHeight: 1,
     text: text,
     wordSpacing: 0,
   });
 
   const geometry = new Geometry(gl, {
-    position: { size: 3, data: renderText.buffers.position },
-    uv: { size: 2, data: renderText.buffers.uv },
-    id: { size: 1, data: renderText.buffers.id },
-    index: { data: renderText.buffers.index },
+    position: { size: 3, data: textMemo.current.buffers.position },
+    uv: { size: 2, data: textMemo.current.buffers.uv },
+    id: { size: 1, data: textMemo.current.buffers.id },
+    index: { data: textMemo.current.buffers.index },
   });
 
   const mesh = new Mesh(gl, {
@@ -68,33 +87,50 @@ export const MSDFText = ({ text, plane }: { text: string; plane: any }) => {
     program,
   });
 
-  const planeNew = new Mesh(gl, {
-    geometry: plane,
-    program: new Program(gl, {
-      vertex: `
-        attribute vec3 position;
-        uniform mat4 modelViewMatrix;
-        uniform mat4 projectionMatrix;
-        void main() {
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragment: `
-        void main() {
-          gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-        }
-      `,
-    }),
-  });
-  mesh.position.x = 0;
-  mesh.position.y = 0;
+  //   mesh.position.x = 0;
+  //   mesh.position.y = 0;
   useEffect(() => {
-    console.log(renderText);
+    console.log(textMemo);
     console.log(src);
     geometry.computeBoundingBox();
-    // planeNew.setParent(scene);
-    console.log(planeNew);
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      textMemo.current = new Text({
+        align: "left",
+        font,
+        letterSpacing: 0,
+        size: renderer.width / 6,
+        lineHeight: 1,
+        text: text,
+        wordSpacing: 0,
+      });
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useFrame(() => {
+    program.uniforms.uWidth.value = renderer.width;
+    program.uniforms.uHeight.value = renderer.height;
+    program.uniforms.uDPR.value = renderer.dpr;
+    console.log(camera.viewMatrix);
+    console.log(camera.projectionMatrix);
+    program.uniforms.modelViewMatrix.value = camera.viewMatrix;
+    program.uniforms.projectionMatrix.value = camera.projectionMatrix;
+    mesh.scale.x += 0.1;
+    // textMemo.current.buffers.position.
+    // textMemo.current = new Text({
+    //   align: "left",
+    //   font,
+    //   letterSpacing: 0,
+    //   size: renderer.width / 6,
+    //   lineHeight: 1,
+    //   text: text,
+    //   wordSpacing: 0,
+    // });
+  });
 
   return mesh;
 };
