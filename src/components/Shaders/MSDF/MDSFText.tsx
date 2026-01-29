@@ -50,7 +50,7 @@ export const MSDFText = ({ text, plane }: { text: string; plane: any }) => {
     align: "left",
     font,
     letterSpacing: 0,
-    size: 100,
+    size: 1,
     lineHeight: 1,
     text: text,
     wordSpacing: 0,
@@ -86,8 +86,8 @@ export const MSDFText = ({ text, plane }: { text: string; plane: any }) => {
       `,
     }),
   });
-  mesh.position.x = -1;
-  mesh.position.y = 1;
+  mesh.position.x = 0;
+  mesh.position.y = 0;
   useEffect(() => {
     console.log(renderText);
     console.log(src);

@@ -9,10 +9,11 @@ export const OGLCanvasContext = createContext<{
 
 export const OGLCanvas = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<any>(null);
+  const eps = 1e-6; // tiny non-zero bounds
 
   return (
     <OGLCanvasContext value={{ canvas: ref }}>
-      <Canvas ref={ref} orthographic>
+      <Canvas ref={ref} orthographic camera={{ top: eps, left: -eps }}>
         {children}
       </Canvas>
     </OGLCanvasContext>

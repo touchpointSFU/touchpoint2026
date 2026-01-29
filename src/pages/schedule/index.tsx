@@ -66,10 +66,10 @@ const Shader = () => {
 
   useFrame((state, time) => {
     const bounds = [renderer.width, renderer.height];
-    state.camera.left = 0;
-    state.camera.right = bounds[0];
-    state.camera.top = 0;
-    state.camera.bottom = -bounds[1];
+    // state.camera.left = 0;
+    state.camera.right = bounds[0] / 80;
+    // state.camera.top = 0;
+    state.camera.bottom = -bounds[1] / 80;
     state.camera.updateProjectionMatrix();
   });
 
