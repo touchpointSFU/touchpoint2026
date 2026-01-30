@@ -6,6 +6,7 @@ uniform sampler2D uTexture;
 uniform vec3 uTargetColor;
 uniform vec3 uSecondColor;
 uniform vec3 uBackground;
+uniform float uDotSize;
 
 #define pixelSize 24.0
 
@@ -331,10 +332,10 @@ void main() {
   
   vec2 uv = vUv;
   vec2 pix = gl_FragCoord.xy;
-  vec2 pixelmap = fract(pix / pixelSize);
+  vec2 pixelmap = fract(pix / uDotSize);
   // vec2 grouping = mod(floor(pix / pixelSize), 2.0);
 //   vec3 col = texture2D(uTexture, uv).rgb;
-  vec3 col = texture2D(uTexture, floor(pix / pixelSize) * pixelSize / uResolution.xy).rgb;
+  vec3 col = texture2D(uTexture, floor(pix / uDotSize) * uDotSize / uResolution.xy).rgb;
 //  vec3 tex = col;
   vec3 final = cellVal(col.r, pixelmap, uTargetColor, uSecondColor);
   

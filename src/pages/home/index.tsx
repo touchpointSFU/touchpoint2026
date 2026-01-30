@@ -50,7 +50,7 @@ const Shader = () => {
   const sizeRef = useRef({ width: renderer.width, height: renderer.height });
 
   const text = MSDFText({
-    text: "Schedule",
+    text: "'26",
     test: sizeRef.current.width,
   });
 
@@ -69,7 +69,6 @@ const Shader = () => {
         uSpeed: { value: matchMedia("(pointer:fine)").matches ? 0.5 : 4 },
         uMobile: { value: matchMedia("(pointer:fine)").matches ? false : true },
         uTexture: { value: renderTarget.texture },
-        uDotSize: { value: 12 },
       },
     }),
   });
@@ -88,7 +87,6 @@ const Shader = () => {
       console.log(camera);
       console.log(renderer);
       console.log(canvas);
-      mesh.program.uniforms.uDotSize.value = renderer.width > 568 ? 24 : 12;
       renderer.render({
         scene: text,
         target: renderTarget,
@@ -110,7 +108,6 @@ const Shader = () => {
     // state.camera.top = 0;
     state.camera.bottom = -renderer.height;
     state.camera.updateProjectionMatrix();
-    mesh.program.uniforms.uDotSize.value = renderer.width > 568 ? 24 : 12;
     mesh.program.uniforms.uTime.value = time * 0.001;
     renderer.render({
       scene: text,

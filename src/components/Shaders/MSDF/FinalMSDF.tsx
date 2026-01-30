@@ -49,7 +49,7 @@ export function FinalMSDF({ texture }: { texture: any }) {
   // program.uniforms.uTargetColor.value = hexToFloatArray(
   //   testUniforms.targetColor
 
-  const { gl, size } = useOGL();
+  const { gl, size, renderer } = useOGL();
   const program = useMemo(
     () =>
       new Program(gl, {
@@ -61,12 +61,17 @@ export function FinalMSDF({ texture }: { texture: any }) {
           uTargetColor: { value: hexToFloatArray(testUniforms.targetColor) },
           uSecondColor: { value: hexToFloatArray(testUniforms.secondColor) },
           uBackground: { value: hexToFloatArray(testUniforms.background) },
+          uDotSize: { value: renderer.width > 568 ? 24 : 12 },
         },
       }),
     [texture],
   );
+  useFrame(() => {
+    program.uniforms.uDotSize.value = renderer.width > 568 ? 24 : 12;
+  });
   const updateBounds = () => {
     program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height];
+    program.uniforms.uDotSize.value = renderer.width > 568 ? 24 : 12;
   };
   useLayoutEffect(() => {
     window.addEventListener("resize", updateBounds);
