@@ -12,19 +12,29 @@ import { useFrame, useOGL } from "react-ogl";
 
 import basicVert from "@/components/Shaders/basic.vert";
 import basicFrag from "@/components/Shaders/metaballs.frag";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <motion.div
       key="home-page"
-      className={`flex flex-col leading-none min-h-dvh items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
+      className={`fixed inset-0 overflow-x-hidden flex flex-col leading-none min-h-dvh items-center justify-center font-sans `}
     >
       <motion.hgroup
         className="relative z-10 text-center"
         initial={{ scale: 0.95, opacity: 0, y: 0 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.95, opacity: 0, y: -64 }}
-        transition={{ duration: 0.5 }}
+        animate={{
+          scale: 1,
+          opacity: 1,
+          y: 0,
+          transition: { delay: 0.1, duration: 0.7 },
+        }}
+        exit={{
+          scale: 0.95,
+          opacity: 0,
+          y: -64,
+          transition: { duration: 0.5 },
+        }}
         key="home_text"
       >
         <h1 className="font-display text-theme-pink mb-4 md:mb-8 min-[1920px]:mb-10.5 text-display font-semibold">
@@ -47,6 +57,7 @@ export default function Home() {
         >
           Get tickets
         </a>
+        <Link href="/schedule">Schedule</Link>
       </motion.hgroup>
 
       <a

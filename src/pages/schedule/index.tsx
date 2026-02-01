@@ -29,13 +29,24 @@ export default function Home() {
   return (
     <motion.div
       key="home-page"
-      className={`flex flex-col leading-none min-h-dvh items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
+      className={`fixed inset-0 overflow-x-hidden flex flex-col leading-none min-h-dvh items-center justify-center font-sans `}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
-      <div className="absolute inset-0">
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          transition: { delay: 0.2, duration: 0.7, ease: "easeOut" },
+        }}
+        exit={{ opacity: 0 }}
+      >
         <OGLCanvas>
           <Shader />
         </OGLCanvas>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

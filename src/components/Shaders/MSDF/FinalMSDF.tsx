@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useMemo } from "react";
 
 import postVert from "@/components/Shaders/MSDF/post.vert";
 import postFrag from "@/components/Shaders/MSDF/post.frag";
-import { useFrame, useOGL } from "react-ogl";
+import { render, useFrame, useOGL } from "react-ogl";
 
 export function FinalMSDF({ texture }: { texture: any }) {
   function hexToFloatArray(hex: string) {
@@ -61,17 +61,19 @@ export function FinalMSDF({ texture }: { texture: any }) {
           uTargetColor: { value: hexToFloatArray(testUniforms.targetColor) },
           uSecondColor: { value: hexToFloatArray(testUniforms.secondColor) },
           uBackground: { value: hexToFloatArray(testUniforms.background) },
-          uDotSize: { value: renderer.width > 568 ? 24 : 12 },
+          uDotSize: {
+            value: Math.min(renderer.width / 40, 24),
+          },
         },
       }),
     [texture],
   );
   useFrame(() => {
-    program.uniforms.uDotSize.value = renderer.width > 568 ? 24 : 12;
+    program.uniforms.uDotSize.value = Math.min(renderer.width / 40, 24);
   });
   const updateBounds = () => {
     program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height];
-    program.uniforms.uDotSize.value = renderer.width > 568 ? 24 : 12;
+    program.uniforms.uDotSize.value = Math.min(renderer.width / 40, 24);
   };
   useLayoutEffect(() => {
     window.addEventListener("resize", updateBounds);

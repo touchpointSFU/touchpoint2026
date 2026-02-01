@@ -20,7 +20,7 @@ void main() {
     uv *= ratio;
     uv *= 10.;
     //Get the gray value for noise based on current XY
-    float d3 = uMobile ? snoise(vec3(uv * 0.5, uTime * 0.5))  + 0.1 : snoise(vec3(uv, uTime)) * 0.4 + 0.6;
+    float d3 = snoise(vec3(uv, uTime / 4.)) * 0.3 + 0.7;
     // float d3 = snoise(vec3(uv * 0.5, uTime * 0.5))  + 0.1;
 
     vec2 cellUV = fract(uv * 8.);
