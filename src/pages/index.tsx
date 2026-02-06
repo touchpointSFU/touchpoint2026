@@ -50,18 +50,17 @@ export default function Home() {
           03.21.2026
         </time>
         <a
-          className="bg-background border border-theme-pink text-theme-pink focus:bg-theme-pink focus:text-background hover:bg-theme-pink hover:text-background font-display font-semibold text-2xl px-4 py-2 rounded flex mx-auto w-fit my-4"
-          href="https://www.eventbrite.ca/o/touchpoint-conferences-7821386119"
+          className="bg-background border-2 border-theme-pink text-theme-pink focus:bg-theme-pink focus:text-background hover:bg-theme-pink hover:text-background font-display font-semibold text-2xl xl:text-4xl px-4 py-2 mt-8 flex mx-auto w-fit my-4"
+          href="https://www.eventbrite.ca/e/1981807024158?aff=oddtdtcreator"
           target="_blank"
           rel="noopener noreferrer"
         >
           Get tickets
         </a>
-        <Link href="/schedule">Schedule</Link>
       </motion.hgroup>
 
       <a
-        className="absolute z-10 bottom-16 gap-5 flex flex-col md:flex-row items-center"
+        className="absolute z-10 bottom-16 gap-3 flex flex-col md:flex-row items-center"
         href="https://circleinnovation.ca/"
         target="_blank"
         rel="noopener noreferrer"
