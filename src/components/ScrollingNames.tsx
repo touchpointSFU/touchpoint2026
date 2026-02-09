@@ -8,7 +8,7 @@ export default function ScrollingNames({ direction }: ScrollingNamesProps) {
     "Microsoft",
     "Electronic Arts",
     "Monday Creative",
-    "Cause + Affect",
+    "Cause+Affect",
     "London Borough of Hounslow",
   ];
 
@@ -19,7 +19,12 @@ export default function ScrollingNames({ direction }: ScrollingNamesProps) {
     direction === "right" ? "text-theme-pink" : "text-theme-green";
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full relative ">
+      <div className="absolute flex justify-between w-full h-full z-30  ">
+        <div className="h-full w-[10%] bg-linear-to-r from-[#0A0A0A] to-transparent"/>
+        <div className="h-full  w-[10%] bg-linear-to-l from-[#0A0A0A] to-transparent"/>
+
+        </div>
       <div
         className={`flex w-fit ${
           direction === "right"
