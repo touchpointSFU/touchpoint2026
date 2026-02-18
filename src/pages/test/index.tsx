@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import Image from "next/image";
-
-import circleInnovation from "@/assets/Circle-Innovation-RGB-Horiz-Reverse.svg";
+import image1 from "@/assets/speakers/test.png";
 
 import { Fragment, useEffect, useMemo, useRef } from "react";
 import {
@@ -16,7 +15,7 @@ import {
 } from "ogl";
 
 import { OGLCanvas } from "@/components/OGLCanvas/OGLCanvas";
-import { FinalMSDF } from "@/components/Shaders/MSDF/FinalMSDF";
+import { FinalImage } from "@/components/Shaders/ShaderImage/FinalImage";
 import { useFrame, useOGL } from "react-ogl";
 
 import basicVert from "@/components/Shaders/basic.vert";
@@ -25,6 +24,7 @@ import basicFrag from "@/components/Shaders/MSDF/metaballs.frag";
 import font from "@/assets/ClashDisplay-Semibold.json";
 import { MSDFText } from "@/components/Shaders/MSDF/MDSFText";
 import { speakers } from "@/data/speakers";
+import { ShaderImage } from "@/components/Shaders/ShaderImage/ShaderImage";
 
 export default function Home() {
   return (
@@ -78,10 +78,7 @@ const Shader = () => {
 
   const sizeRef = useRef({ width: renderer.width, height: renderer.height });
 
-  const text = MSDFText({
-    text: "Schedule",
-    test: sizeRef.current.width,
-  });
+  const text = ShaderImage({ src: image1.src });
 
   const renderTarget = useMemo(() => new RenderTarget(gl), []);
   const renderTarget2 = useMemo(() => new RenderTarget(gl), []);
@@ -156,7 +153,7 @@ const Shader = () => {
       {/* <orbitControls /> */}
       <gridHelper />
       <axesHelper />
-      <FinalMSDF texture={renderTarget2.texture} />
+      <FinalImage texture={renderTarget.texture} />
     </Fragment>
   );
 };

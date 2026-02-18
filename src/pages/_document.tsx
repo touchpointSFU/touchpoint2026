@@ -1,3 +1,4 @@
+import { Nav } from "@/components/Nav/Nav";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -28,6 +29,7 @@ export default function Document() {
         <meta name="twitter:image" content="/twitter-image.png" />
       </Head>
       <body className="antialiased bg-background">
+        <Nav />
         <Main />
         <NextScript />
       </body>
