@@ -31,11 +31,6 @@ export const speakers: Speaker[] = [
     alum: false,
   },
   {
-    names: "Danny Farra",
-    company: "Google",
-    alum: false,
-  },
-  {
     names: "Steven Cox",
     company: "Cause+Affect",
     alum: false,
