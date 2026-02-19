@@ -72,10 +72,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
         className={`${clash.variable} ${HaasGroteskDSPro.variable} font-sans`}
       >
         <ReactLenis root />
-        <AnimatePresence>
-          <Component key={router.route} {...pageProps} />
-          {/* <Script src="https://greggman.github.io/webgl-lint/webgl-lint.js" /> */}
-        </AnimatePresence>
+        {/* <AnimatePresence> */}
+        <Component key={router.route} {...pageProps} />
+        {/* <Script src="https://greggman.github.io/webgl-lint/webgl-lint.js" /> */}
+        {/* </AnimatePresence> */}
       </div>
     </Fragment>
   );

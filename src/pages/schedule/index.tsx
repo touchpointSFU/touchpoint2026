@@ -152,11 +152,9 @@ const Shader = () => {
   });
 
   return (
-    <Fragment>
-      {/* <orbitControls /> */}
-      <gridHelper />
-      <axesHelper />
-      <FinalMSDF texture={renderTarget2.texture} />
-    </Fragment>
+    <mesh>
+      <box />
+      <normalProgram />
+    </mesh>
   );
 };
