@@ -24,7 +24,7 @@ export const MSDFText = ({ text, test }: { text: string; test: number }) => {
       align: "left",
       font,
       letterSpacing: 0,
-      size: test / 6,
+      size: test,
       lineHeight: 1,
       text: text,
       wordSpacing: 0,
@@ -64,16 +64,6 @@ export const MSDFText = ({ text, test }: { text: string; test: number }) => {
   });
 
   const sizeRef = useRef({ width: renderer.width, height: renderer.height });
-
-  const renderText = new Text({
-    align: "left",
-    font,
-    letterSpacing: 0,
-    size: renderer.width / 6,
-    lineHeight: 1,
-    text: text,
-    wordSpacing: 0,
-  });
 
   const geometry = new Geometry(gl, {
     position: { size: 3, data: textMemo.current.buffers.position },

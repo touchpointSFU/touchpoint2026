@@ -80,7 +80,7 @@ const Shader = () => {
 
   const text = MSDFText({
     text: "Schedule",
-    test: sizeRef.current.width,
+    test: sizeRef.current.height,
   });
 
   const renderTarget = useMemo(() => new RenderTarget(gl), []);

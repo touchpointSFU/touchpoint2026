@@ -103,9 +103,9 @@ const Shader = () => {
   useFrame((state, time) => {
     // state.gl.clearColor(0, 0, 0, 1);
     const bounds = [renderer.width, renderer.height];
-    // state.camera.left = 0;
+    // state.camera.left = -renderer.width;
     state.camera.right = renderer.width;
-    // state.camera.top = 0;
+    // state.camera.top = renderer.height;
     state.camera.bottom = -renderer.height;
     state.camera.updateProjectionMatrix();
     mesh.program.uniforms.uTime.value = time * 0.001;

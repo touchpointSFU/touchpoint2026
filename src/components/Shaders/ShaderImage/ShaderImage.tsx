@@ -15,7 +15,14 @@ import fragment100 from "./frag100.frag";
 import fragment300 from "./frag300.frag";
 import vertex100 from "./vert100.vert";
 import vertex300 from "./vert300.vert";
-import { use, useEffect, useMemo, useRef, useState } from "react";
+import {
+  use,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 export const ShaderImage = ({ src }: { src: string }) => {
   const { gl, renderer, scene, camera } = useOGL();
@@ -24,8 +31,10 @@ export const ShaderImage = ({ src }: { src: string }) => {
   const textureImage = new Image();
 
   textureImage.src = src;
-  textureImage.onload = (_) => (texture.image = textureImage);
-  console.log(texture);
+  textureImage.onload = (_) => {
+    texture.image = textureImage;
+    // console.log("Texture loaded");
+  };
 
   let fragmentShader = fragment100;
   let vertexShader = vertex100;
@@ -36,10 +45,6 @@ export const ShaderImage = ({ src }: { src: string }) => {
   }
 
   const program = new Program(gl, {
-    cullFace: null,
-    depthTest: false,
-    depthWrite: false,
-    transparent: true,
     fragment: fragmentShader,
     vertex: vertexShader,
     uniforms: {
@@ -57,28 +62,27 @@ export const ShaderImage = ({ src }: { src: string }) => {
 
   const mesh = new Mesh(gl, {
     geometry: new Plane(gl, {
-      width: 10,
-      height: 10,
-
-      //   width: renderer.width,
-      //   height: renderer.height,
+      //   width: 100,
+      //   height: 100,
     }),
     program,
   });
-
+  //   mesh.scale.x = 1;
+  //   mesh.scale.y = 1;
   //   mesh.position.x = 0;
   //   mesh.position.y = 0;
 
   useEffect(() => {
-    const handleResize = () => {};
+    const handleResize = () => {
+      program.uniforms.uWidth.value = renderer.width;
+      program.uniforms.uHeight.value = renderer.height;
+      program.uniforms.uDPR.value = renderer.dpr;
+    };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [renderer]);
 
   useFrame(() => {
-    program.uniforms.uWidth.value = renderer.width;
-    program.uniforms.uHeight.value = renderer.height;
-    program.uniforms.uDPR.value = renderer.dpr;
     // console.log(camera.viewMatrix);
     // console.log(camera.projectionMatrix);
     program.uniforms.modelViewMatrix.value = camera.viewMatrix;
