@@ -14,16 +14,17 @@ import { Canvas, useFrame, useLoader, useOGL } from "react-ogl";
 
 import basicVert from "@/components/Shaders/ShaderImage/basic.vert";
 import basicFrag from "@/components/Shaders/ShaderImage/basic.frag";
-import { motion, MotionValue, useScroll } from "motion/react";
+import { motion, MotionValue, useScroll, useTransform } from "motion/react";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
+  const progressPrime = useTransform(scrollYProgress, [0.2, 0.8], [0, 1]);
   return (
     <div className="min-h-[200dvh]">
       <motion.div
         className="fixed top-8 left-8 size-8 rounded-full bg-red-500 z-100"
         style={{
-          scale: scrollYProgress,
+          scale: progressPrime,
         }}
       />
       <div
@@ -44,7 +45,7 @@ export default function Home() {
                 </mesh>
               }
             >
-              <Shader scrollYProgress={scrollYProgress} />
+              <Shader scrollYProgress={progressPrime} />
             </Suspense>
           </Canvas>
         </div>
@@ -95,7 +96,7 @@ const Shader = ({
   const uniforms = useRef({
     uTime: { value: 0.0 },
     uTexture: { value: texture },
-    uGridSize: { value: 12 },
+    uGridSize: { value: 24 },
     uResolution: { value: [renderer.width, renderer.height] },
     uProgress: { value: 0 },
   });

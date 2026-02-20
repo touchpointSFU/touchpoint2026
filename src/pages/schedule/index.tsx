@@ -30,27 +30,24 @@ export default function Home() {
   return (
     <motion.div
       key="home-page"
-      className={`fixed inset-0 overflow-x-hidden flex flex-col leading-none min-h-dvh items-center justify-center font-sans `}
+      className={`leading-none font-sans relative`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <motion.div
-        className="absolute inset-0"
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: 1,
-          transition: { delay: 0.2, duration: 0.7, ease: "easeOut" },
-        }}
-        exit={{ opacity: 0 }}
-      >
-        <OGLCanvas>
-          <Shader />
-        </OGLCanvas>
-      </motion.div>
-      <ul className="relative z-10 w-full p-6">
+      <h2 className="text-4xl font-bold mb-8 p-4 sticky top-14">Schedule</h2>
+      <ul className="z-10 w-full h-[1000vh] mt-80">
         {speakers.map((speaker, index) => (
-          <li key={index} className="mb-4">
+          <li
+            key={index}
+            className="sticky block h-[20vh] odd:bg-theme-green even:bg-theme-pink text-background p-4"
+            style={{ top: `calc(3.5rem + ${index * 5}vh)` }}
+          >
+            <h2 className="text-2xl font-bold">
+              {Array.isArray(speaker.names)
+                ? speaker.names.join(", ")
+                : speaker.names}
+            </h2>
             {Array.isArray(speaker.names)
               ? speaker.names.join(", ")
               : speaker.names}{" "}

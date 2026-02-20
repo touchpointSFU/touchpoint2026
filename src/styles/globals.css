@@ -5,42 +5,52 @@
   --foreground: #ededed;
   --theme-pink: #ff39e1;
   --theme-green: #d3ff7d;
-  
+
   /* Text size variables - mobile first */
   --text-display: 2rem;
   --text-description: 1rem;
   --text-heading: 1.5rem;
   --text-body: 1rem;
-  
-  @media (width >= 390px) {
+}
+
+@media (width >= 390px) {
+  :root {
     --text-display: 2.5rem;
     --text-description: 1.25rem;
     --text-heading: 1.5rem;
     --text-body: 1.125rem;
   }
-  
-  @media (width >= 768px) {
+}
+
+@media (width >= 768px) {
+  :root {
     --text-display: 4rem;
     --text-description: 2rem;
     --text-heading: 2.5rem;
     --text-body: 1.25rem;
   }
-  
-  @media (width >= 1024px) {
+}
+
+@media (width >= 1024px) {
+  :root {
     --text-display: 5rem;
     --text-description: 2rem;
     --text-heading: 2.5rem;
     --text-body: 1.25rem;
   }
-  
-  @media (width >= 1280px) {
+}
+
+@media (width >= 1280px) {
+  :root {
     --text-display: 6rem;
     --text-description: 2rem;
     --text-heading: 3.5rem;
     --text-body: 1.375rem;
   }
-  
-  @media (width >= 1920px) {
+}
+
+@media (width >= 1920px) {
+  :root {
     --text-display: 7.5rem;
     --text-description: 3rem;
     --text-heading: 4rem;
@@ -51,7 +61,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-Haas);
+  --font-sans: var(--font-dm);
   --font-custom: var(--font-universCondensed);
   --font-display: var(--font-clash);
   --font-Haas: var(--font-Haas);
@@ -112,4 +122,31 @@ body {
 
 .animate-marquee-right {
   animation: marqueeRight 50s linear infinite;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+  /* height: 100dvh; */
+  /* position: relative; */
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
 }

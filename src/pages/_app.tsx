@@ -6,6 +6,15 @@ import localFont from "next/font/local";
 import Head from "next/head";
 import Script from "next/script";
 import { Fragment } from "react/jsx-runtime";
+import { DM_Sans } from "next/font/google";
+import { Nav } from "@/components/Nav/Nav";
+
+const dm = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-dm",
+  display: "swap",
+});
 
 const clash = localFont({
   src: [
@@ -69,13 +78,14 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <meta name="twitter:image" content="/twitter-image.png" />
       </Head>
       <div
-        className={`${clash.variable} ${HaasGroteskDSPro.variable} font-sans`}
+        className={`${dm.variable} ${clash.variable} ${HaasGroteskDSPro.variable} font-sans`}
       >
         <ReactLenis root />
-        {/* <AnimatePresence> */}
-        <Component key={router.route} {...pageProps} />
-        {/* <Script src="https://greggman.github.io/webgl-lint/webgl-lint.js" /> */}
-        {/* </AnimatePresence> */}
+        <AnimatePresence>
+          <Nav />
+          <Component key={router.route} {...pageProps} />
+          {/* <Script src="https://greggman.github.io/webgl-lint/webgl-lint.js" /> */}
+        </AnimatePresence>
       </div>
     </Fragment>
   );
