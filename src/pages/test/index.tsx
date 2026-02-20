@@ -30,7 +30,7 @@ export default function Home() {
       <div
         className={`fixed inset-0 overflow-x-hidden flex flex-col leading-none items-center justify-center font-sans `}
       >
-        <div className="absolute w-1/2 aspect-3/2 border border-amber-50">
+        <div className="absolute w-1/2 aspect-3/2 min-w-[18rem] border border-amber-50">
           <Canvas
             orthographic
             onCreated={() => {
@@ -78,11 +78,17 @@ const Shader = ({
 }) => {
   const eps = 1e-6; // tiny non-zero bounds
   const { gl, canvas, renderer, scene, camera } = useOGL();
-  const [texture, setTexture] = useState<Texture>(new Texture(gl));
+  const [texture, setTexture] = useState<Texture>(
+    new Texture(gl, {
+      generateMipmaps: false,
+    }),
+  );
 
   useEffect(() => {
     console.log(gl);
-    const tex = new Texture(gl);
+    const tex = new Texture(gl, {
+      generateMipmaps: false,
+    });
     const img = new Image();
     img.src = image1.src;
     img.onload = () => {
@@ -96,6 +102,7 @@ const Shader = ({
   const uniforms = useRef({
     uTime: { value: 0.0 },
     uTexture: { value: texture },
+    uDPR: { value: renderer.dpr },
     uGridSize: { value: 24 },
     uResolution: { value: [renderer.width, renderer.height] },
     uProgress: { value: 0 },
@@ -107,6 +114,7 @@ const Shader = ({
   });
 
   useLayoutEffect(() => {
+    alert(renderer.dpr);
     const handleResize = () => {
       uniforms.current.uResolution.value = [renderer.width, renderer.height];
     };

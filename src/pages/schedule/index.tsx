@@ -37,7 +37,7 @@ export default function Home() {
     >
       {/* <h2 className="text-4xl font-bold mb-8 p-4 sticky top-14">Schedule</h2> */}
       <ul
-        className="z-10 w-full"
+        className="z-10 w-full flex flex-col gap-10"
         style={{
           paddingTop: `calc(100vh - 20vh - ${4 * speakers.length}px)`,
         }}
@@ -45,7 +45,7 @@ export default function Home() {
         {speakers.map((speaker, index) => (
           <li
             key={index}
-            className="sticky block bg-linear-to-b odd:bg-theme-green/50 even:bg-theme-pink/50 text-background p-4"
+            className="sticky block bg-linear-to-b odd:bg-theme-green/100 even:bg-theme-pink/100 text-background p-4"
             style={{
               top: `0`,
               bottom: `calc(${(speakers.length - index) * 4}px)`,
