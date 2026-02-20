@@ -3,7 +3,14 @@ import Image from "next/image";
 
 import circleInnovation from "@/assets/Circle-Innovation-RGB-Horiz-Reverse.svg";
 
-import { Fragment, useEffect, useMemo, useRef } from "react";
+import {
+  createRef,
+  CSSProperties,
+  Fragment,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import {
   Mesh,
   Program,
@@ -27,6 +34,10 @@ import { MSDFText } from "@/components/Shaders/MSDF/MDSFText";
 import { speakers } from "@/data/speakers";
 
 export default function Home() {
+  const refs = useRef(speakers.map(() => createRef<HTMLLIElement>()));
+  useEffect(() => {
+    console.log(refs.current.map((ref) => ref.current?.offsetHeight));
+  }, [refs]);
   return (
     <motion.div
       key="home-page"
@@ -37,22 +48,26 @@ export default function Home() {
     >
       {/* <h1 className="text-4xl font-bold mb-8 p-4 fixed top-14">Schedule</h1> */}
       <ul
-        className="z-10 w-full flex flex-col gap-10"
+        className="z-10 w-full flex flex-col"
         style={{
-          paddingTop: `calc(100vh - 20vh - ${4 * speakers.length}px)`,
+          paddingTop: `calc(100vh)`,
         }}
       >
         {speakers.map((speaker, index) => (
           <li
             key={index}
-            className="sticky block bg-linear-to-b odd:bg-theme-green/100 even:bg-theme-pink/100 text-background p-4"
-            style={{
-              top: `0`,
-              bottom: `calc(${(speakers.length - 1 - index) * 4}px)`,
-              height: `calc(${20}vh)`,
-            }}
+            className="sticky bg-linear-to-b odd:bg-theme-green even:bg-theme-pink text-background px-margin grid-cols-theme py-4"
+            style={
+              {
+                top: `calc(3.5rem + ${(index + 1) * 4}px)`,
+                bottom: `calc(${index * 4}px -${refs.current[index].current?.offsetHeight}px)`,
+                // height: `calc(${20}vh)`,
+                "--offset": refs.current[index].current?.offsetHeight,
+              } as CSSProperties
+            }
+            ref={refs.current[index]}
           >
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-2xl font-bold col-span-full md:col-span-4 col-start-1 md:col-start-1">
               {Array.isArray(speaker.names) ? (
                 speaker.names.map((name, i) => (
                   <span key={name} className="relative">
@@ -80,7 +95,12 @@ export default function Home() {
                 </span>
               )}
             </h2>
-            <h3>{speaker.company}</h3>
+            <h3 className="col-span-full md:col-span-4 col-start-1 md:col-start-1">
+              {speaker.company}
+            </h3>
+            <p className="col-span-full md:col-span-4 col-start-1 md:col-start-1">
+              {speaker.bio}
+            </p>
           </li>
         ))}
       </ul>

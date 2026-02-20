@@ -10,15 +10,9 @@
   --text-base: 1rem;
   --text-md: 1.25rem;
   --text-lg: 1.5rem;
-}
 
-@media (width >= 390px) {
-  :root {
-    --text-display: 2.5rem;
-    --text-description: 1.25rem;
-    --text-heading: 1.5rem;
-    --text-body: 1.125rem;
-  }
+  --margin: 1rem;
+  --gutter: 1rem;
 }
 
 @media (width >= 768px) {
@@ -26,6 +20,15 @@
     --text-base: 1.5rem;
     --text-md: 3rem;
     --text-lg: 4.5rem;
+    --margin: 2.5rem;
+    --gutter: 1.25rem;
+  }
+}
+
+@media (width >= 1280px) {
+  :root {
+    --margin: 5rem;
+    --gutter: 1.25rem;
   }
 }
 
@@ -41,6 +44,8 @@
   --text-base: var(--text-base);
   --text-md: var(--text-md);
   --text-lg: var(--text-lg);
+  --spacing-margin: var(--margin);
+  --spacing-gutter: var(--gutter);
 }
 
 html {
@@ -55,21 +60,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Now your utilities are super clean */
-@utility text-display {
-  font-size: var(--text-display);
-}
-
-@utility text-description {
-  font-size: var(--text-description);
-}
-
-@utility text-heading {
-  font-size: var(--text-heading);
-}
-
-@utility text-body {
-  font-size: var(--text-body);
+@utility grid-cols-theme {
+  @apply grid gap-x-gutter grid-cols-4 md:grid-cols-8 xl:grid-cols-12 auto-rows-min;
 }
 
 /* Infinite marquee animation */
