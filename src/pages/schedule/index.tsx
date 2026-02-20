@@ -35,13 +35,22 @@ export default function Home() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <h2 className="text-4xl font-bold mb-8 p-4 sticky top-14">Schedule</h2>
-      <ul className="z-10 w-full h-[1000vh] mt-80">
+      {/* <h2 className="text-4xl font-bold mb-8 p-4 sticky top-14">Schedule</h2> */}
+      <ul
+        className="z-10 w-full"
+        style={{
+          paddingTop: `calc(100vh - 20vh - ${4 * speakers.length}px)`,
+        }}
+      >
         {speakers.map((speaker, index) => (
           <li
             key={index}
-            className="sticky block h-[20vh] odd:bg-theme-green even:bg-theme-pink text-background p-4"
-            style={{ top: `calc(3.5rem + ${index * 5}vh)` }}
+            className="sticky block bg-linear-to-b odd:bg-theme-green/50 even:bg-theme-pink/50 text-background p-4"
+            style={{
+              top: `0`,
+              bottom: `calc(${(speakers.length - index) * 4}px)`,
+              height: `calc(${20}vh)`,
+            }}
           >
             <h2 className="text-2xl font-bold">
               {Array.isArray(speaker.names)
@@ -62,6 +71,7 @@ export default function Home() {
           </li>
         ))}
       </ul>
+      <div className="h-dvh" />
     </motion.div>
   );
 }

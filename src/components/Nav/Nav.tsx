@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const Nav = () => {
   return (
-    <nav className="sticky top-0 left-0 w-full z-50 bg-background">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-background">
       <ul className="flex space-x-4 p-4">
         <li>
           <Link href="/" className="text-white hover:text-gray-300 font-bold">
