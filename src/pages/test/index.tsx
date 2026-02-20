@@ -114,7 +114,7 @@ const Shader = ({
   });
 
   useLayoutEffect(() => {
-    alert(renderer.dpr);
+    // alert(renderer.dpr);
     const handleResize = () => {
       uniforms.current.uResolution.value = [renderer.width, renderer.height];
     };

@@ -11,7 +11,7 @@ export const speakers: Speaker[] = [
     alum: true,
   },
   {
-    names: ["Dave", "Marina", "Breanne"],
+    names: ["Dave Swanson", "Marina Martin", "Breanne Lewis"],
     company: "EA",
     alum: [false, false, true],
   },

@@ -35,7 +35,7 @@ export default function Home() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* <h2 className="text-4xl font-bold mb-8 p-4 sticky top-14">Schedule</h2> */}
+      {/* <h1 className="text-4xl font-bold mb-8 p-4 fixed top-14">Schedule</h1> */}
       <ul
         className="z-10 w-full flex flex-col gap-10"
         style={{
@@ -48,26 +48,39 @@ export default function Home() {
             className="sticky block bg-linear-to-b odd:bg-theme-green/100 even:bg-theme-pink/100 text-background p-4"
             style={{
               top: `0`,
-              bottom: `calc(${(speakers.length - index) * 4}px)`,
+              bottom: `calc(${(speakers.length - 1 - index) * 4}px)`,
               height: `calc(${20}vh)`,
             }}
           >
             <h2 className="text-2xl font-bold">
-              {Array.isArray(speaker.names)
-                ? speaker.names.join(", ")
-                : speaker.names}
+              {Array.isArray(speaker.names) ? (
+                speaker.names.map((name, i) => (
+                  <span key={name} className="relative">
+                    {name}
+                    {i < speaker.names.length - 1 ? (
+                      <>
+                        , <wbr />
+                      </>
+                    ) : null}
+                    {Array.isArray(speaker.alum) && speaker.alum[i] && (
+                      <span className="leading-none text-xs font-bold uppercase absolute top-0 right-0 bg-theme-pink translate-x-full px-1 py-0.5 rounded-full">
+                        Alum
+                      </span>
+                    )}
+                  </span>
+                ))
+              ) : (
+                <span className="relative">
+                  {speaker.names}{" "}
+                  {speaker.alum && (
+                    <span className="leading-none text-xs font-bold uppercase absolute top-0 right-0 bg-theme-pink translate-x-full px-1 py-0.5 rounded-full">
+                      Alum
+                    </span>
+                  )}
+                </span>
+              )}
             </h2>
-            {Array.isArray(speaker.names)
-              ? speaker.names.join(", ")
-              : speaker.names}{" "}
-            - {speaker.company} -{" "}
-            {Array.isArray(speaker.alum)
-              ? speaker.alum
-                  .map((alum) => (alum ? "Alum" : "Current"))
-                  .join(", ")
-              : speaker.alum
-                ? "Alum"
-                : "Current"}
+            <h3>{speaker.company}</h3>
           </li>
         ))}
       </ul>

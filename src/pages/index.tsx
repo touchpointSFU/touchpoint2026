@@ -5,14 +5,13 @@ export default function Testing() {
   return (
     <div className="min-h-dvh flex flex-col overflow-hidden">
       <main className="flex flex-col flex-1">
-
         {/* headers and body copy */}
         <div className="flex flex-col justify-between lg:flex-row items-center md:items-start px-4 md:px-12 md:pt-12 pt-8">
           <hgroup className="text-center md:text-left">
-            <h1 className="font-display mb-2 leading-[100%] font-light text-display text-theme-pink">
+            <h1 className="font-display mb-2 leading-[100%] font-light text-lg text-theme-pink">
               Touchpoint 2026
             </h1>
-            <h2 className="font-display mb-6 text-heading leading-[1.2em]  text-theme-green">
+            <h2 className="font-display mb-6 text-md leading-[1.2em]  text-theme-green">
               Alternative Modes of Design,<br></br> Rooted in Community
             </h2>
           </hgroup>
