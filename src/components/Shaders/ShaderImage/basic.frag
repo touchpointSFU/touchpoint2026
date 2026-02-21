@@ -1,10 +1,12 @@
 precision highp float;
 varying vec2 vUv;
+uniform float uDPR;
 uniform vec2 uResolution;
 uniform float uTime;
 uniform sampler2D uTexture;
 uniform float uGridSize;
 uniform float uProgress;
+uniform vec3 uBackground;
 
 #include "lygia/generative/snoise.glsl"
 
@@ -24,6 +26,7 @@ void main() {
   textureA *= step(length(gridCoords.y - sProgress), bounds);
 
   vec3 textureB = vec3(1.) * 1.0 - step(sProgress - bounds, gridCoords.y);
+  vec3 textureC = vec3(1.) - (textureA + textureB);
   // vec3 textureB = vec3(1. - step(sProgress - 1., gridCoords.y));
   // textureB *= texture;
 
@@ -33,5 +36,6 @@ void main() {
   // vec3 transition = mix(vec3(0.), textureA, uProgress);
   // vec3 transition2 = mix(vec3(0.), texture, uProgress);
 
-  gl_FragColor = vec4((textureA + textureB) * texture, 1.0);
+  gl_FragColor = vec4((textureA + textureB) * texture + textureC * uBackground, 1.0);
+  // gl_FragColor = vec4(((textureC) * uBackground) + (textureA + textureB) * texture, 1.0);
 }
