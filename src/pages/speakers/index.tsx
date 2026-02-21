@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
 
 import { CSSProperties, useEffect, useRef, useState } from "react";
 
@@ -9,6 +9,19 @@ import {
 } from "@/components/Shaders/ShaderImage/ShaderImage";
 
 export default function Home() {
+  const [inViews, setInViews] = useState<boolean[]>(speakers.map(() => false));
+
+  const handleInView = (index: number, inView: boolean) => {
+    setInViews((prev) => {
+      const newInViews = [...prev];
+      newInViews[index] = inView;
+      return newInViews;
+    });
+  };
+
+  useEffect(() => {
+    console.log(inViews.findLastIndex((inView) => inView));
+  }, [inViews]);
   return (
     <motion.div
       key="home-page"
@@ -29,7 +42,13 @@ export default function Home() {
       </section>
       <ul className="z-10 w-full flex flex-col">
         {speakers.map((speaker, index) => (
-          <SpeakerCard key={index} speaker={speaker} index={index} />
+          <SpeakerCard
+            key={index}
+            speaker={speaker}
+            index={index}
+            lastInView={inViews.findLastIndex((inView) => inView)}
+            handleInView={handleInView}
+          />
         ))}
       </ul>
     </motion.div>
@@ -39,12 +58,22 @@ export default function Home() {
 const SpeakerCard = ({
   speaker,
   index,
+  handleInView,
+  lastInView,
 }: {
   speaker: Speaker;
   index: number;
+  lastInView: number;
+  handleInView: (index: number, inView: boolean) => void;
 }) => {
   const ref = useRef(null);
   const [height, setHeight] = useState<number | null>(null);
+
+  const inView = useInView(ref, { margin: "0px 0px -50% 0px" });
+
+  useEffect(() => {
+    handleInView(index, inView);
+  }, [inView]);
 
   useEffect(() => {
     const observer = new ResizeObserver(() => {
@@ -59,15 +88,18 @@ const SpeakerCard = ({
   }, []);
 
   return (
-    <li
+    <motion.li
       key={index}
-      className="sticky bg-linear-to-b odd:bg-theme-green even:bg-theme-pink group text-background px-margin grid-cols-theme pb-4"
+      className="sticky bg-linear-to-b group text-background px-margin grid-cols-theme pb-4"
       style={
         {
           top: `calc(-${height}px)`,
           bottom: `calc(${(speakers.length - index) * 2}rem - ${height}px)`,
         } as CSSProperties
       }
+      animate={{
+        background: `var(--theme-pink-${9 - Math.abs(index - lastInView)}00)`,
+      }}
       ref={ref}
     >
       <hgroup className="z-1 group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-(--nav-height) col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1">
@@ -104,6 +136,6 @@ const SpeakerCard = ({
       <p className="col-span-full md:col-span-5 xl:col-span-8 self-end">
         {speaker.bio}
       </p>
-    </li>
+    </motion.li>
   );
 };

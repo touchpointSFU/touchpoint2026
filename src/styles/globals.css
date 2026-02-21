@@ -5,6 +5,15 @@
   --foreground: #ededed;
   --theme-pink: #ff39e1;
   --theme-green: #d3ff7d;
+  --theme-pink-100: #330b2d;
+  --theme-pink-200: #66175a;
+  --theme-pink-300: #992287;
+  --theme-pink-400: #cc2eb4;
+  --theme-pink-500: #ff39e1;
+  --theme-pink-600: #ff5fe7;
+  --theme-pink-700: #ff84ec;
+  --theme-pink-800: #ffaaf2;
+  --theme-pink-900: #ffcef8;
 
   /* Text size variables - mobile first */
   --text-base: 1rem;
