@@ -64,9 +64,11 @@ export const speakers: Speaker[] = [
     alum: false,
     bio: (
       <>
-        Danny Farra (he/him) is a Syrian-American artist and designer based in
-        Seattle. He works as a product designer specializing in accessibility
-        and assistive technology.
+        Danny is a Design Lead for accessibility apps at Google, focused on
+        improving the quality of life for disadvantaged communities. He starts
+        with bold, unconstrained thinking and refines ideas through practical
+        execution. Accessibility is central to his process, and he collaborates
+        early with users and engineers to create inclusive, grounded solutions.
       </>
     ),
     img: danny,
