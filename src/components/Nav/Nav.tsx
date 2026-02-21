@@ -33,6 +33,7 @@ export const Nav = () => {
       <Link
         href="/"
         className="text-white hover:text-gray-300 font-bold uppercase z-10"
+        onClick={handleClick}
       >
         Touchpoint&apos;26
       </Link>
