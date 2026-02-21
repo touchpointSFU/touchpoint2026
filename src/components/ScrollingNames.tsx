@@ -1,3 +1,5 @@
+import { Fragment } from "react/jsx-runtime";
+
 type ScrollingNamesProps = {
   direction: "left" | "right";
 };
@@ -21,26 +23,27 @@ export default function ScrollingNames({ direction }: ScrollingNamesProps) {
   return (
     <div className="w-full relative ">
       <div className="absolute flex justify-between w-full h-full z-30  ">
-        <div className="h-full w-[10%] bg-linear-to-r from-[#0A0A0A] to-transparent"/>
-        <div className="h-full  w-[10%] bg-linear-to-l from-[#0A0A0A] to-transparent"/>
-
-        </div>
+        <div className="h-full w-[10%] bg-linear-to-r from-[#0A0A0A] to-transparent" />
+        <div className="h-full  w-[10%] bg-linear-to-l from-[#0A0A0A] to-transparent" />
+      </div>
       <div
-        className={`flex w-fit ${
+        className={`flex w-fit text-lg ${
           direction === "right"
             ? "animate-marquee"
             : direction === "left"
-            ? "animate-marquee-right"
-            : ""
+              ? "animate-marquee-right"
+              : ""
         }`}
       >
         {[...companies, ...companies].map((c, i) => (
-          <div
-            key={i}
-            className={`whitespace-nowrap px-4 leading-[115%] text-base font-Haas font-medium text-display ${wordColor}`}
-          >
-            {c} <span className={slashColor}>/</span>
-          </div>
+          <Fragment key={i}>
+            <div
+              className={`whitespace-nowrap px-2 leading-[115%] font-Haas font-medium text-display ${wordColor}`}
+            >
+              {c}
+            </div>
+            <span className={slashColor}>/</span>
+          </Fragment>
         ))}
       </div>
     </div>

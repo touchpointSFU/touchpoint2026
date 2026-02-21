@@ -35,7 +35,6 @@ export default function Testing() {
             <p className="text-description text-theme-green font-medium mb-2 md:pl-12">
               With speakers from
             </p>
-            <ScrollingNames direction="right" />
             <ScrollingNames direction="left" />
           </div>
         </div>
