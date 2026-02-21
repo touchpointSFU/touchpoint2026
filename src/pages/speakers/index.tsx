@@ -102,7 +102,13 @@ const SpeakerCard = ({
       }}
       ref={ref}
     >
-      <hgroup className="z-1 group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-(--nav-height) col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1">
+      <motion.hgroup
+        className="z-1 py-4 sticky top-(--nav-height) col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1"
+        initial={false}
+        animate={{
+          background: `var(--theme-pink-${9 - Math.abs(index - lastInView)}00)`,
+        }}
+      >
         <h2 className="text-lg font-bold mb-2">
           {Array.isArray(speaker.names) ? (
             speaker.names.map((name, i) => (
@@ -120,13 +126,14 @@ const SpeakerCard = ({
           )}
         </h2>
         <h3 className="font-bold">{speaker.company}</h3>
-      </hgroup>
-      {/*  - `#ff39e1` (pink): `[1, 0.22, 0.88]`
-  - `#d3ff7d` (green): `[0.83, 1, 0.49]` */}
+      </motion.hgroup>
+      {/* - `#ff39e1` (pink): `[1, 0.22, 0.88]`
+        - `#d3ff7d` (green): `[0.83, 1, 0.49]`
+        - `#ffcef8` (light pink): `[1, 0.81, 0.97]` */}
       {speaker.img && (
         <ShaderImage
           uTexture={speaker.img.src}
-          uBackground={index % 2 === 1 ? [1, 0.22, 0.88] : [0.83, 1, 0.49]}
+          uBackground={[1, 0.81, 0.97]}
           uTargetColor={[0.83, 1, 0.49]}
           uSecondColor={[1, 0.22, 0.88]}
           className="relative bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1 max-md:mb-6"
