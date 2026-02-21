@@ -1,39 +1,7 @@
 import { motion } from "motion/react";
-import Image from "next/image";
-import image1 from "@/assets/speakers/test.webp";
 
-import circleInnovation from "@/assets/Circle-Innovation-RGB-Horiz-Reverse.svg";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 
-import {
-  createRef,
-  CSSProperties,
-  Fragment,
-  Suspense,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import {
-  Mesh,
-  Program,
-  RenderTarget,
-  Triangle,
-  Plane,
-  Vec3,
-  Text,
-  Geometry,
-} from "ogl";
-
-import { OGLCanvas } from "@/components/OGLCanvas/OGLCanvas";
-import { FinalMSDF } from "@/components/Shaders/MSDF/FinalMSDF";
-import { Canvas, useFrame, useOGL } from "react-ogl";
-
-import basicVert from "@/components/Shaders/basic.vert";
-import vert100 from "@/components/Shaders/MSDF/vert100.vert";
-import basicFrag from "@/components/Shaders/MSDF/metaballs.frag";
-import font from "@/assets/ClashDisplay-Semibold.json";
-import { MSDFText } from "@/components/Shaders/MSDF/MDSFText";
 import { Speaker, speakers } from "@/data/speakers";
 import {
   Shader,
@@ -99,7 +67,6 @@ const SpeakerCard = ({
         {
           top: `calc(${(speakers.length - index) * 2}rem - ${height}px)`,
           bottom: `calc(${(speakers.length - index) * 2}rem - ${height}px)`,
-          // "--offset": heights[index],
         } as CSSProperties
       }
       ref={ref}

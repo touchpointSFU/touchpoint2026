@@ -23,6 +23,7 @@
     --text-base: 1.5rem;
     --text-md: 2.5rem;
     --text-lg: 3rem;
+    --text-lg--line-height: 1;
     --text-xl: 4rem;
     --text-2xl: 4.5rem;
     --margin: 2.5rem;
@@ -47,9 +48,6 @@
   --font-Haas: var(--font-Haas);
   --color-theme-green: var(--theme-green);
   --color-theme-pink: var(--theme-pink);
-  --text-base: var(--text-base);
-  --text-md: var(--text-md);
-  --text-lg: var(--text-lg);
   --spacing-margin: var(--margin);
   --spacing-gutter: var(--gutter);
 }

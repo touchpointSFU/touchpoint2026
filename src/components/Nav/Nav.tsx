@@ -38,19 +38,19 @@ export const Nav = () => {
       </Link>
 
       <div
+        data-active={isOpen ? "" : undefined}
         className={clsx(
-          "ml-auto max-md:h-[calc(100dvh)] top-0 left-0 max-md:w-full max-md:fixed flex max-md:flex-col justify-end max-md:py-8 px-4 bg-blue-500/80",
-          isOpen ? "max-md:opacity-100" : "max-md:opacity-0",
+          "ml-auto max-md:h-[calc(100dvh)] top-0 left-0 max-md:w-full max-md:fixed  max-md:flex-col justify-end max-md:py-8 px-4 bg-background/90 max-md:transition-[opacity,display] max-md:transition-discrete max-md:data-active:flex max-md:data-active:opacity-100 max-md:hidden max-md:opacity-0",
         )}
       >
         <h2 className="text-base font-bold text-white mb-4 md:hidden uppercase">
           Menu
         </h2>
-        <ul className={clsx("flex -mx-4 max-md:flex-col bg-blue-500/80")}>
+        <ul className={clsx("flex -mx-4 max-md:flex-col")}>
           {[
             { name: "Home", href: "/" },
             { name: "Test", href: "/test" },
-            { name: "Schedule", href: "/schedule" },
+            { name: "Speakers", href: "/speakers" },
           ].map((item, index) => (
             <li key={index}>
               <Link
@@ -72,10 +72,6 @@ export const Nav = () => {
               Get tickets
             </a>
           </li>
-          {/*
-                <Link href="/schedule" className="text-white hover:text-gray-300">
-                  Schedule
-                </Link> */}
         </ul>
       </div>
 
