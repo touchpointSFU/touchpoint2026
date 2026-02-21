@@ -67,13 +67,17 @@ export default function Home() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* <h1 className="text-4xl font-bold mb-8 p-4 fixed top-14">Schedule</h1> */}
-      <ul
-        className="z-10 w-full flex flex-col"
+      <section
+        className="px-margin relative"
         style={{
-          paddingTop: `calc(100vh)`,
+          height: `calc(100vh - var(--nav-height) - ${2 * speakers.length}rem)`,
         }}
       >
+        <h1 className="sticky bottom-0 text-2xl font-bold mb-8 top-(--nav-height)">
+          Speakers
+        </h1>
+      </section>
+      <ul className="z-10 w-full flex flex-col">
         {speakers.map((speaker, index) => (
           <li
             key={index}
@@ -89,8 +93,8 @@ export default function Home() {
               refs.current[index] = el;
             }}
           >
-            <hgroup className="group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-12 md:top-14 col-span-full md:col-span-4 col-start-1 md:col-start-1 mb-4">
-              <h2 className="text-2xl font-bold">
+            <hgroup className="group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-12 md:top-14 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1">
+              <h2 className="text-lg font-bold">
                 {Array.isArray(speaker.names) ? (
                   speaker.names.map((name, i) => (
                     <span key={name} className="relative">
