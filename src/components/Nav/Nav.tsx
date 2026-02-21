@@ -7,6 +7,7 @@ import { NavIcon } from "./NavIcon";
 
 export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [animatable, setAnimatable] = useState(true);
   const lenis = useLenis();
 
   const toggleMenu = () => {
@@ -24,6 +25,8 @@ export const Nav = () => {
     const handleResize = () => {
       lenis?.start();
       setIsOpen(false);
+      setAnimatable(false);
+      setTimeout(() => setAnimatable(true), 500);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -40,7 +43,7 @@ export const Nav = () => {
       <div
         data-active={isOpen ? "" : undefined}
         className={clsx(
-          "ml-auto max-md:h-[calc(100dvh)] top-0 left-0 max-md:w-full max-md:fixed  max-md:flex-col justify-end max-md:py-8 px-4 bg-background/90 max-md:transition-[opacity,display] max-md:transition-discrete max-md:data-active:flex max-md:data-active:opacity-100 max-md:hidden max-md:opacity-0",
+          "ml-auto max-md:h-[calc(100dvh)] top-0 left-0 max-md:w-full max-md:fixed  max-md:flex-col justify-end max-md:py-8 px-4 bg-background/90  max-md:transition-discrete max-md:data-active:flex  max-md:hidden",
         )}
       >
         <h2 className="text-base font-bold text-white mb-4 md:hidden uppercase">
