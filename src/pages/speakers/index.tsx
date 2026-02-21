@@ -32,7 +32,6 @@ export default function Home() {
           <SpeakerCard key={index} speaker={speaker} index={index} />
         ))}
       </ul>
-      <div className="h-dvh" />
     </motion.div>
   );
 }
