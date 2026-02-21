@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <motion.div
       key="home-page"
-      className={`leading-none font-sans relative`}
+      className={`font-sans relative`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -95,11 +95,13 @@ const SpeakerCard = ({
         <ShaderImage
           uTexture={speaker.img.src}
           uBackground={index % 2 === 1 ? [1, 0.22, 0.88] : [0.83, 1, 0.49]}
-          className="mb-4 relative bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1"
+          className="relative bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1"
         />
       )}
 
-      <p className="col-span-full md:col-span-5 xl:col-span-8">{speaker.bio}</p>
+      <p className="col-span-full md:col-span-5 xl:col-span-8 self-end">
+        {speaker.bio}
+      </p>
     </li>
   );
 };

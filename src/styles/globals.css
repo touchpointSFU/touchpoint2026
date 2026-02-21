@@ -8,6 +8,7 @@
 
   /* Text size variables - mobile first */
   --text-base: 1rem;
+  --text-base--line-height: 1.2;
   --text-md: 1.25rem;
   --text-lg: 1.5rem;
   --text-xl: 2.5rem;
@@ -21,11 +22,14 @@
 @media (width >= 768px) {
   :root {
     --text-base: 1.5rem;
+    --text-base--line-height: 1.2;
     --text-md: 2.5rem;
     --text-lg: 3rem;
     --text-lg--line-height: 1;
     --text-xl: 4rem;
+    --text-xl--line-height: 1;
     --text-2xl: 4.5rem;
+    --text-2xl--line-height: 1;
     --margin: 2.5rem;
     --gutter: 1.25rem;
     --nav-height: 3.5rem;
