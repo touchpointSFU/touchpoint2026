@@ -7,7 +7,6 @@ import { NavIcon } from "./NavIcon";
 
 export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [animatable, setAnimatable] = useState(true);
   const lenis = useLenis();
 
   const toggleMenu = () => {
@@ -25,8 +24,6 @@ export const Nav = () => {
     const handleResize = () => {
       lenis?.start();
       setIsOpen(false);
-      setAnimatable(false);
-      setTimeout(() => setAnimatable(true), 500);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -51,15 +48,18 @@ export const Nav = () => {
         </h2>
         <ul className={clsx("flex -mx-4 max-md:flex-col")}>
           {[
-            { name: "Home", href: "/" },
-            { name: "Test", href: "/test" },
-            { name: "Speakers", href: "/speakers" },
+            { name: "Home", href: "/", desktop: false },
+
+            { name: "Speakers", href: "/speakers", desktop: true },
           ].map((item, index) => (
             <li key={index}>
               <Link
                 href={item.href}
                 onClick={handleClick}
-                className="text-white hover:text-gray-300 py-3 px-4 block text-lg max-md:border-t border-theme-pink md:text-base font-bold"
+                className={clsx(
+                  "text-white hover:text-gray-300 py-3 px-4 block text-lg max-md:border-t border-theme-pink md:text-base font-bold",
+                  !item.desktop && "md:hidden",
+                )}
               >
                 {item.name}
               </Link>
