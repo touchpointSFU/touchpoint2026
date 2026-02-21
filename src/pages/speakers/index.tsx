@@ -23,7 +23,7 @@ export default function Home() {
           height: `calc(100vh - var(--nav-height) - ${2 * speakers.length}rem)`,
         }}
       >
-        <h1 className="sticky bottom-0 text-2xl font-bold mb-8 top-(--nav-height)">
+        <h1 className="sticky bottom-0 text-xl font-bold mb-8 top-(--nav-height)">
           Speakers
         </h1>
       </section>
@@ -70,7 +70,7 @@ const SpeakerCard = ({
       }
       ref={ref}
     >
-      <hgroup className="z-1 group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-12 md:top-14 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1">
+      <hgroup className="z-1 group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-(--nav-height) col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1">
         <h2 className="text-lg font-bold mb-2">
           {Array.isArray(speaker.names) ? (
             speaker.names.map((name, i) => (
