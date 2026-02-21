@@ -10,6 +10,7 @@ import {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
 import {
   Mesh,
@@ -34,10 +35,30 @@ import { MSDFText } from "@/components/Shaders/MSDF/MDSFText";
 import { speakers } from "@/data/speakers";
 
 export default function Home() {
-  const refs = useRef(speakers.map(() => createRef<HTMLLIElement>()));
+  const refs = useRef<(HTMLLIElement | null)[]>([]);
+  const [heights, setHeights] = useState<(number | null)[]>([]);
+
   useEffect(() => {
-    console.log(refs.current.map((ref) => ref.current?.offsetHeight));
+    const observer = new ResizeObserver(() => {
+      setHeights(
+        refs.current.map((ref) => (ref !== null ? ref.offsetHeight : null)),
+      );
+    });
+
+    refs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    console.log(
+      refs,
+      refs.current.map((ref) => (ref !== null ? ref.offsetHeight : null)),
+    );
   }, [refs]);
+
   return (
     <motion.div
       key="home-page"
@@ -56,49 +77,39 @@ export default function Home() {
         {speakers.map((speaker, index) => (
           <li
             key={index}
-            className="sticky bg-linear-to-b odd:bg-theme-green even:bg-theme-pink text-background px-margin grid-cols-theme py-4"
+            className="sticky bg-linear-to-b odd:bg-theme-green even:bg-theme-pink group text-background px-margin grid-cols-theme pb-4"
             style={
               {
-                top: `calc(3.5rem + ${(index + 1) * 4}px)`,
-                bottom: `calc(${index * 4}px -${refs.current[index].current?.offsetHeight}px)`,
-                // height: `calc(${20}vh)`,
-                "--offset": refs.current[index].current?.offsetHeight,
+                top: `calc(${(speakers.length - index) * 2}rem - ${heights[index]}px)`,
+                bottom: `calc(${(speakers.length - index) * 2}rem - ${heights[index]}px)`,
+                // "--offset": heights[index],
               } as CSSProperties
             }
-            ref={refs.current[index]}
+            ref={(el) => {
+              refs.current[index] = el;
+            }}
           >
-            <h2 className="text-2xl font-bold col-span-full md:col-span-4 col-start-1 md:col-start-1">
-              {Array.isArray(speaker.names) ? (
-                speaker.names.map((name, i) => (
-                  <span key={name} className="relative">
-                    {name}
-                    {i < speaker.names.length - 1 ? (
-                      <>
-                        , <wbr />
-                      </>
-                    ) : null}
-                    {Array.isArray(speaker.alum) && speaker.alum[i] && (
-                      <span className="leading-none text-xs font-bold uppercase absolute top-0 right-0 bg-theme-pink translate-x-full px-1 py-0.5 rounded-full">
-                        Alum
-                      </span>
-                    )}
-                  </span>
-                ))
-              ) : (
-                <span className="relative">
-                  {speaker.names}{" "}
-                  {speaker.alum && (
-                    <span className="leading-none text-xs font-bold uppercase absolute top-0 right-0 bg-theme-pink translate-x-full px-1 py-0.5 rounded-full">
-                      Alum
+            <hgroup className="group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-12 md:top-14 col-span-full md:col-span-4 col-start-1 md:col-start-1 mb-4">
+              <h2 className="text-2xl font-bold">
+                {Array.isArray(speaker.names) ? (
+                  speaker.names.map((name, i) => (
+                    <span key={name} className="relative">
+                      {name}
+                      {i < speaker.names.length - 1 ? (
+                        <>
+                          , <wbr />
+                        </>
+                      ) : null}
                     </span>
-                  )}
-                </span>
-              )}
-            </h2>
-            <h3 className="col-span-full md:col-span-4 col-start-1 md:col-start-1">
-              {speaker.company}
-            </h3>
-            <p className="col-span-full md:col-span-4 col-start-1 md:col-start-1">
+                  ))
+                ) : (
+                  <span className="relative">{speaker.names}</span>
+                )}
+              </h2>
+              <h3>{speaker.company}</h3>
+            </hgroup>
+            <div className="aspect-square bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1" />
+            <p className="col-span-full md:col-span-5 xl:col-span-8">
               {speaker.bio}
             </p>
           </li>
