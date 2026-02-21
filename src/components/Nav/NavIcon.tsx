@@ -47,7 +47,7 @@ export const NavIcon = ({ isOpen }: { isOpen: boolean }) => (
         height="2"
         x={12}
         y={11}
-        initial={{ width: 9 }}
+        initial={{ width: 0 }}
         animate={{ width: isOpen ? 9 : 0 }}
         transform={"rotate(45, 12,12)"}
       />
@@ -55,7 +55,7 @@ export const NavIcon = ({ isOpen }: { isOpen: boolean }) => (
         height="2"
         x={12}
         y={11}
-        initial={{ width: 9 }}
+        initial={{ width: 0 }}
         animate={{ width: isOpen ? 9 : 0 }}
         transform={"rotate(-45, 12,12)"}
       />
@@ -63,7 +63,7 @@ export const NavIcon = ({ isOpen }: { isOpen: boolean }) => (
         height="2"
         x={12}
         y={11}
-        initial={{ width: 9 }}
+        initial={{ width: 0 }}
         animate={{ width: isOpen ? 9 : 0 }}
         transform={"rotate(135, 12,12)"}
       />
@@ -71,7 +71,7 @@ export const NavIcon = ({ isOpen }: { isOpen: boolean }) => (
         height="2"
         x={12}
         y={11}
-        initial={{ width: 9 }}
+        initial={{ width: 0 }}
         animate={{ width: isOpen ? 9 : 0 }}
         transform={"rotate(-135, 12,12)"}
       />

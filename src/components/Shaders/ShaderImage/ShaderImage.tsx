@@ -1,93 +1,126 @@
-import {
-  Color,
-  OGLRenderingContext,
-  Program,
-  Texture,
-  Text,
-  Geometry,
-  Mesh,
-  Vec3,
-  Plane,
-} from "ogl";
-import { render, useFrame, useOGL } from "react-ogl";
-import font from "@/assets/ClashDisplay-Semibold.json";
-import fragment100 from "./frag100.frag";
-import fragment300 from "./frag300.frag";
-import vertex100 from "./vert100.vert";
-import vertex300 from "./vert300.vert";
-import {
-  use,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { MotionValue, animate } from "motion/react";
+import { Texture } from "ogl";
+import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Canvas, useFrame, useOGL } from "react-ogl";
+import basicVert from "@/components/Shaders/ShaderImage/basic.vert";
+import basicFrag from "@/components/Shaders/ShaderImage/basic.frag";
+import { motion, useInView, useMotionValue, useScroll } from "motion/react";
+import clsx from "clsx";
 
-export const ShaderImage = ({ src }: { src: string }) => {
-  const { gl, renderer, scene, camera } = useOGL();
-
-  const texture = new Texture(gl, { generateMipmaps: false });
-  const textureImage = new Image();
-
-  textureImage.src = src;
-  textureImage.onload = (_) => {
-    texture.image = textureImage;
-    // console.log("Texture loaded");
-  };
-
-  let fragmentShader = fragment100;
-  let vertexShader = vertex100;
-
-  if (renderer.isWebgl2) {
-    fragmentShader = fragment300;
-    vertexShader = vertex300;
-  }
-
-  const program = new Program(gl, {
-    fragment: fragmentShader,
-    vertex: vertexShader,
-    uniforms: {
-      uColor: { value: new Color("#FF0000") },
-      tMap: { value: texture },
-      uWidth: { value: renderer.width },
-      uHeight: { value: renderer.height },
-      uDPR: { value: renderer.dpr },
-      modelViewMatrix: { value: camera.viewMatrix },
-      projectionMatrix: { value: camera.projectionMatrix },
-    },
+export const ShaderImage = ({
+  uTexture,
+  uBackground,
+  className,
+}: {
+  uTexture: string;
+  uBackground: [number, number, number];
+  className?: string;
+}) => {
+  const progress = useMotionValue(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    margin: "0px 0px -50% 0px",
   });
-
-  const sizeRef = useRef({ width: renderer.width, height: renderer.height });
-
-  const mesh = new Mesh(gl, {
-    geometry: new Plane(gl, {
-      //   width: 100,
-      //   height: 100,
-    }),
-    program,
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end end"],
   });
-  //   mesh.scale.x = 1;
-  //   mesh.scale.y = 1;
-  //   mesh.position.x = 0;
-  //   mesh.position.y = 0;
 
   useEffect(() => {
+    if (isInView) {
+      animate(progress, 1, { duration: 0.3, ease: "linear" });
+    } else {
+      animate(progress, 0, { duration: 0.3, ease: "linear" });
+    }
+  }, [isInView]);
+
+  return (
+    <div
+      ref={ref}
+      className={clsx("aspect-square flex items-top justify-center", className)}
+    >
+      <Canvas
+        orthographic
+        onCreated={() => {
+          console.log("created");
+        }}
+      >
+        <Suspense fallback={null}>
+          <Shader
+            uTexture={uTexture}
+            uBackground={uBackground}
+            uProgress={progress}
+          />
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+};
+
+export const Shader = ({
+  uTexture,
+  uBackground,
+  uProgress,
+}: {
+  uTexture: string;
+  uBackground: [number, number, number];
+  uProgress?: MotionValue<number>;
+}) => {
+  const eps = 1e-6; // tiny non-zero bounds
+  const { gl, canvas, renderer, scene, camera } = useOGL();
+  const [texture, setTexture] = useState<Texture>(
+    new Texture(gl, {
+      generateMipmaps: false,
+    }),
+  );
+
+  useEffect(() => {
+    console.log(gl);
+    const tex = new Texture(gl, {
+      generateMipmaps: false,
+    });
+    const img = new Image();
+    img.src = uTexture;
+    img.onload = () => {
+      console.log("Image loaded");
+      tex.image = img;
+      setTexture(tex);
+      uniforms.current.uTexture.value = tex;
+    };
+  }, [gl, uTexture]);
+
+  const uniforms = useRef({
+    uTime: { value: 0.0 },
+    uTexture: { value: texture },
+    uBackground: { value: uBackground },
+    uDPR: { value: renderer.dpr },
+    uGridSize: { value: 24 },
+    uResolution: { value: [renderer.width, renderer.height] },
+    uProgress: { value: 0 },
+  });
+
+  useFrame((state, time) => {
+    uniforms.current.uTime.value = time / 1000;
+    uniforms.current.uProgress.value = uProgress?.get() || 0;
+  });
+
+  useLayoutEffect(() => {
+    // alert(renderer.dpr);
     const handleResize = () => {
-      program.uniforms.uWidth.value = renderer.width;
-      program.uniforms.uHeight.value = renderer.height;
-      program.uniforms.uDPR.value = renderer.dpr;
+      uniforms.current.uResolution.value = [renderer.width, renderer.height];
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [renderer]);
 
-  useFrame(() => {
-    // console.log(camera.viewMatrix);
-    // console.log(camera.projectionMatrix);
-    program.uniforms.modelViewMatrix.value = camera.viewMatrix;
-    program.uniforms.projectionMatrix.value = camera.projectionMatrix;
-  });
-
-  return mesh;
+  return (
+    <mesh>
+      <triangle />
+      <program
+        vertex={basicVert}
+        fragment={basicFrag}
+        uniforms={uniforms.current}
+      />
+    </mesh>
+  );
 };

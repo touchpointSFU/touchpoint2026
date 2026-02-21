@@ -1,8 +1,19 @@
+import mischa from "@/assets/speakers/mischa.jpg";
+import dave from "@/assets/speakers/dave.jpg";
+import marina from "@/assets/speakers/marina.jpg";
+import breanne from "@/assets/speakers/breanne.jpg";
+import ryan from "@/assets/speakers/ryan.jpg";
+import danny from "@/assets/speakers/danny.jpg";
+import steven from "@/assets/speakers/steven.jpg";
+import amanda from "@/assets/speakers/amanda.jpg";
+import { StaticImageData } from "next/image";
+
 export type Speaker = {
   names: string | string[];
   company: string;
   alum: boolean | boolean[];
   bio?: React.ReactNode | string;
+  img?: StaticImageData;
 };
 
 export const speakers: Speaker[] = [
@@ -21,6 +32,7 @@ export const speakers: Speaker[] = [
         Urban Futures from the University of Plymouth.
       </>
     ),
+    img: mischa,
   },
   {
     names: ["Dave Swanson", "Marina Martin", "Breanne Lewis"],
@@ -44,6 +56,7 @@ export const speakers: Speaker[] = [
         both ways between brands and their fans.
       </>
     ),
+    img: ryan,
   },
   {
     names: "Danny Farra",
@@ -56,6 +69,7 @@ export const speakers: Speaker[] = [
         and assistive technology.
       </>
     ),
+    img: danny,
   },
   {
     names: "Steven Cox",
@@ -72,6 +86,7 @@ export const speakers: Speaker[] = [
         yourself, but by who says it with you.
       </>
     ),
+    img: steven,
   },
   {
     names: "Amanda Poh",
@@ -89,5 +104,6 @@ export const speakers: Speaker[] = [
         practices.
       </>
     ),
+    img: amanda,
   },
 ];

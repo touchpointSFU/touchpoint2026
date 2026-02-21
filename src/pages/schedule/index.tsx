@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import Image from "next/image";
+import image1 from "@/assets/speakers/test.webp";
 
 import circleInnovation from "@/assets/Circle-Innovation-RGB-Horiz-Reverse.svg";
 
@@ -7,6 +8,7 @@ import {
   createRef,
   CSSProperties,
   Fragment,
+  Suspense,
   useEffect,
   useMemo,
   useRef,
@@ -25,40 +27,20 @@ import {
 
 import { OGLCanvas } from "@/components/OGLCanvas/OGLCanvas";
 import { FinalMSDF } from "@/components/Shaders/MSDF/FinalMSDF";
-import { useFrame, useOGL } from "react-ogl";
+import { Canvas, useFrame, useOGL } from "react-ogl";
 
 import basicVert from "@/components/Shaders/basic.vert";
 import vert100 from "@/components/Shaders/MSDF/vert100.vert";
 import basicFrag from "@/components/Shaders/MSDF/metaballs.frag";
 import font from "@/assets/ClashDisplay-Semibold.json";
 import { MSDFText } from "@/components/Shaders/MSDF/MDSFText";
-import { speakers } from "@/data/speakers";
+import { Speaker, speakers } from "@/data/speakers";
+import {
+  Shader,
+  ShaderImage,
+} from "@/components/Shaders/ShaderImage/ShaderImage";
 
 export default function Home() {
-  const refs = useRef<(HTMLLIElement | null)[]>([]);
-  const [heights, setHeights] = useState<(number | null)[]>([]);
-
-  useEffect(() => {
-    const observer = new ResizeObserver(() => {
-      setHeights(
-        refs.current.map((ref) => (ref !== null ? ref.offsetHeight : null)),
-      );
-    });
-
-    refs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    console.log(
-      refs,
-      refs.current.map((ref) => (ref !== null ? ref.offsetHeight : null)),
-    );
-  }, [refs]);
-
   return (
     <motion.div
       key="home-page"
@@ -79,44 +61,7 @@ export default function Home() {
       </section>
       <ul className="z-10 w-full flex flex-col">
         {speakers.map((speaker, index) => (
-          <li
-            key={index}
-            className="sticky bg-linear-to-b odd:bg-theme-green even:bg-theme-pink group text-background px-margin grid-cols-theme pb-4"
-            style={
-              {
-                top: `calc(${(speakers.length - index) * 2}rem - ${heights[index]}px)`,
-                bottom: `calc(${(speakers.length - index) * 2}rem - ${heights[index]}px)`,
-                // "--offset": heights[index],
-              } as CSSProperties
-            }
-            ref={(el) => {
-              refs.current[index] = el;
-            }}
-          >
-            <hgroup className="group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-12 md:top-14 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1">
-              <h2 className="text-lg font-bold">
-                {Array.isArray(speaker.names) ? (
-                  speaker.names.map((name, i) => (
-                    <span key={name} className="relative">
-                      {name}
-                      {i < speaker.names.length - 1 ? (
-                        <>
-                          , <wbr />
-                        </>
-                      ) : null}
-                    </span>
-                  ))
-                ) : (
-                  <span className="relative">{speaker.names}</span>
-                )}
-              </h2>
-              <h3>{speaker.company}</h3>
-            </hgroup>
-            <div className="aspect-square bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1" />
-            <p className="col-span-full md:col-span-5 xl:col-span-8">
-              {speaker.bio}
-            </p>
-          </li>
+          <SpeakerCard key={index} speaker={speaker} index={index} />
         ))}
       </ul>
       <div className="h-dvh" />
@@ -124,92 +69,71 @@ export default function Home() {
   );
 }
 
-const Shader = () => {
-  const eps = 1e-6; // tiny non-zero bounds
-  const { gl, canvas, renderer, camera } = useOGL();
-  useEffect(() => {
-    // gl.clearColor(0, 1, 0, 1);
-  }, []);
-
-  const sizeRef = useRef({ width: renderer.width, height: renderer.height });
-
-  const text = MSDFText({
-    text: "Schedule",
-    test: sizeRef.current.height,
-  });
-
-  const renderTarget = useMemo(() => new RenderTarget(gl), []);
-  const renderTarget2 = useMemo(() => new RenderTarget(gl), []);
-
-  const mesh = new Mesh(gl, {
-    geometry: new Triangle(gl),
-    program: new Program(gl, {
-      vertex: basicVert,
-      fragment: basicFrag,
-      uniforms: {
-        uTime: { value: 0.0 },
-        uMouse: { value: [0.0, 0.0] },
-        uResolution: { value: [gl.canvas.width, gl.canvas.height] },
-        uSpeed: { value: matchMedia("(pointer:fine)").matches ? 0.5 : 4 },
-        uMobile: { value: matchMedia("(pointer:fine)").matches ? false : true },
-        uTexture: { value: renderTarget.texture },
-        uDotSize: { value: 12 },
-      },
-    }),
-  });
-
-  const mousePos = useRef({ old: { x: 0, y: 0 }, new: { x: 0, y: 0 } });
-  const mouseAccel = useRef(0);
-  const plane = new Plane(gl, {
-    width: 1,
-    height: 1,
-  });
-
-  const triangle = new Triangle(gl);
+const SpeakerCard = ({
+  speaker,
+  index,
+}: {
+  speaker: Speaker;
+  index: number;
+}) => {
+  const ref = useRef(null);
+  const [height, setHeight] = useState<number | null>(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      console.log(camera);
-      console.log(renderer);
-      console.log(canvas);
-      mesh.program.uniforms.uDotSize.value = renderer.width > 568 ? 24 : 12;
-      renderer.render({
-        scene: text,
-        target: renderTarget,
-      });
-      renderer.render({
-        scene: mesh,
-        target: renderTarget2,
-      });
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    };
+    const observer = new ResizeObserver(() => {
+      setHeight(
+        ref.current
+          ? (ref.current as HTMLElement).getBoundingClientRect().height
+          : 0,
+      );
+    });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
   }, []);
-
-  useFrame((state, time) => {
-    // state.gl.clearColor(0, 0, 0, 1);
-    const bounds = [renderer.width, renderer.height];
-    // state.camera.left = 0;
-    state.camera.right = renderer.width;
-    // state.camera.top = 0;
-    state.camera.bottom = -renderer.height;
-    state.camera.updateProjectionMatrix();
-    mesh.program.uniforms.uDotSize.value = renderer.width > 568 ? 24 : 12;
-    mesh.program.uniforms.uTime.value = time * 0.001;
-    renderer.render({
-      scene: text,
-      target: renderTarget,
-    });
-    renderer.render({
-      scene: mesh,
-      target: renderTarget2,
-    });
-  });
 
   return (
-    <mesh>
-      <box />
-      <normalProgram />
-    </mesh>
+    <li
+      key={index}
+      className="sticky bg-linear-to-b odd:bg-theme-green even:bg-theme-pink group text-background px-margin grid-cols-theme pb-4"
+      style={
+        {
+          top: `calc(${(speakers.length - index) * 2}rem - ${height}px)`,
+          bottom: `calc(${(speakers.length - index) * 2}rem - ${height}px)`,
+          // "--offset": heights[index],
+        } as CSSProperties
+      }
+      ref={ref}
+    >
+      <hgroup className="z-1 group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-12 md:top-14 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1">
+        <h2 className="text-lg font-bold">
+          {Array.isArray(speaker.names) ? (
+            speaker.names.map((name, i) => (
+              <span key={name} className="relative">
+                {name}
+                {i < speaker.names.length - 1 ? (
+                  <>
+                    , <wbr />
+                  </>
+                ) : null}
+              </span>
+            ))
+          ) : (
+            <span className="relative">{speaker.names}</span>
+          )}
+        </h2>
+        <h3>{speaker.company}</h3>
+      </hgroup>
+      {/*  - `#ff39e1` (pink): `[1, 0.22, 0.88]`
+  - `#d3ff7d` (green): `[0.83, 1, 0.49]` */}
+      {speaker.img && (
+        <ShaderImage
+          uTexture={speaker.img.src}
+          uBackground={index % 2 === 1 ? [1, 0.22, 0.88] : [0.83, 1, 0.49]}
+          className="mb-4 relative bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1"
+        />
+      )}
+
+      <p className="col-span-full md:col-span-5 xl:col-span-8">{speaker.bio}</p>
+    </li>
   );
 };
