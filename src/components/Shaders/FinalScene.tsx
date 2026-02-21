@@ -29,7 +29,7 @@ export function FinalScene({ texture }: { texture: any }) {
     () => ({
       targetColor: "#D3FF7D",
       secondColor: "#FF39E1",
-      background: "#000000",
+      background: "#0a0a0a",
       speed: 1.0,
     }),
     [],

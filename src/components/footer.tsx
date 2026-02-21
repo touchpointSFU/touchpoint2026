@@ -3,7 +3,7 @@ import circleInnovation from "@/assets/Circle-Innovation-RGB-Horiz-Reverse.svg";
 
 export default function Footer() {
   return (
-    <footer className="z-1 p-4 flex text-body flex-col lg:flex-row justify-between w-full">
+    <footer className="z-1 px-margin py-4 flex text-body flex-col lg:flex-row justify-between w-full">
       <time className="text-white  " dateTime="2026-03-21">
         03.21.2026
       </time>

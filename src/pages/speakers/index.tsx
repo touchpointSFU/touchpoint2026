@@ -87,7 +87,7 @@ const SpeakerCard = ({
             <span className="relative">{speaker.names}</span>
           )}
         </h2>
-        <h3>{speaker.company}</h3>
+        <h3 className="font-bold">{speaker.company}</h3>
       </hgroup>
       {/*  - `#ff39e1` (pink): `[1, 0.22, 0.88]`
   - `#d3ff7d` (green): `[0.83, 1, 0.49]` */}
@@ -95,8 +95,8 @@ const SpeakerCard = ({
         <ShaderImage
           uTexture={speaker.img.src}
           uBackground={index % 2 === 1 ? [1, 0.22, 0.88] : [0.83, 1, 0.49]}
-          uTargetColor={[1, 0.22, 0.88]}
-          uSecondColor={[0.83, 1, 0.49]}
+          uTargetColor={[0.83, 1, 0.49]}
+          uSecondColor={[1, 0.22, 0.88]}
           className="relative bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1 max-md:mb-6"
         />
       )}

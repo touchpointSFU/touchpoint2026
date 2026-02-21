@@ -18,12 +18,12 @@ export default function Testing() {
       </div>
       <main className="flex flex-col flex-1 z-1">
         {/* headers and body copy */}
-        <div className="flex flex-col justify-between lg:flex-row items-center md:items-start px-4 md:px-12 md:pt-12 pt-8">
+        <div className="flex flex-col justify-between lg:flex-row items-center md:items-start px-margin md:pt-12 pt-8">
           <hgroup className="text-center md:text-left">
-            <h1 className="font-display mb-2 leading-[100%] font-light text-lg text-theme-pink">
+            <h1 className="text-xl font-bold text-theme-pink mb-[0.3em]">
               Touchpoint 2026
             </h1>
-            <h2 className="font-display mb-6 text-md leading-[1.2em]  text-theme-green">
+            <h2 className="text-lg font-bold  text-theme-green">
               Alternative Modes of Design,<br></br> Rooted in Community
             </h2>
           </hgroup>
@@ -32,7 +32,7 @@ export default function Testing() {
         {/* Middle section (takes remaining space, centers marquee) */}
         <div className="flex flex-1 items-center justify-center">
           <div className="flex flex-col items-center md:items-start w-full">
-            <p className="text-description text-theme-green font-medium mb-2 md:pl-12">
+            <p className="text-description text-theme-green font-medium mb-2 md:ml-margin">
               With speakers from
             </p>
             <ScrollingNames direction="left" />
