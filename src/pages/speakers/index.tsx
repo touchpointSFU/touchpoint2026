@@ -71,7 +71,7 @@ const SpeakerCard = ({
       ref={ref}
     >
       <hgroup className="z-1 group-odd:bg-theme-green group-even:bg-theme-pink py-4 sticky top-12 md:top-14 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1">
-        <h2 className="text-lg font-bold">
+        <h2 className="text-lg font-bold mb-2">
           {Array.isArray(speaker.names) ? (
             speaker.names.map((name, i) => (
               <span key={name} className="relative">
@@ -95,7 +95,9 @@ const SpeakerCard = ({
         <ShaderImage
           uTexture={speaker.img.src}
           uBackground={index % 2 === 1 ? [1, 0.22, 0.88] : [0.83, 1, 0.49]}
-          className="relative bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1"
+          uTargetColor={[1, 0.22, 0.88]}
+          uSecondColor={[0.83, 1, 0.49]}
+          className="relative bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1 max-md:mb-6"
         />
       )}
 

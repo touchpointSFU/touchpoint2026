@@ -10,10 +10,14 @@ import clsx from "clsx";
 export const ShaderImage = ({
   uTexture,
   uBackground,
+  uTargetColor,
+  uSecondColor,
   className,
 }: {
   uTexture: string;
   uBackground: [number, number, number];
+  uTargetColor: [number, number, number];
+  uSecondColor: [number, number, number];
   className?: string;
 }) => {
   const progress = useMotionValue(0);
@@ -50,6 +54,8 @@ export const ShaderImage = ({
             uTexture={uTexture}
             uBackground={uBackground}
             uProgress={progress}
+            uTargetColor={uTargetColor}
+            uSecondColor={uSecondColor}
           />
         </Suspense>
       </Canvas>
@@ -61,10 +67,14 @@ export const Shader = ({
   uTexture,
   uBackground,
   uProgress,
+  uTargetColor,
+  uSecondColor,
 }: {
   uTexture: string;
   uBackground: [number, number, number];
   uProgress?: MotionValue<number>;
+  uTargetColor: [number, number, number];
+  uSecondColor: [number, number, number];
 }) => {
   const eps = 1e-6; // tiny non-zero bounds
   const { gl, canvas, renderer, scene, camera } = useOGL();
@@ -93,6 +103,8 @@ export const Shader = ({
     uTime: { value: 0.0 },
     uTexture: { value: texture },
     uBackground: { value: uBackground },
+    uTargetColor: { value: uTargetColor },
+    uSecondColor: { value: uSecondColor },
     uDPR: { value: renderer.dpr },
     uGridSize: { value: 24 },
     uResolution: { value: [renderer.width, renderer.height] },

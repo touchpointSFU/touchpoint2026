@@ -45,7 +45,13 @@ export default function Home() {
                 </mesh>
               }
             >
-              <Shader scrollYProgress={progressPrime} />
+              <Shader
+                uTexture={image1.src}
+                uProgress={progressPrime}
+                uBackground={[0.83, 1, 0.49]}
+                uTargetColor={[1, 0.22, 0.88]}
+                uSecondColor={[0.83, 1, 0.49]}
+              />
             </Suspense>
           </Canvas>
         </div>
@@ -71,10 +77,18 @@ export default function Home() {
   );
 }
 
-const Shader = ({
-  scrollYProgress,
+export const Shader = ({
+  uTexture,
+  uBackground,
+  uProgress,
+  uTargetColor,
+  uSecondColor,
 }: {
-  scrollYProgress: MotionValue<number>;
+  uTexture: string;
+  uBackground: [number, number, number];
+  uProgress?: MotionValue<number>;
+  uTargetColor: [number, number, number];
+  uSecondColor: [number, number, number];
 }) => {
   const eps = 1e-6; // tiny non-zero bounds
   const { gl, canvas, renderer, scene, camera } = useOGL();
@@ -90,18 +104,21 @@ const Shader = ({
       generateMipmaps: false,
     });
     const img = new Image();
-    img.src = image1.src;
+    img.src = uTexture;
     img.onload = () => {
       console.log("Image loaded");
       tex.image = img;
       setTexture(tex);
       uniforms.current.uTexture.value = tex;
     };
-  }, [gl]);
+  }, [gl, uTexture]);
 
   const uniforms = useRef({
     uTime: { value: 0.0 },
     uTexture: { value: texture },
+    uBackground: { value: uBackground },
+    uTargetColor: { value: uTargetColor },
+    uSecondColor: { value: uSecondColor },
     uDPR: { value: renderer.dpr },
     uGridSize: { value: 24 },
     uResolution: { value: [renderer.width, renderer.height] },
@@ -110,7 +127,7 @@ const Shader = ({
 
   useFrame((state, time) => {
     uniforms.current.uTime.value = time / 1000;
-    uniforms.current.uProgress.value = scrollYProgress.get();
+    uniforms.current.uProgress.value = uProgress?.get() || 0;
   });
 
   useLayoutEffect(() => {
