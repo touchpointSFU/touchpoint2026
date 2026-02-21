@@ -64,7 +64,7 @@ const SpeakerCard = ({
       className="sticky bg-linear-to-b odd:bg-theme-green even:bg-theme-pink group text-background px-margin grid-cols-theme pb-4"
       style={
         {
-          top: `calc(${(speakers.length - index) * 2}rem - ${height}px)`,
+          top: `calc(-${height}px)`,
           bottom: `calc(${(speakers.length - index) * 2}rem - ${height}px)`,
         } as CSSProperties
       }
