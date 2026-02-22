@@ -8,7 +8,7 @@ import {
   ShaderImage,
 } from "@/components/Shaders/ShaderImage/ShaderImage";
 
-  const SPEAKER_OFFSET = 4;
+const SPEAKER_OFFSET = 4;
 
 export default function Home() {
   const [inViews, setInViews] = useState<boolean[]>(speakers.map(() => false));
@@ -91,7 +91,7 @@ const SpeakerCard = ({
   return (
     <motion.li
       key={index}
-      className="sticky bg-linear-to-b group text-background px-margin grid-cols-theme pb-4"
+      className="sticky bg-linear-to-b group text-background px-margin pb-4"
       style={
         {
           top: `calc(-${height}px)`,
@@ -103,47 +103,48 @@ const SpeakerCard = ({
       }}
       ref={ref}
     >
-      <motion.hgroup
-        className="z-1 py-4 sticky top-(--nav-height) col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1"
-        initial={false}
-        animate={{
-          background: `var(--theme-pink-${9 - Math.abs(index - lastInView)}00)`,
-        }}
-      >
-        <h2 className="text-lg font-bold mb-2">
-          {Array.isArray(speaker.names) ? (
-            speaker.names.map((name, i) => (
-              <span key={name} className="relative">
-                {name}
-                {i < speaker.names.length - 1 ? (
-                  <>
-                    , <wbr />
-                  </>
-                ) : null}
-              </span>
-            ))
-          ) : (
-            <span className="relative">{speaker.names}</span>
-          )}
-        </h2>
-        <h3 className="font-bold">{speaker.company}</h3>
-      </motion.hgroup>
-      {/* - `#ff39e1` (pink): `[1, 0.22, 0.88]`
+      <div className="max-w-7xl mx-auto grid-cols-theme">
+        <motion.hgroup
+          className="z-1 py-4 sticky flex flex-col top-(--nav-height) col-span-full md:col-span-3 xl:col-span-6 col-start-1 h-full"
+          initial={false}
+          animate={{
+            background: `var(--theme-pink-${9 - Math.abs(index - lastInView)}00)`,
+          }}
+        >
+          <h2 className="text-lg font-bold mb-2">
+            {Array.isArray(speaker.names) ? (
+              speaker.names.map((name, i) => (
+                <span key={name} className="relative">
+                  {name}
+                  {i < speaker.names.length - 1 ? (
+                    <>
+                      , <wbr />
+                    </>
+                  ) : null}
+                </span>
+              ))
+            ) : (
+              <span className="relative">{speaker.names}</span>
+            )}
+          </h2>
+          <h3 className="font-bold">{speaker.company}</h3>
+          <p className=" col-span-full mt-auto md:col-span-5 xl:col-span-8">
+            {speaker.bio}
+          </p>
+        </motion.hgroup>
+        {/* - `#ff39e1` (pink): `[1, 0.22, 0.88]`
         - `#d3ff7d` (green): `[0.83, 1, 0.49]`
         - `#ffcef8` (light pink): `[1, 0.81, 0.97]` */}
-      {speaker.img && (
-        <ShaderImage
-          uTexture={speaker.img.src}
-          uBackground={[1, 0.81, 0.97]}
-          uTargetColor={[0.83, 1, 0.49]}
-          uSecondColor={[1, 0.22, 0.88]}
-          className="relative bg-background/10 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:col-start-1 xl:col-start-1 max-md:mb-6"
-        />
-      )}
-
-      <p className="col-span-full md:col-span-5 xl:col-span-8 self-end">
-        {speaker.bio}
-      </p>
+        {speaker.img && (
+          <ShaderImage
+            uTexture={speaker.img.src}
+            uBackground={[1, 0.81, 0.97]}
+            uTargetColor={[0.83, 1, 0.49]}
+            uSecondColor={[1, 0.22, 0.88]}
+            className="relative bg-background/1 col-span-full md:col-span-3 xl:col-span-4 col-start-1 xl:mt-4 md:col-start-1 xl:-col-end-1 max-md:mb-6"
+          />
+        )}
+      </div>
     </motion.li>
   );
 };
