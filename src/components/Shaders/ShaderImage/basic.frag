@@ -10,6 +10,7 @@ uniform float uProgress;
 uniform vec3 uBackground;
 
 #include "lygia/generative/snoise.glsl"
+#include "lygia/math/const.glsl"
 
 vec3 cell10(vec2 cellUV, vec3 uTargetColor, vec3 uSecondColor){
     // vec2 uv = fragCoord/iResolution.xy;
@@ -333,41 +334,42 @@ void main() {
   float bounds = 4.0;
   vec2 gridBounds = floor(uResolution / uGridSize);
   float sProgress = (uProgress * (gridBounds.y + 2.0 + 2. * bounds)) - (bounds + 1.0);
+  float sinProgress = sin(PI * uProgress);
   vec2 gridCoords = floor(vec2(vUv.x * uResolution.x / uGridSize, (1.0 - vUv.y) * uResolution.y / uGridSize));
   vec2 gridUV = fract(vec2(vUv.x * uResolution.x / uGridSize, (1.0 - vUv.y) * uResolution.y / uGridSize));
 
-  vec3 color = vec3(
-    snoise(gridCoords + vec2(uProgress))
+  vec3 noise = vec3(
+    snoise(gridCoords) * 2.
   );
+  vec3 noise2 = vec3(
+    snoise(gridCoords - vec2(uProgress))
+  );
+  noise *= sinProgress;
+  noise2 *= 1. - uProgress;
 
   vec3 texture = texture2D(uTexture, vUv).rgb;
-  // texture *= step(gridCoords.y - bounds, bufferedProgress);
-  vec3 textureA = color;
-  textureA *= step(length(gridCoords.y - sProgress), bounds);
 
-  vec3 bottom = uBackground * step(sProgress + bounds, gridCoords.y);
-  // textureA *= step(sProgress + bounds, gridCoords.y);
 
-  vec3 textureB = vec3(1.) * 1.0 - step(sProgress + bounds, gridCoords.y);
-  vec3 textureC = textureB;
-  // textureC *= (1.0 - step(sProgress - bounds, gridCoords.y));
+//   vec3 cell = cellVal(noise.r, gridUV, uTargetColor, uSecondColor);
+//   float cellAlpha = step(0.01, cell.r);
+//   cellAlpha *= sinProgress;
 
-  vec3 cell = cellVal(textureA.r, gridUV, uTargetColor, uSecondColor);
-  float cellAlpha = step(0.01, cell.r);
-
-  textureB *= 1. - cellAlpha;
-
-  // vec3 textureB = vec3(1. - step(sProgress - 1., gridCoords.y));
-  // textureB *= texture;
-
-  // texture.rgb *= step((1.0 - uProgress) * ((uResolution.y / uGridSize)), (uResolution.y / uGridSize) -  gridCoords.y);
-  // color.rgb *= step((uProgress) * ((uResolution.y / uGridSize)), gridCoords.y);
+//   cell *= cellAlpha;
   
-  // vec3 transition = mix(vec3(0.), textureA, uProgress);
+  vec3 transition = mix(vec3(1.), noise, uProgress);
+  vec3 cell = cellVal(noise2.r * 2., gridUV, uTargetColor, uSecondColor);
+  transition = step(0.5, transition);
+  cell *= step(transition.r, 0.5);
+  vec3 transitionPrime = transition * uBackground;
+
+  float transitionAlpha = 1. -  step(0.01, transition.r + cell.r);
+  
+    // transition *= (1.0 - cellAlpha);
   // vec3 transition2 = mix(vec3(0.), texture, uProgress);
 
   // gl_FragColor = vec4(textureA + bottom, 1.0);
-  gl_FragColor = vec4((textureB) * texture + bottom + cell, 1.0);
+//   gl_FragColor = vec4(noise, 1.0);
+  gl_FragColor = vec4(transitionPrime + cell + (transitionAlpha * texture), 1.0);
   // gl_FragColor = vec4(vec3(step(1.0, 0.0)),1.0);
   // gl_FragColor = vec4(((textureC) * uBackground) + (textureA + textureB) * texture, 1.0);
 }

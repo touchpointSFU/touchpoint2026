@@ -32,9 +32,9 @@ export const ShaderImage = ({
 
   useEffect(() => {
     if (isInView) {
-      animate(progress, 1, { duration: 1, ease: "linear" });
+      animate(progress, 1, { duration: 1, ease: "easeInOut" });
     } else {
-      animate(progress, 0, { duration: 1, ease: "linear" });
+      animate(progress, 0, { duration: 1, ease: "easeInOut" });
     }
   }, [isInView]);
 
@@ -106,7 +106,7 @@ export const Shader = ({
     uTargetColor: { value: uTargetColor },
     uSecondColor: { value: uSecondColor },
     uDPR: { value: renderer.dpr },
-    uGridSize: { value: 24 },
+    uGridSize: { value: 36 },
     uResolution: { value: [renderer.width, renderer.height] },
     uProgress: { value: 0 },
   });

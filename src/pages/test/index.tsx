@@ -120,7 +120,7 @@ export const Shader = ({
     uTargetColor: { value: uTargetColor },
     uSecondColor: { value: uSecondColor },
     uDPR: { value: renderer.dpr },
-    uGridSize: { value: 24 },
+    uGridSize: { value: 48 },
     uResolution: { value: [renderer.width, renderer.height] },
     uProgress: { value: 0 },
   });
