@@ -29,7 +29,7 @@ export const Nav = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <nav className="sticky top-0 left-0 w-full z-50 bg-background flex items-center pl-margin md:px-margin h-12">
+    <nav className="sticky top-0 left-0 w-full z-50 bg-theme-pink backdrop-blur-3xl flex items-center pl-margin md:px-margin h-12">
       <Link
         href="/"
         className="text-white hover:text-gray-300 font-bold uppercase z-10"

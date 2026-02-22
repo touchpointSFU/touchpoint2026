@@ -32,9 +32,9 @@ export const ShaderImage = ({
 
   useEffect(() => {
     if (isInView) {
-      animate(progress, 1, { duration: 0.3, ease: "linear" });
+      animate(progress, 1, { duration: 1, ease: "linear" });
     } else {
-      animate(progress, 0, { duration: 0.3, ease: "linear" });
+      animate(progress, 0, { duration: 1, ease: "linear" });
     }
   }, [isInView]);
 

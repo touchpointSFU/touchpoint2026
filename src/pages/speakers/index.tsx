@@ -8,9 +8,10 @@ import {
   ShaderImage,
 } from "@/components/Shaders/ShaderImage/ShaderImage";
 
+  const SPEAKER_OFFSET = 4;
+
 export default function Home() {
   const [inViews, setInViews] = useState<boolean[]>(speakers.map(() => false));
-
   const handleInView = (index: number, inView: boolean) => {
     setInViews((prev) => {
       const newInViews = [...prev];
@@ -25,7 +26,7 @@ export default function Home() {
   return (
     <motion.div
       key="home-page"
-      className={`font-sans relative`}
+      className={`font-sans relative bg-theme-pink`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -33,10 +34,10 @@ export default function Home() {
       <section
         className="px-margin relative"
         style={{
-          height: `calc(100vh - var(--nav-height) - ${2 * speakers.length}rem)`,
+          height: `calc(100svh - var(--nav-height) - ${SPEAKER_OFFSET * speakers.length}rem)`,
         }}
       >
-        <h1 className="sticky bottom-0 text-xl font-bold mb-8 top-(--nav-height)">
+        <h1 className="sticky bottom-0 text-xl font-bold text-black mb-8 top-(--nav-height)">
           Speakers
         </h1>
       </section>
@@ -94,7 +95,7 @@ const SpeakerCard = ({
       style={
         {
           top: `calc(-${height}px)`,
-          bottom: `calc(${(speakers.length - index) * 2}rem - ${height}px)`,
+          bottom: `calc(${(speakers.length - index) * SPEAKER_OFFSET}rem - ${height}px)`,
         } as CSSProperties
       }
       animate={{

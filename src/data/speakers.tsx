@@ -45,8 +45,8 @@ export const speakers: Speaker[] = [
     alum: false,
     bio: (
       <>
-        Ryan Romero steer brands toward deeper, more resonant connections with
-        their audiences. His role as Creative Director at Monday Creative, have
+        Ryan Romero steers brands toward deeper, more resonant connections with
+        their audiences. His role as Creative Director at Monday Creative has
         been about aligning creativity with purpose—not just directing creative
         development, but crafting narratives that move people and build culture.
         With a background shaped by partnerships with brands like Keen, Adidas,
