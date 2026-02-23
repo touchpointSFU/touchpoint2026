@@ -29,13 +29,7 @@ export default function Home() {
   };
 
   return (
-    <motion.div
-      key="home-page"
-      className={`font-sans relative bg-theme-pink`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <motion.div key="home-page" className={`font-sans relative bg-theme-pink`}>
       <section
         className="px-margin relative"
         style={{

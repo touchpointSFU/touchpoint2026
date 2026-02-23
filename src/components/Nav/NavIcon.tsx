@@ -1,6 +1,19 @@
+import clsx from "clsx";
 import { motion, MotionConfig } from "motion/react";
-export const NavIcon = ({ isOpen }: { isOpen: boolean }) => (
-  <svg className="w-6 h-6 relative z-50 fill-foreground" viewBox="0 0 24 24">
+export const NavIcon = ({
+  isOpen,
+  theme,
+}: {
+  isOpen: boolean;
+  theme: string;
+}) => (
+  <svg
+    className={clsx(
+      theme && !isOpen ? "fill-background" : "fill-foreground",
+      "w-6 h-6 relative z-50",
+    )}
+    viewBox="0 0 24 24"
+  >
     <MotionConfig transition={{ duration: 0.3, ease: "circOut" }}>
       <motion.rect
         y="6"

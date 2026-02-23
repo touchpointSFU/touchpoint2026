@@ -9,7 +9,7 @@ import { Fragment } from "react/jsx-runtime";
 import { DM_Sans } from "next/font/google";
 import { Nav } from "@/components/Nav/Nav";
 import { ThemeContext } from "@/components/ThemeContext/ThemeContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const dm = DM_Sans({
   subsets: ["latin"],
@@ -87,9 +87,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <ReactLenis root />
         <AnimatePresence>
           <ThemeContext value={{ theme, setTheme }}>
-            <Nav theme={pageProps.theme} />
+            <Nav theme={pageProps.theme} page={router.route} />
             <Component key={router.route} {...pageProps} />
           </ThemeContext>
+
           {/* <Script src="https://greggman.github.io/webgl-lint/webgl-lint.js" /> */}
         </AnimatePresence>
       </div>
