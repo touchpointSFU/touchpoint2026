@@ -144,35 +144,35 @@ const SpeakerCard = ({
       // }}
       ref={ref}
     >
-      <div className="max-w-7xl mx-auto grid-cols-theme">
-        <motion.hgroup
-          className="z-1 py-4 sticky flex flex-col top-(--nav-height) col-span-full md:col-span-3 xl:col-span-6 col-start-1 h-full"
-          initial={false}
-          style={{
-            background: pinkVal,
-          }}
-        >
-          <h2 className="text-lg font-bold mb-2">
-            {Array.isArray(speaker.names) ? (
-              speaker.names.map((name, i) => (
-                <span key={name} className="relative">
-                  {name}
-                  {i < speaker.names.length - 1 ? (
-                    <>
-                      , <wbr />
-                    </>
-                  ) : null}
-                </span>
-              ))
-            ) : (
-              <span className="relative">{speaker.names}</span>
-            )}
-          </h2>
-          <h3 className="font-bold">{speaker.company}</h3>
-          <p className=" col-span-full mt-auto md:col-span-5 xl:col-span-8">
-            {speaker.bio}
-          </p>
-        </motion.hgroup>
+      <div className="max-w-7xl mx-auto grid-cols-theme items-start">
+        <div className="col-span-full md:col-span-5 xl:col-span-8">
+          <motion.hgroup
+            className="z-1 py-4 sticky flex flex-col top-(--nav-height)"
+            initial={false}
+            style={{
+              background: pinkVal,
+            }}
+          >
+            <h2 className="text-lg font-bold mb-2">
+              {Array.isArray(speaker.names) ? (
+                speaker.names.map((name, i) => (
+                  <span key={name} className="relative">
+                    {name}
+                    {i < speaker.names.length - 1 ? (
+                      <>
+                        , <wbr />
+                      </>
+                    ) : null}
+                  </span>
+                ))
+              ) : (
+                <span className="relative">{speaker.names}</span>
+              )}
+            </h2>
+            <h3 className="font-bold">{speaker.company}</h3>
+          </motion.hgroup>
+          <p className="mt-auto mb-8">{speaker.bio}</p>
+        </div>
 
         {speaker.img && (
           <ShaderImage
