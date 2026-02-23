@@ -1,8 +1,9 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   PlaygroundCanvas,
   PlaygroundShaderRef,
 } from "@/components/PlaygroundShader/PlaygroundShader";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 function hexToRgb(hex: string): [number, number, number] {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -22,52 +23,112 @@ function rgbToHex(rgb: [number, number, number]): string {
       .map((c) =>
         Math.round(c * 255)
           .toString(16)
-          .padStart(2, "0")
+          .padStart(2, "0"),
       )
       .join("")
   );
 }
 
+const DEFAULTS = {
+  blurAmount: 0,
+  brightnessMultiplier: 1,
+  gridSize: 36,
+  targetColor: [1, 0.22, 0.88] as [number, number, number],
+  secondColor: [0.83, 1, 0.49] as [number, number, number],
+  bgColor: [0.83, 1, 0.49] as [number, number, number],
+  dprMultiplier: 1,
+};
+
 export default function VisualPlayground() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [processedImageSrc, setProcessedImageSrc] = useState<string | null>(
+    null,
+  );
   const [aspectRatio, setAspectRatio] = useState<number>(1);
-  const [gridSize, setGridSize] = useState(36);
-  const [targetColor, setTargetColor] = useState<[number, number, number]>([
-    1, 0.22, 0.88,
-  ]);
-  const [secondColor, setSecondColor] = useState<[number, number, number]>([
-    0.83, 1, 0.49,
-  ]);
-  const [bgColor, setBgColor] = useState<[number, number, number]>([
-    0.83, 1, 0.49,
-  ]);
-  const [dprMultiplier, setDprMultiplier] = useState(1);
+  const [blurAmount, setBlurAmount, resetBlur] = useLocalStorage("playground-blur", DEFAULTS.blurAmount);
+  const [brightnessMultiplier, setBrightnessMultiplier, resetBrightness] = useLocalStorage("playground-brightness", DEFAULTS.brightnessMultiplier);
+  const [gridSize, setGridSize, resetGridSize] = useLocalStorage("playground-gridSize", DEFAULTS.gridSize);
+  const [targetColor, setTargetColor, resetTargetColor] = useLocalStorage<[number, number, number]>("playground-targetColor", DEFAULTS.targetColor);
+  const [secondColor, setSecondColor, resetSecondColor] = useLocalStorage<[number, number, number]>("playground-secondColor", DEFAULTS.secondColor);
+  const [bgColor, setBgColor, resetBgColor] = useLocalStorage<[number, number, number]>("playground-bgColor", DEFAULTS.bgColor);
+  const [dprMultiplier, setDprMultiplier, resetDpr] = useLocalStorage("playground-dpr", DEFAULTS.dprMultiplier);
   const [isDragging, setIsDragging] = useState(false);
+  const [viewMode, setViewMode] = useState<"original" | "blurred" | "final">(
+    "final",
+  );
+
+  const handleReset = useCallback(() => {
+    resetBlur();
+    resetBrightness();
+    resetGridSize();
+    resetTargetColor();
+    resetSecondColor();
+    resetBgColor();
+    resetDpr();
+  }, [resetBlur, resetBrightness, resetGridSize, resetTargetColor, resetSecondColor, resetBgColor, resetDpr]);
 
   const canvasRef = useRef<PlaygroundShaderRef>(null);
 
   const loadImageWithAspectRatio = useCallback((dataUrl: string) => {
     const img = new Image();
     img.onload = () => {
+      // Reset state for new image
+      setProcessedImageSrc(null);
       setAspectRatio(img.naturalWidth / img.naturalHeight);
       setImageSrc(dataUrl);
+      setViewMode("final");
     };
     img.src = dataUrl;
   }, []);
 
-  const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragging(false);
-
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        loadImageWithAspectRatio(event.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+  // Preprocess image with blur and brightness
+  useEffect(() => {
+    if (!imageSrc) {
+      setProcessedImageSrc(null);
+      return;
     }
-  }, [loadImageWithAspectRatio]);
+
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+
+      if (ctx) {
+        const filters = [];
+        if (blurAmount > 0) {
+          filters.push(`blur(${blurAmount}px)`);
+        }
+        if (brightnessMultiplier !== 1) {
+          filters.push(`brightness(${brightnessMultiplier})`);
+        }
+        if (filters.length > 0) {
+          ctx.filter = filters.join(" ");
+        }
+        ctx.drawImage(img, 0, 0);
+        setProcessedImageSrc(canvas.toDataURL("image/png"));
+      }
+    };
+    img.src = imageSrc;
+  }, [imageSrc, blurAmount, brightnessMultiplier]);
+
+  const handleDrop = useCallback(
+    (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      setIsDragging(false);
+
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          loadImageWithAspectRatio(event.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    },
+    [loadImageWithAspectRatio],
+  );
 
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -90,7 +151,7 @@ export default function VisualPlayground() {
         reader.readAsDataURL(file);
       }
     },
-    [loadImageWithAspectRatio]
+    [loadImageWithAspectRatio],
   );
 
   const handleExport = useCallback(() => {
@@ -113,34 +174,61 @@ export default function VisualPlayground() {
       {/* Global drop overlay */}
       {isDragging && (
         <div className="fixed inset-0 bg-pink-500/20 border-4 border-dashed border-pink-500 z-50 flex items-center justify-center pointer-events-none">
-          <p className="text-2xl text-pink-500 font-bold">Drop image anywhere</p>
+          <p className="text-2xl text-pink-500 font-bold">
+            Drop image anywhere
+          </p>
         </div>
       )}
-
-      <h1 className="text-3xl font-bold mb-8">Visual Playground</h1>
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Preview Area */}
         <div className="flex-1">
-          {imageSrc ? (
-            <div
-              className="w-full max-w-2xl bg-neutral-800 rounded-lg overflow-hidden"
-              style={{ aspectRatio: aspectRatio }}
-            >
-              <PlaygroundCanvas
-                ref={canvasRef}
-                imageSrc={imageSrc}
-                gridSize={gridSize}
-                targetColor={targetColor}
-                secondColor={secondColor}
-                backgroundColor={bgColor}
-                dpr={dprMultiplier}
-              />
-            </div>
+          {processedImageSrc ? (
+            <>
+              {/* View Mode Tabs */}
+              <div className="flex gap-1 mb-4 bg-neutral-800 p-1 rounded-lg w-fit">
+                {(["original", "blurred", "final"] as const).map((mode) => (
+                  <button
+                    key={mode}
+                    onClick={() => setViewMode(mode)}
+                    className={`px-4 py-2 rounded-md text-sm capitalize transition-colors ${
+                      viewMode === mode
+                        ? "bg-pink-500 text-white"
+                        : "text-neutral-400 hover:text-white"
+                    }`}
+                  >
+                    {mode}
+                  </button>
+                ))}
+              </div>
+
+              <div
+                className="w-full max-w-2xl bg-neutral-800 rounded-lg overflow-hidden"
+                style={{ aspectRatio: aspectRatio }}
+              >
+                {viewMode === "final" ? (
+                  <PlaygroundCanvas
+                    ref={canvasRef}
+                    imageSrc={processedImageSrc}
+                    gridSize={gridSize}
+                    targetColor={targetColor}
+                    secondColor={secondColor}
+                    backgroundColor={bgColor}
+                    dpr={dprMultiplier}
+                  />
+                ) : (
+                  <img
+                    src={
+                      viewMode === "original" ? imageSrc! : processedImageSrc
+                    }
+                    alt={viewMode}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+            </>
           ) : (
-            <div
-              className="aspect-square w-full max-w-2xl border-2 border-dashed rounded-lg flex flex-col items-center justify-center cursor-pointer transition-colors border-neutral-600 hover:border-neutral-500"
-            >
+            <div className="aspect-square w-full max-w-2xl border-2 border-dashed rounded-lg flex flex-col items-center justify-center cursor-pointer transition-colors border-neutral-600 hover:border-neutral-500">
               <input
                 type="file"
                 accept="image/*"
@@ -159,30 +247,45 @@ export default function VisualPlayground() {
               </label>
             </div>
           )}
-
-          {imageSrc && (
-            <div className="mt-4 flex gap-4">
-              <button
-                onClick={handleExport}
-                className="px-6 py-2 bg-pink-500 hover:bg-pink-600 rounded-lg transition-colors"
-              >
-                Export PNG
-              </button>
-              <button
-                onClick={() => {
-                  setImageSrc(null);
-                  setAspectRatio(1);
-                }}
-                className="px-6 py-2 bg-neutral-700 hover:bg-neutral-600 rounded-lg transition-colors"
-              >
-                Clear
-              </button>
-            </div>
-          )}
         </div>
 
         {/* Controls Panel */}
         <div className="w-full lg:w-80 space-y-6">
+          <p className="text-sm text-neutral-500">
+            Drop an image to apply the grid effect. Brightness values (0-1) map
+            to cell pattern complexity.
+          </p>
+
+          <div>
+            <label className="block text-sm text-neutral-400 mb-2">
+              Blur (px)
+            </label>
+            <input
+              type="number"
+              min="0"
+              max="50"
+              step="5"
+              value={blurAmount}
+              onChange={(e) => setBlurAmount(Number(e.target.value))}
+              className="w-full h-10 px-3 bg-neutral-700 rounded-lg"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-neutral-400 mb-2">
+              Brightness: {brightnessMultiplier.toFixed(1)}x
+            </label>
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={brightnessMultiplier}
+              onChange={(e) => setBrightnessMultiplier(Number(e.target.value))}
+              className="w-full accent-pink-500"
+            />
+          </div>
+
           <div>
             <label className="block text-sm text-neutral-400 mb-2">
               Export Resolution: {dprMultiplier}x
@@ -248,11 +351,21 @@ export default function VisualPlayground() {
             />
           </div>
 
-          <div className="pt-4 border-t border-neutral-700">
-            <p className="text-sm text-neutral-500">
-              Drop an image to apply the grid effect. Brightness values (0-1)
-              map to cell pattern complexity.
-            </p>
+          <div className="flex gap-2 pt-4">
+            {processedImageSrc && (
+              <button
+                onClick={handleExport}
+                className="flex-1 px-4 py-2 bg-pink-500 hover:bg-pink-600 rounded-lg transition-colors text-sm"
+              >
+                Export PNG
+              </button>
+            )}
+            <button
+              onClick={handleReset}
+              className="flex-1 px-4 py-2 bg-neutral-700 hover:bg-neutral-600 rounded-lg transition-colors text-sm"
+            >
+              Reset
+            </button>
           </div>
         </div>
       </div>
