@@ -196,7 +196,7 @@ const SpeakerCard = ({
             }
             uTargetColor={[0.83, 1, 0.49]}
             uSecondColor={[1, 0.22, 0.88]}
-            className="relative bg-background/1 col-span-full md:col-span-3 xl:col-span-4 col-start-1 xl:mt-4 md:col-start-1 xl:-col-end-1 max-md:mb-6"
+            className="relative bg-background/1 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:mt-4 xl:mt-4 md:-col-end-1 xl:-col-end-1 max-md:mb-6"
           />
         )}
       </div>
