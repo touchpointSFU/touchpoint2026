@@ -8,6 +8,8 @@ import Script from "next/script";
 import { Fragment } from "react/jsx-runtime";
 import { DM_Sans } from "next/font/google";
 import { Nav } from "@/components/Nav/Nav";
+import { ThemeContext } from "@/components/ThemeContext/ThemeContext";
+import { useState } from "react";
 
 const dm = DM_Sans({
   subsets: ["latin"],
@@ -51,6 +53,8 @@ const HaasGroteskDSPro = localFont({
 });
 
 export default function App({ Component, pageProps, router }: AppProps) {
+  const [theme, setTheme] = useState<string>(pageProps.theme || "pink");
+
   return (
     <Fragment>
       <Head>
@@ -82,8 +86,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
       >
         <ReactLenis root />
         <AnimatePresence>
-          <Nav />
-          <Component key={router.route} {...pageProps} />
+          <ThemeContext value={{ theme, setTheme }}>
+            <Nav theme={pageProps.theme} />
+            <Component key={router.route} {...pageProps} />
+          </ThemeContext>
           {/* <Script src="https://greggman.github.io/webgl-lint/webgl-lint.js" /> */}
         </AnimatePresence>
       </div>

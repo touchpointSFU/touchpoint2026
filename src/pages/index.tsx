@@ -8,7 +8,7 @@ import { Fragment } from "react/jsx-runtime";
 import basicVert from "@/components/Shaders/basic.vert";
 import basicFrag from "@/components/Shaders/metaballs.frag";
 
-export default function Testing() {
+export default function Testing({ theme }: { theme: string }) {
   return (
     <div className="min-h-[calc(100dvh-var(--nav-height))] flex flex-col overflow-hidden relative">
       <div className="absolute inset-0">
@@ -136,3 +136,11 @@ const Shader = () => {
     </Fragment>
   );
 };
+
+export async function getStaticProps() {
+  return {
+    props: {
+      // theme: "",
+    },
+  };
+}

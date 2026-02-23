@@ -4,10 +4,13 @@ import { i } from "motion/react-client";
 import Link from "next/link";
 import { useLayoutEffect, useState } from "react";
 import { NavIcon } from "./NavIcon";
+import { motion } from "motion/react";
 
-export const Nav = () => {
+export const Nav = ({ theme }: { theme: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const lenis = useLenis();
+
+  console.log(theme);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -29,7 +32,12 @@ export const Nav = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <nav className="sticky top-0 left-0 w-full z-50 bg-theme-pink backdrop-blur-3xl flex items-center pl-margin md:px-margin h-12">
+    <motion.nav
+      className="sticky top-0 left-0 w-full z-50 flex items-center pl-margin md:px-margin h-12"
+      animate={{
+        background: theme ? `var(--theme-${theme})` : "var(--background)",
+      }}
+    >
       <Link
         href="/"
         className="text-white hover:text-gray-300 font-bold uppercase z-10"
@@ -85,6 +93,6 @@ export const Nav = () => {
       >
         <NavIcon isOpen={isOpen} />
       </button>
-    </nav>
+    </motion.nav>
   );
 };

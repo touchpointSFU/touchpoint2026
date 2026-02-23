@@ -28,9 +28,6 @@ export default function Home() {
     });
   };
 
-  useEffect(() => {
-    console.log(inViews.findLastIndex((inView) => inView));
-  }, [inViews]);
   return (
     <motion.div
       key="home-page"
@@ -88,8 +85,6 @@ const SpeakerCard = ({
 
   useEffect(() => {
     handleInView(index, inView);
-
-    console.log(index, lastInView);
   }, [inView]);
 
   useEffect(() => {
@@ -98,7 +93,7 @@ const SpeakerCard = ({
       style.current.getPropertyValue(
         `--theme-pink-${9 - Math.abs(index - lastInView)}00`,
       );
-    console.log(value);
+
     if (value) {
       animate(pinkVal, value, { duration: 0.5, ease: "easeOut" });
     }
@@ -137,7 +132,6 @@ const SpeakerCard = ({
   useMotionValueEvent(pinkVal, "change", (latest) => {
     const hex = rgbaToHex(latest);
     setCurrentHex(hex);
-    console.log("Current hex:", hex);
   });
 
   return (
