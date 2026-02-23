@@ -171,7 +171,7 @@ const SpeakerCard = ({
             </h2>
             <h3 className="font-bold">{speaker.company}</h3>
           </motion.hgroup>
-          <p className="mt-auto mb-8">{speaker.bio}</p>
+          <p className="mt-auto mb-8 max-w-[50ch]">{speaker.bio}</p>
         </div>
 
         {speaker.img && (
