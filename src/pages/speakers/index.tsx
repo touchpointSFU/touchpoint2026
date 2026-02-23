@@ -100,7 +100,7 @@ const SpeakerCard = ({
       );
     console.log(value);
     if (value) {
-      animate(pinkVal, value, { duration: 1, ease: "easeOut" });
+      animate(pinkVal, value, { duration: 0.5, ease: "easeOut" });
     }
   }, [lastInView]);
 
@@ -203,3 +203,11 @@ const SpeakerCard = ({
     </motion.li>
   );
 };
+
+export async function getStaticProps() {
+  return {
+    props: {
+      theme: "pink",
+    },
+  };
+}
