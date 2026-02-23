@@ -84,7 +84,7 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
         <h2 className="text-base font-bold  mb-4 md:hidden uppercase">Menu</h2>
         <ul className={clsx("flex -mx-4 max-md:flex-col")}>
           {[
-            { name: "Home", href: "/", desktop: true },
+            { name: "Home", href: "/", desktop: false },
 
             { name: "Speakers", href: "/speakers", desktop: true },
           ].map((item, index) => (
