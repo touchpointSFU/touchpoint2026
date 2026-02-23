@@ -1,6 +1,14 @@
-import { motion, useInView } from "motion/react";
+import {
+  animate,
+  motion,
+  useInView,
+  useMotionTemplate,
+  useMotionValue,
+  useMotionValueEvent,
+} from "motion/react";
 
 import { CSSProperties, useEffect, useRef, useState } from "react";
+import { Color } from "ogl";
 
 import { Speaker, speakers } from "@/data/speakers";
 import {
@@ -72,9 +80,29 @@ const SpeakerCard = ({
 
   const inView = useInView(ref, { margin: "0px 0px -50% 0px" });
 
+  const style = useRef<CSSStyleDeclaration | null>(null);
+
+  useEffect(() => {
+    if (ref.current) style.current = getComputedStyle(ref.current as Element);
+  }, [ref]);
+
   useEffect(() => {
     handleInView(index, inView);
+
+    console.log(index, lastInView);
   }, [inView]);
+
+  useEffect(() => {
+    const value =
+      style.current &&
+      style.current.getPropertyValue(
+        `--theme-pink-${9 - Math.abs(index - lastInView)}00`,
+      );
+    console.log(value);
+    if (value) {
+      animate(pinkVal, value, { duration: 1, ease: "easeOut" });
+    }
+  }, [lastInView]);
 
   useEffect(() => {
     const observer = new ResizeObserver(() => {
@@ -88,6 +116,30 @@ const SpeakerCard = ({
     return () => observer.disconnect();
   }, []);
 
+  const pinkVal = useMotionValue(
+    `var(--theme-pink-${9 - Math.abs(index - lastInView)}00)`,
+  );
+
+  const rgbaToHex = (rgba: string): string => {
+    const match = rgba.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/);
+    if (!match) return rgba; // Return original if not rgba format
+
+    const r = parseInt(match[1]);
+    const g = parseInt(match[2]);
+    const b = parseInt(match[3]);
+
+    return `#${[r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")}`;
+  };
+
+  // Track the current hex value
+  const [currentHex, setCurrentHex] = useState<string>("");
+
+  useMotionValueEvent(pinkVal, "change", (latest) => {
+    const hex = rgbaToHex(latest);
+    setCurrentHex(hex);
+    console.log("Current hex:", hex);
+  });
+
   return (
     <motion.li
       key={index}
@@ -96,19 +148,20 @@ const SpeakerCard = ({
         {
           top: `calc(-${height}px)`,
           bottom: `calc(${(speakers.length - index) * SPEAKER_OFFSET}rem - ${height}px)`,
-        } as CSSProperties
+          background: pinkVal,
+        } as any
       }
-      animate={{
-        background: `var(--theme-pink-${9 - Math.abs(index - lastInView)}00)`,
-      }}
+      // animate={{
+      //   background: pinkVal,
+      // }}
       ref={ref}
     >
       <div className="max-w-7xl mx-auto grid-cols-theme">
         <motion.hgroup
           className="z-1 py-4 sticky flex flex-col top-(--nav-height) col-span-full md:col-span-3 xl:col-span-6 col-start-1 h-full"
           initial={false}
-          animate={{
-            background: `var(--theme-pink-${9 - Math.abs(index - lastInView)}00)`,
+          style={{
+            background: pinkVal,
           }}
         >
           <h2 className="text-lg font-bold mb-2">
@@ -132,13 +185,15 @@ const SpeakerCard = ({
             {speaker.bio}
           </p>
         </motion.hgroup>
-        {/* - `#ff39e1` (pink): `[1, 0.22, 0.88]`
-        - `#d3ff7d` (green): `[0.83, 1, 0.49]`
-        - `#ffcef8` (light pink): `[1, 0.81, 0.97]` */}
+
         {speaker.img && (
           <ShaderImage
             uTexture={speaker.img.src}
-            uBackground={[1, 0.81, 0.97]}
+            uBackground={
+              new Color(
+                typeof currentHex === "string" ? currentHex : pinkVal.get(),
+              )
+            }
             uTargetColor={[0.83, 1, 0.49]}
             uSecondColor={[1, 0.22, 0.88]}
             className="relative bg-background/1 col-span-full md:col-span-3 xl:col-span-4 col-start-1 xl:mt-4 md:col-start-1 xl:-col-end-1 max-md:mb-6"

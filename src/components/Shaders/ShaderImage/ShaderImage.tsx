@@ -1,5 +1,5 @@
 import { MotionValue, animate } from "motion/react";
-import { Texture } from "ogl";
+import { Color, Texture } from "ogl";
 import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useOGL } from "react-ogl";
 import basicVert from "@/components/Shaders/ShaderImage/basic.vert";
@@ -15,7 +15,7 @@ export const ShaderImage = ({
   className,
 }: {
   uTexture: string;
-  uBackground: [number, number, number];
+  uBackground: [number, number, number] | Color;
   uTargetColor: [number, number, number];
   uSecondColor: [number, number, number];
   className?: string;
@@ -71,7 +71,7 @@ export const Shader = ({
   uSecondColor,
 }: {
   uTexture: string;
-  uBackground: [number, number, number];
+  uBackground: [number, number, number] | Color;
   uProgress?: MotionValue<number>;
   uTargetColor: [number, number, number];
   uSecondColor: [number, number, number];
@@ -114,6 +114,7 @@ export const Shader = ({
   useFrame((state, time) => {
     uniforms.current.uTime.value = time / 1000;
     uniforms.current.uProgress.value = uProgress?.get() || 0;
+    uniforms.current.uBackground.value = uBackground;
   });
 
   useLayoutEffect(() => {
