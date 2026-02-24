@@ -29,9 +29,9 @@ export default function Home() {
   };
 
   return (
-    <motion.div key="home-page" className={`font-sans relative bg-theme-pink`}>
+    <motion.div key="home-page" className={`font-sans relative  bg-theme-pink`}>
       <section
-        className="px-margin relative"
+        className="px-margin relative "
         style={{
           height: `calc(100svh - var(--nav-height) - ${SPEAKER_OFFSET * speakers.length}rem)`,
         }}
@@ -40,7 +40,7 @@ export default function Home() {
           Speakers
         </h1>
       </section>
-      <ul className="z-10 w-full flex flex-col">
+      <ul className="z-10 w-full flex flex-col pb-12 bg-[#FFCEF9]">
         {speakers.map((speaker, index) => (
           <SpeakerCard
             key={index}
