@@ -28,6 +28,7 @@
   --margin: 1rem;
   --gutter: 1rem;
   --nav-height: 3rem;
+  --container: 80rem;
 }
 
 @media (width >= 768px) {
@@ -74,6 +75,7 @@
   --color-theme-pink: var(--theme-pink);
   --spacing-margin: var(--margin);
   --spacing-gutter: var(--gutter);
+  --spacing-container: var(--container);
 }
 
 html {

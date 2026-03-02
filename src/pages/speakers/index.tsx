@@ -144,7 +144,7 @@ const SpeakerCard = ({
       // }}
       ref={ref}
     >
-      <div className="max-w-7xl mx-auto grid-cols-theme items-start">
+      <div className="max-w-container mx-auto grid-cols-theme items-start">
         <div className="col-span-full md:col-span-5 xl:col-span-8">
           <motion.hgroup
             className="z-1 py-4 sticky flex flex-col top-(--nav-height)"

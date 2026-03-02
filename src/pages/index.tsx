@@ -17,7 +17,7 @@ export default function Testing({ theme }: { theme: string }) {
           <Shader />
         </Canvas> */}
       </div>
-      <main className="px-margin flex flex-col flex-1 z-1">
+      <main className="w-full max-w-container flex flex-col flex-1 z-1 mx-auto">
         {/* headers and body copy */}
         <div className="flex flex-col justify-between lg:flex-row items-center md:items-start md:pt-12 pt-8">
           <hgroup className="text-center md:text-left">
