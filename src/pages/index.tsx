@@ -22,7 +22,7 @@ export default function Testing({ theme }: { theme: string }) {
         <article className="w-full max-w-container z-1 mx-auto">
           <div className="flex flex-col justify-between lg:flex-row items-center md:items-start">
             <hgroup className="text-center md:text-left">
-              <h1 className="text-xl font-extrabold text-theme-pink-800 mb-[0.1em]">
+              <h1 className="uppercase text-xl font-extrabold text-theme-pink-800 mb-[0.1em]">
                 Touchpoint 2026
               </h1>
               <h2 className="text-lg font-semibold text-theme-pink-800">
