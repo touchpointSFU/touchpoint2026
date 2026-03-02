@@ -22,8 +22,23 @@ export const ShaderImage = ({
 }) => {
   const progress = useMotionValue(0);
   const ref = useRef(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    const observer = new ResizeObserver(() => {
+      setHeight(
+        ref.current
+          ? (ref.current as HTMLElement).getBoundingClientRect().height
+          : 0,
+      );
+    });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
   const isInView = useInView(ref, {
-    margin: "0px 0px -50% 0px",
+    margin: "0px 0px 0px 0px",
+    amount: 0.8,
   });
   const { scrollYProgress } = useScroll({
     target: ref,

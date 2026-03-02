@@ -40,7 +40,7 @@ export default function Home() {
           Speakers
         </h1>
       </section>
-      <ul className="z-10 w-full flex flex-col pb-12 bg-[#FFCEF9]">
+      <ul className="z-10 w-full flex flex-col bg-[#FFCEF9]">
         {speakers.map((speaker, index) => (
           <SpeakerCard
             key={index}
