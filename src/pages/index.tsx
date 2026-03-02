@@ -25,7 +25,7 @@ export default function Testing({ theme }: { theme: string }) {
               Touchpoint 2026
             </h1>
             <h2 className="text-lg font-bold  text-theme-green">
-              Alternative Modes of Design,<br></br> Rooted in Community
+              Design, rooted in community
             </h2>
           </hgroup>
         </div>
