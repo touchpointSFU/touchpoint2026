@@ -36,7 +36,7 @@ export default function Home() {
           height: `calc(100svh - var(--nav-height) - ${SPEAKER_OFFSET * speakers.length}rem)`,
         }}
       >
-        <h1 className="sticky bottom-0 text-xl font-bold text-black mb-8 top-(--nav-height)">
+        <h1 className="mx-auto max-w-container sticky bottom-0 text-xl font-bold text-black mb-8 top-(--nav-height)">
           Speakers
         </h1>
       </section>
