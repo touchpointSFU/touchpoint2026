@@ -7,18 +7,19 @@ import { Canvas, useFrame, useOGL } from "react-ogl";
 import { Fragment } from "react/jsx-runtime";
 import basicVert from "@/components/Shaders/basic.vert";
 import basicFrag from "@/components/Shaders/metaballs.frag";
+import Arrow from "@/assets/arrow.svg";
 
 export default function Testing({ theme }: { theme: string }) {
   return (
     <div className="min-h-[calc(100dvh-var(--nav-height))] flex flex-col overflow-hidden relative">
       <div className="absolute inset-0">
-        <Canvas>
+        {/* <Canvas>
           <Shader />
-        </Canvas>
+        </Canvas> */}
       </div>
-      <main className="flex flex-col flex-1 z-1">
+      <main className="px-margin flex flex-col flex-1 z-1">
         {/* headers and body copy */}
-        <div className="flex flex-col justify-between lg:flex-row items-center md:items-start px-margin md:pt-12 pt-8">
+        <div className="flex flex-col justify-between lg:flex-row items-center md:items-start md:pt-12 pt-8">
           <hgroup className="text-center md:text-left">
             <h1 className="text-xl font-bold text-theme-pink mb-[0.3em]">
               Touchpoint 2026
@@ -28,19 +29,38 @@ export default function Testing({ theme }: { theme: string }) {
             </h2>
           </hgroup>
         </div>
-
-        {/* Middle section (takes remaining space, centers marquee) */}
-        <div className="flex flex-1 items-center justify-center">
-          <div className="flex flex-col items-center md:items-start w-full">
-            <p className="text-description text-theme-green font-medium mb-2 md:ml-margin">
-              With speakers from
+        <div className="flex flex-col justify-between lg:flex-row items-center md:items-start mt-12">
+          <a
+            href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
+            className="group text-2xl text-theme-green"
+          >
+            <h3>SFU Engineering Building</h3>
+            <p className="inline-flex">
+              10285 University Dr{" "}
+              <span className="inline-block ml-0.5 my-auto size-[1em] fill-current overflow-hidden relative">
+                <Arrow className="absolute group-hover:scale-125 group-hover:translate-x-full group-hover:-translate-y-full transition-transform duration-300" />
+                <Arrow className="absolute -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-125 transition-transform duration-300" />
+              </span>
             </p>
-            <ScrollingNames direction="left" />
-          </div>
+          </a>
+          <a
+            href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
+            className="group text-2xl text-theme-green block"
+          >
+            <time dateTime="2026-03-21">
+              Saturday
+              <br />
+              <span className="inline-flex">
+                03.21.2026
+                <span className="inline-block ml-0.5 my-auto size-[1em] fill-current overflow-hidden relative">
+                  <Arrow className="absolute group-hover:scale-125 group-hover:translate-x-full group-hover:-translate-y-full group-focus:scale-125 group-focus:translate-x-full group-focus:-translate-y-full transition-transform duration-300" />
+                  <Arrow className="absolute -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-125 group-focus:translate-x-0 group-focus:translate-y-0 group-focus:scale-125 transition-transform duration-300" />
+                </span>
+              </span>
+            </time>
+          </a>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
@@ -63,7 +83,7 @@ const Shader = () => {
         uMouse: { value: [0.0, 0.0] },
         uResolution: { value: [gl.canvas.width, gl.canvas.height] },
         uMetablobs: { value: [] },
-        uSpeed: { value: matchMedia("(pointer:fine)").matches ? 0.5 : 4 },
+        uSpeed: { value: matchMedia("(pointer:fine)").matches ? 4 : 4 },
         uMobile: { value: matchMedia("(pointer:fine)").matches ? false : true },
       },
     }),
@@ -115,9 +135,9 @@ const Shader = () => {
       mousePos.current.old.x,
       mousePos.current.old.y,
     ];
-    if (mouseAccel.current > 0.5) mouseAccel.current *= 0.9; // Apply damping to decelerate more naturally
-    if (matchMedia("(pointer:fine)").matches)
-      mesh.program.uniforms.uSpeed.value = mouseAccel.current;
+    // if (mouseAccel.current > 0.5) mouseAccel.current *= 0.9; // Apply damping to decelerate more naturally
+    // if (matchMedia("(pointer:fine)").matches)
+    //   mesh.program.uniforms.uSpeed.value = mouseAccel.current;
     // mesh.program.uniforms.uMouse.value = [
     //   mousePositionN.current[0],
     //   mousePositionN.current[1],
