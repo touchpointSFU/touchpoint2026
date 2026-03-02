@@ -11,16 +11,16 @@ import Arrow from "@/assets/arrow.svg";
 
 export default function Testing({ theme }: { theme: string }) {
   return (
-    <div className="min-h-[calc(100dvh-var(--nav-height))] flex flex-col overflow-hidden relative">
+    <div className="min-h-[calc(100dvh-var(--nav-height))] flex flex-col gap-8 overflow-hidden relative">
       <div className="absolute inset-0">
         {/* <Canvas>
           <Shader />
         </Canvas> */}
       </div>
-      <main className="w-full max-w-container flex flex-col justify-center flex-1 z-1 mx-auto">
+      <main className="flex-1 flex flex-col justify-center px-margin">
         {/* headers and body copy */}
-        <article>
-          <div className="flex flex-col justify-between lg:flex-row items-center md:items-start md:pt-12 pt-8">
+        <article className="w-full max-w-container z-1 mx-auto">
+          <div className="flex flex-col justify-between lg:flex-row items-center md:items-start">
             <hgroup className="text-center md:text-left">
               <h1 className="text-xl font-extrabold text-theme-pink-800 mb-[0.1em]">
                 Touchpoint 2026
@@ -30,7 +30,7 @@ export default function Testing({ theme }: { theme: string }) {
               </h2>
             </hgroup>
           </div>
-          <div className="flex flex-col justify-between lg:flex-row items-center md:items-start mt-12">
+          <div className="flex justify-between flex-row lg:items-center mt-12">
             <a
               href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
               className="group text-2xl text-theme-green underline"
