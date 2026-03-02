@@ -17,50 +17,53 @@ export default function Testing({ theme }: { theme: string }) {
           <Shader />
         </Canvas> */}
       </div>
-      <main className="w-full max-w-container flex flex-col flex-1 z-1 mx-auto">
+      <main className="w-full max-w-container flex flex-col justify-center flex-1 z-1 mx-auto">
         {/* headers and body copy */}
-        <div className="flex flex-col justify-between lg:flex-row items-center md:items-start md:pt-12 pt-8">
-          <hgroup className="text-center md:text-left">
-            <h1 className="text-xl font-bold text-theme-pink mb-[0.3em]">
-              Touchpoint 2026
-            </h1>
-            <h2 className="text-lg font-bold  text-theme-green">
-              Design, rooted in community
-            </h2>
-          </hgroup>
-        </div>
-        <div className="flex flex-col justify-between lg:flex-row items-center md:items-start mt-12">
-          <a
-            href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
-            className="group text-2xl text-theme-green"
-          >
-            <h3>SFU Engineering Building</h3>
-            <p className="inline-flex">
-              10285 University Dr{" "}
-              <span className="inline-block ml-0.5 my-auto size-[1em] fill-current overflow-hidden relative">
-                <Arrow className="absolute group-hover:scale-125 group-hover:translate-x-full group-hover:-translate-y-full transition-transform duration-300" />
-                <Arrow className="absolute -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-125 transition-transform duration-300" />
-              </span>
-            </p>
-          </a>
-          <a
-            href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
-            className="group text-2xl text-theme-green block"
-          >
-            <time dateTime="2026-03-21">
-              Saturday
-              <br />
-              <span className="inline-flex">
-                03.21.2026
+        <article>
+          <div className="flex flex-col justify-between lg:flex-row items-center md:items-start md:pt-12 pt-8">
+            <hgroup className="text-center md:text-left">
+              <h1 className="text-xl font-extrabold text-theme-pink-800 mb-[0.1em]">
+                Touchpoint 2026
+              </h1>
+              <h2 className="text-lg font-semibold text-theme-pink-800">
+                Design, rooted in community
+              </h2>
+            </hgroup>
+          </div>
+          <div className="flex flex-col justify-between lg:flex-row items-center md:items-start mt-12">
+            <a
+              href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
+              className="group text-2xl text-theme-green underline"
+            >
+              <h3>SFU Engineering Building</h3>
+              <p className="inline-flex underline">
+                10285 University Dr{" "}
                 <span className="inline-block ml-0.5 my-auto size-[1em] fill-current overflow-hidden relative">
-                  <Arrow className="absolute group-hover:scale-125 group-hover:translate-x-full group-hover:-translate-y-full group-focus:scale-125 group-focus:translate-x-full group-focus:-translate-y-full transition-transform duration-300" />
-                  <Arrow className="absolute -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-125 group-focus:translate-x-0 group-focus:translate-y-0 group-focus:scale-125 transition-transform duration-300" />
+                  <Arrow className="absolute group-hover:scale-125 group-hover:translate-x-full group-hover:-translate-y-full transition-transform duration-300" />
+                  <Arrow className="absolute -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-125 transition-transform duration-300" />
                 </span>
-              </span>
-            </time>
-          </a>
-        </div>
+              </p>
+            </a>
+            <a
+              href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
+              className="group text-2xl text-theme-green block underline"
+            >
+              <time dateTime="2026-03-21">
+                Saturday
+                <br />
+                <span className="inline-flex underline">
+                  03.21.2026
+                  <span className="inline-block ml-0.5 my-auto size-[1em] fill-current overflow-hidden relative">
+                    <Arrow className="absolute group-hover:scale-125 group-hover:translate-x-full group-hover:-translate-y-full group-focus:scale-125 group-focus:translate-x-full group-focus:-translate-y-full transition-transform duration-300" />
+                    <Arrow className="absolute -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-125 group-focus:translate-x-0 group-focus:translate-y-0 group-focus:scale-125 transition-transform duration-300" />
+                  </span>
+                </span>
+              </time>
+            </a>
+          </div>
+        </article>
       </main>
+      <Footer />
     </div>
   );
 }

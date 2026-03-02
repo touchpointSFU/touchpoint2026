@@ -67,6 +67,15 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-theme-pink-100: var(--theme-pink-100);
+  --color-theme-pink-200: var(--theme-pink-200);
+  --color-theme-pink-300: var(--theme-pink-300);
+  --color-theme-pink-400: var(--theme-pink-400);
+  --color-theme-pink-500: var(--theme-pink-500);
+  --color-theme-pink-600: var(--theme-pink-600);
+  --color-theme-pink-700: var(--theme-pink-700);
+  --color-theme-pink-800: var(--theme-pink-800);
+  --color-theme-pink-900: var(--theme-pink-900);
   --font-sans: var(--font-dm);
   --font-custom: var(--font-universCondensed);
   --font-display: var(--font-clash);
