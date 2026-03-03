@@ -20,17 +20,16 @@ export default function Testing({ theme }: { theme: string }) {
       <main className="flex-1 flex flex-col justify-center px-margin">
         {/* headers and body copy */}
         <article className="w-full max-w-container z-1 mx-auto">
-          <div className="flex flex-col justify-between lg:flex-row items-center md:items-start">
-            <hgroup className="text-center md:text-left">
-              <h1 className="uppercase text-xl font-extrabold text-theme-pink-800 mb-[0.1em]">
-                Touchpoint 2026
-              </h1>
-              <h2 className="text-lg font-semibold text-theme-pink-800">
-                Design, rooted in community
-              </h2>
-            </hgroup>
-          </div>
-          <div className="flex justify-between flex-row lg:items-center mt-12">
+          <hgroup>
+            <h1 className="uppercase text-xl font-extrabold text-theme-pink-800 mb-[0.1em]">
+              Touchpoint 2026
+            </h1>
+            <h2 className="text-lg font-semibold text-theme-pink-800">
+              Design, rooted in community
+            </h2>
+          </hgroup>
+
+          <div className="flex justify-between flex-col gap-4 md:flex-row lg:items-center mt-12">
             <a
               href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
               className="group text-2xl text-theme-green underline"

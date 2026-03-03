@@ -20,9 +20,9 @@
   --text-base--line-height: 1.25;
   --text-md: 1.125rem;
   --text-md--line-height: 1;
-  --text-lg: 2.5rem;
+  --text-lg: min(2.5rem, 8vw);
   --text-lg--line-height: 1;
-  --text-xl: 4rem;
+  --text-xl: min(4rem, 12.5vw);
   --text-xl--line-height: 1;
 
   --margin: 1rem;

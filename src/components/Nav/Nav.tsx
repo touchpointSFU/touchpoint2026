@@ -63,7 +63,6 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
       )}
       style={{
         background: background,
-        // color: theme ? `var(--background)` : "var(--foreground)",
       }}
       key="nav"
     >
@@ -87,6 +86,7 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
           <ul className={clsx("flex -mx-4 max-md:flex-col")}>
             {[
               { name: "Home", href: "/", desktop: false },
+              { name: "About", href: "/about", desktop: true },
               { name: "Speakers", href: "/speakers", desktop: true },
             ].map((item, index) => (
               <li

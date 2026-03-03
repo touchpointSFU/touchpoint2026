@@ -47,7 +47,7 @@ void main() {
     vec3 targetColor = vec3(0.827, 1.0, 0.490);
 
     //Get the gray value for noise based on current XY
-    float d3 = uMobile ? snoise(vec3(uv * 0.5, uTime * 0.5))  + 0.1 : snoise(vec3(uv, uTime)) * 0.4 + 0.6;
+    float d3 = uMobile ? snoise(vec3(uv, uTime * 0.5))  + 0.1 : snoise(uv - uMouse);
     // float d3 = snoise(vec3(uv * 0.5, uTime * 0.5))  + 0.1;
 
     vec2 cellUV = fract(uv * 8.);
@@ -58,5 +58,5 @@ void main() {
     // vec3 color = vec3(cellUV + vec2(valid), 0.); //+ (targetColor * cell50(cellUV) * validB) + (targetColor * cell75(cellUV) * validC) + validD * targetColor;
     // color *= d2;
     // gl_FragColor = vec4(vec3(uv.x / (mult * ratio.x)), 1.0);
-    gl_FragColor = vec4(vec3(d3 * valid), 1.0);
+    gl_FragColor = vec4(color, 1.0);
 }

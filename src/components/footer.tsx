@@ -4,8 +4,11 @@ import circleInnovation from "@/assets/Circle-Innovation-RGB-Horiz-Reverse.svg?u
 export default function Footer() {
   return (
     <footer className="z-1 px-margin py-4 w-full">
-      <div className="mx-auto w-full max-w-container flex items-center text-body justify-between">
-        <a href="https://2025.touchpointsfu.ca" className="text-base uppercase">
+      <div className="mx-auto w-full max-w-container flex flex-col md:flex-row gap-4 items-center text-body justify-between">
+        <a
+          href="https://2025.touchpointsfu.ca"
+          className="max-md:order-1 text-base uppercase"
+        >
           2025 site
         </a>
         <a

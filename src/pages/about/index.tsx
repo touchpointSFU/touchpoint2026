@@ -29,28 +29,80 @@ export default function Home() {
   };
 
   return (
-    <motion.div key="home-page" className={`font-sans relative  bg-theme-pink`}>
+    <motion.div
+      key="home-page"
+      className={`font-sans relative bg-theme-green text-background`}
+    >
       <section
         className="px-margin relative "
         style={{
           height: `calc(100svh - var(--nav-height) - ${SPEAKER_OFFSET * speakers.length}rem)`,
         }}
       >
-        <h1 className="md:pt-8 mx-auto max-w-container sticky bottom-0 text-xl font-bold text-black mb-8 top-(--nav-height)">
-          Speakers
-        </h1>
+        <div className="mx-auto max-w-container">
+          <h1 className="md:pt-8 sticky bottom-0 text-xl font-bold  mb-8 top-(--nav-height)">
+            Design is far more than just pixels and interfaces. It is a way of
+            seeing and shaping the world.
+          </h1>
+        </div>
       </section>
-      <ul className="z-10 w-full flex flex-col bg-[#FFCEF9]">
-        {speakers.map((speaker, index) => (
-          <SpeakerCard
-            key={index}
-            speaker={speaker}
-            index={index}
-            lastInView={inViews.findLastIndex((inView) => inView)}
-            handleInView={handleInView}
-          />
-        ))}
-      </ul>
+      <section className="px-margin relative">
+        <div className="mx-auto max-w-container grid-cols-theme">
+          <h2 className="text-lg font-bold ">About Touchpoint</h2>
+          <p className="col-span-full md:col-span-5 xl:col-span-8 mb-6 -col-end-1 md:-col-end-1 xl:-col-end-1">
+            Touchpoint is an annual design conference for the creative
+            community, that serves as a space for design practitioners,
+            students, and like-minded individuals where bright ideas form the
+            most inspired minds.
+          </p>
+          <p className="col-span-full md:col-span-5 xl:col-span-8 mb-6 -col-end-1 md:-col-end-1 xl:-col-end-1">
+            Designed to spark dialogue and collaboration, it offers a platform
+            to discuss opportunities, confront challenges, and form connections.
+          </p>
+        </div>
+      </section>
+      <section className="px-margin relative">
+        <div className="mx-auto max-w-container grid-cols-theme">
+          <h2 className="text-lg font-bold ">The theme</h2>
+          <p className="col-span-full md:col-span-5 xl:col-span-8 mb-6 -col-end-1 md:-col-end-1 xl:-col-end-1">
+            Everything we make continues designing and affecting people,
+            cultures, and environments — often in ways we don’t fully
+            acknowledge. When we see design in this more expansive,
+            transformative way, we inevitably arrive at community: design does
+            not happen in isolation.
+          </p>
+          <p className="col-span-full md:col-span-5 xl:col-span-8 mb-6 -col-end-1 md:-col-end-1 xl:-col-end-1">
+            In these turbulent times, we keep our sense of drive, hope, and
+            responsibility alive by showing up for one another. This ongoing
+            creative process involves growing, negotiating, and reimagining the
+            roles of design in making critical change.
+          </p>
+          <p className="col-span-full md:col-span-5 xl:col-span-8 mb-6 -col-end-1 md:-col-end-1 xl:-col-end-1">
+            Touchpoint 2026 creates space for these alternative modes of design
+            to be seen, shared, and valued.
+          </p>
+          <p className="col-span-full md:col-span-5 xl:col-span-8 mb-6 -col-end-1 md:-col-end-1 xl:-col-end-1">
+            It is a reminder that design is bigger than screens or a single
+            individual, and it aims to spark inspiration in the next generation
+            of designers while highlighting the importance of collective action.
+          </p>
+          <p className="col-span-full md:col-span-5 xl:col-span-8 mb-6 -col-end-1 md:-col-end-1 xl:-col-end-1">
+            This is design rooted in community: real, grounded, collaborative,
+            human. No fluff, just the work, together.
+          </p>
+        </div>
+      </section>
+      <section className="px-margin relative">
+        <div className="mx-auto max-w-container grid-cols-theme">
+          <h2 className="text-lg font-bold ">The team</h2>
+          <ul className="col-span-full md:col-span-5 xl:col-span-8 grid grid-cols-subgrid">
+            <li>
+              <h3>Nam</h3>
+              <p>Rol</p>
+            </li>
+          </ul>
+        </div>
+      </section>
     </motion.div>
   );
 }
@@ -145,7 +197,7 @@ const SpeakerCard = ({
       ref={ref}
     >
       <div className="max-w-container mx-auto grid-cols-theme items-start">
-        <div className="col-span-full md:col-span-5 xl:col-span-8">
+        <div className="col-span-full md:col-span-5 xl:col-span-8 mb-6 -col-end-1 md:-col-end-1 xl:-col-end-1">
           <motion.hgroup
             className="z-1 py-4 sticky flex flex-col top-(--nav-height)"
             initial={false}
@@ -195,7 +247,7 @@ const SpeakerCard = ({
 export async function getStaticProps() {
   return {
     props: {
-      theme: "pink",
+      theme: "green",
     },
   };
 }

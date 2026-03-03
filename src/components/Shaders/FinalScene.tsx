@@ -27,8 +27,8 @@ export function FinalScene({ texture }: { texture: any }) {
 
   const testUniforms = useMemo(
     () => ({
-      targetColor: "#D3FF7D",
-      secondColor: "#FF39E1",
+      targetColor: "#FF39E1",
+      secondColor: "#0a0a0a",
       background: "#0a0a0a",
       speed: 1.0,
     }),
