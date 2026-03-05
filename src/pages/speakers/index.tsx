@@ -29,7 +29,7 @@ export default function Home() {
   };
 
   return (
-    <motion.div key="speakers">
+    <motion.div key="speakers" className="pb-20 lg:pb-40 xl:pb-60">
       <section
         className="px-margin relative "
         style={{
