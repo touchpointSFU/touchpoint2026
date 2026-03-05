@@ -29,14 +29,14 @@ export default function Home() {
   };
 
   return (
-    <motion.div key="home-page" className={`font-sans relative  bg-theme-pink`}>
+    <motion.div key="speakers">
       <section
         className="px-margin relative "
         style={{
           height: `calc(100svh - var(--nav-height) - ${SPEAKER_OFFSET * speakers.length}rem)`,
         }}
       >
-        <h1 className="md:pt-8 mx-auto max-w-container sticky bottom-0 text-2xl font-bold text-black mb-8 top-(--nav-height)">
+        <h1 className="md:pt-8 mx-auto max-w-container sticky bottom-0 text-2xl font-bold mb-8 top-(--nav-height)">
           Speakers
         </h1>
       </section>

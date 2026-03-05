@@ -54,7 +54,11 @@ const HaasGroteskDSPro = localFont({
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const [theme, setTheme] = useState<string>(pageProps.theme || "pink");
-
+  const themes = {
+    default: "var(--background)",
+    pink: "var(--theme-pink)",
+    green: "var(--theme-green)",
+  };
   return (
     <Fragment>
       <Head>
@@ -81,19 +85,30 @@ export default function App({ Component, pageProps, router }: AppProps) {
         />
         <meta name="twitter:image" content="/twitter-image.png" />
       </Head>
-      <div
-        className={`${dm.variable} ${clash.variable} ${HaasGroteskDSPro.variable} font-sans`}
-      >
-        <ReactLenis root />
-        <AnimatePresence>
-          <ThemeContext value={{ theme, setTheme }}>
+      <AnimatePresence>
+        <ThemeContext value={{ theme, setTheme }}>
+          <div
+            className={`${dm.variable} ${clash.variable} ${HaasGroteskDSPro.variable} font-sans`}
+            style={{
+              background:
+                themes[pageProps.theme as keyof typeof themes] ||
+                themes.default,
+              color:
+                pageProps.theme === null ||
+                pageProps.theme === "default" ||
+                pageProps.theme === undefined
+                  ? "var(--foreground)"
+                  : "var(--background)",
+            }}
+          >
+            <ReactLenis root />
             <Nav theme={pageProps.theme} page={router.route} />
             <Component key={router.route} {...pageProps} />
-          </ThemeContext>
 
-          {/* <Script src="https://greggman.github.io/webgl-lint/webgl-lint.js" /> */}
-        </AnimatePresence>
-      </div>
+            {/* <Script src="https://greggman.github.io/webgl-lint/webgl-lint.js" /> */}
+          </div>
+        </ThemeContext>
+      </AnimatePresence>
     </Fragment>
   );
 }
