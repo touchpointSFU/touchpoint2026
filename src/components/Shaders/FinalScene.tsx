@@ -1,10 +1,12 @@
-import { Mesh, Program, Plane } from "ogl";
+import tilesheet from "@/assets/tiles.png";
+import { Mesh, Program, Plane, Texture, ImageRepresentation } from "ogl";
 // import { Mesh, Program, Plane } from "react-ogl";
-import { useEffect, useLayoutEffect, useMemo } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 
 import postVert from "@/components/Shaders/post.vert";
 import postFrag from "@/components/Shaders/post.frag";
 import { useFrame, useOGL } from "react-ogl";
+import { u } from "motion/react-client";
 
 export function FinalScene({ texture }: { texture: any }) {
   function hexToFloatArray(hex: string) {
@@ -46,10 +48,32 @@ export function FinalScene({ texture }: { texture: any }) {
       testUniforms.background,
     );
   });
+
+  const { gl, size } = useOGL();
+
+  const [tiles, setTiles] = useState<Texture>(
+    new Texture(gl, {
+      generateMipmaps: false,
+    }),
+  );
+
+  useEffect(() => {
+    console.log(gl);
+    const tex = new Texture(gl, {
+      generateMipmaps: false,
+    });
+    const img = new Image();
+    img.src = tilesheet.src;
+    img.onload = () => {
+      console.log("Image loaded", img);
+      tex.image = img;
+      setTiles(tex);
+      program.uniforms.uTilesheet.value = tex;
+    };
+  }, [gl, tilesheet]);
   // program.uniforms.uTargetColor.value = hexToFloatArray(
   //   testUniforms.targetColor
 
-  const { gl, size } = useOGL();
   const program = useMemo(
     () =>
       new Program(gl, {
@@ -58,6 +82,9 @@ export function FinalScene({ texture }: { texture: any }) {
         uniforms: {
           uResolution: { value: [gl.canvas.width, gl.canvas.height] },
           uTexture: { value: texture },
+          uTilesheet: {
+            value: tiles,
+          },
           uTargetColor: { value: hexToFloatArray(testUniforms.targetColor) },
           uSecondColor: { value: hexToFloatArray(testUniforms.secondColor) },
           uBackground: { value: hexToFloatArray(testUniforms.background) },

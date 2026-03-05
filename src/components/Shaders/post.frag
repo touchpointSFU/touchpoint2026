@@ -3,6 +3,7 @@ varying vec2 vUv;
 
 uniform vec2 uResolution;
 uniform sampler2D uTexture;
+uniform sampler2D uTilesheet;
 uniform vec3 uTargetColor;
 uniform vec3 uSecondColor;
 uniform vec3 uBackground;
@@ -332,11 +333,14 @@ void main() {
   vec2 uv = vUv;
   vec2 pix = gl_FragCoord.xy;
   vec2 pixelmap = fract(pix / pixelSize);
+  pixelmap.x *= 0.1;
   // vec2 grouping = mod(floor(pix / pixelSize), 2.0);
-//   vec3 col = texture2D(uTexture, uv).rgb;
-  vec3 col = texture2D(uTexture, floor(pix / pixelSize) * pixelSize / uResolution.xy).rgb;
+//   vec3 col = texture2D(uTilesheet, pixelmap).rgb;
+  float gray = texture2D(uTexture, floor(pix / pixelSize) * pixelSize / uResolution.xy).r;
+  float binnedGray = floor(gray * 10.0) / 10.0;
 //  vec3 tex = col;
-  vec3 final = cellVal(col.r, pixelmap, uTargetColor, uSecondColor);
+  pixelmap.x += binnedGray - 0.1;
+  vec3 final = texture2D(uTilesheet, pixelmap).rgb;
   // vec2 ratio = vec2(uResolution.x / uResolution.y, 1.0);
   // vec2 roundedUV = floor(vUv * 40.0) / 40.0;
   // roundedUV *= ratio;
@@ -345,5 +349,5 @@ void main() {
 //   vec3 col = texture2D(uTexture, floor(pix / 16.0) * 16.0 / uResolution.xy).rgb;
 //   gl_FragColor = vec4(col, 1.0);
 
-  gl_FragColor = vec4(final.r == 0. && final.g == 0. && final.b == 0. ? uBackground : final, 1.0);
+  gl_FragColor = vec4(final, 1.0);
 }
