@@ -29,10 +29,10 @@ export default function Testing({ theme }: { theme: string }) {
             </h2>
           </hgroup>
 
-          <div className="flex justify-between flex-col gap-4 md:flex-row lg:items-center mt-12">
+          <div className="flex justify-between flex-wrap gap-8 md:flex-row lg:items-center mt-12">
             <a
               href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
-              className="group text-2xl text-theme-green underline"
+              className="group text-2xl text-theme-green block underline  w-fit"
             >
               <h3>SFU Engineering Building</h3>
               <p className="inline-flex underline">
@@ -45,7 +45,7 @@ export default function Testing({ theme }: { theme: string }) {
             </a>
             <a
               href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
-              className="group text-2xl text-theme-green block underline"
+              className="group text-2xl text-theme-green block underline  w-fit"
             >
               <time dateTime="2026-03-21">
                 Saturday
