@@ -9,7 +9,7 @@ import basicVert from "@/components/Shaders/basic.vert";
 import basicFrag from "@/components/Shaders/metaballs.frag";
 import Arrow from "@/assets/arrow.svg";
 
-export default function Testing({ theme }: { theme: string }) {
+export default function Page({ theme }: { theme: string }) {
   return (
     <div className="min-h-[calc(100dvh-var(--nav-height))] flex flex-col gap-8 overflow-hidden relative">
       <div className="absolute inset-0">

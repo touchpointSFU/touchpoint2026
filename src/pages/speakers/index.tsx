@@ -18,7 +18,7 @@ import {
 
 const SPEAKER_OFFSET = 4;
 
-export default function Home() {
+export default function Page() {
   const [inViews, setInViews] = useState<boolean[]>(speakers.map(() => false));
   const handleInView = (index: number, inView: boolean) => {
     setInViews((prev) => {
@@ -36,7 +36,7 @@ export default function Home() {
           height: `calc(100svh - var(--nav-height) - ${SPEAKER_OFFSET * speakers.length}rem)`,
         }}
       >
-        <h1 className="md:pt-8 mx-auto max-w-container sticky bottom-0 text-2xl font-bold mb-8 top-(--nav-height)">
+        <h1 className="md:pt-8 mx-auto max-w-container sticky bottom-0 text-2xl font-bold mb-12 md:mb-20 top-(--nav-height)">
           Speakers
         </h1>
       </section>

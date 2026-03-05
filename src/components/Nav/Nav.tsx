@@ -88,6 +88,7 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
               { name: "Home", href: "/", desktop: false },
               { name: "About", href: "/about", desktop: true },
               { name: "Speakers", href: "/speakers", desktop: true },
+              { name: "Mentorship", href: "/mentorship", desktop: true },
             ].map((item, index) => (
               <li
                 key={index}
@@ -120,7 +121,7 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
                       style={{
                         background: theme
                           ? "var(--background)"
-                          : `var(--theme-${theme})`,
+                          : `var(--foreground)`,
                       }}
                     />
                   )}

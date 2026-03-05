@@ -30,12 +30,13 @@ export default function Page() {
   };
 
   return (
-    <motion.div key="about" className="pb-20 lg:pb-40 xl:pb-60">
+    <motion.div key="mentorship" className="pb-20 lg:pb-40 xl:pb-60">
       <section className="px-margin relative ">
         <div className="mx-auto max-w-container">
           <h1 className="md:pt-8 sticky bottom-0 text-2xl font-bold mb-12 md:mb-20 top-(--nav-height)">
-            Design is far more than just pixels and interfaces. It is a way of
-            seeing and shaping the world.
+            On Sunday, March 29 (9am&ndash;1pm), students will meet 1:1 with
+            industry professionals for focused, short-form portfolio feedback
+            sessions.
           </h1>
         </div>
       </section>
@@ -44,7 +45,7 @@ export default function Page() {
           <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
             About Touchpoint
           </h2>
-          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1">
+          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[1em] -col-end-1 md:-col-end-1 lg:-col-end-1">
             Touchpoint is an annual design conference for the creative
             community, that serves as a space for design practitioners,
             students, and like-minded individuals where bright ideas form the
@@ -113,8 +114,6 @@ export default function Page() {
 
 export async function getStaticProps() {
   return {
-    props: {
-      theme: "green",
-    },
+    props: {},
   };
 }
