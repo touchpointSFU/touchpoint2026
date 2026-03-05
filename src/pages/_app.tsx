@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 const dm = DM_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-dm",
   display: "swap",
 });

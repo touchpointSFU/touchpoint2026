@@ -21,10 +21,10 @@ export default function Page({ theme }: { theme: string }) {
         {/* headers and body copy */}
         <article className="w-full max-w-container z-1 mx-auto">
           <hgroup>
-            <h1 className="uppercase text-2xl font-extrabold text-theme-pink-800 mb-[0.1em]">
+            <h1 className="uppercase text-2xl font-extrabold text-theme-pink-800 mb-[m0.5em]">
               Touchpoint 2026
             </h1>
-            <h2 className="text-xl font-semibold text-theme-pink-800">
+            <h2 className="text-xl font-semibold text-theme-pink-800 mt-4">
               Design, rooted in community
             </h2>
           </hgroup>
@@ -118,7 +118,7 @@ const Shader = () => {
         const deltaX = (mN.x - mO.x) * renderer.width;
         const deltaY = (mN.y - mO.y) * renderer.height;
 
-        console.log("Deltas:", deltaX, deltaY);
+        // console.log("Deltas:", deltaX, deltaY);
         if (deltaX !== 0 && deltaY !== 0) {
           mouseDir.current.x = Math.abs(deltaX) > 1 ? Math.sign(deltaX) : 0;
           mouseDir.current.y = Math.abs(deltaY) > 1 ? Math.sign(deltaY) : 0;
