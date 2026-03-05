@@ -16,6 +16,7 @@ import {
   ShaderImage,
 } from "@/components/Shaders/ShaderImage/ShaderImage";
 import { team } from "@/data/team";
+import clsx from "clsx";
 
 const SPEAKER_OFFSET = 4;
 
@@ -32,80 +33,85 @@ export default function Page() {
   return (
     <motion.div key="mentorship" className="pb-20 lg:pb-40 xl:pb-60">
       <section className="px-margin relative ">
-        <div className="mx-auto max-w-container">
-          <h1 className="md:pt-8 sticky bottom-0 text-2xl font-bold mb-12 md:mb-20 top-(--nav-height)">
+        <div className="mx-auto max-w-container mb-12 md:mb-40">
+          <h1 className="md:pt-8 text-2xl font-bold top-(--nav-height) mb-12 md:mb-20">
             On Sunday, March 29 (9am&ndash;1pm), students will meet 1:1 with
             industry professionals for focused, short-form portfolio feedback
             sessions.
           </h1>
+          <div>
+            <h3 className="text-md font-bold mb-4 md:mb-6">
+              Apply by March 21 to be matched with a mentor.
+            </h3>
+            <a
+              className={clsx(
+                "bg-theme-pink text-foreground w-fit",
+                "transition-transform ease-in-out hover:scale-105 focus:scale-110 active:scale-95 max-md:bg-theme-pink max-md:text-foreground py-3 px-4 block text-md font-bold leading-none",
+              )}
+              href="https://airtable.com/appmpksCP16ngJAnZ/pag4OZVxVCbcykqSS/form"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Start applying
+            </a>
+          </div>
         </div>
       </section>
       <section className="px-margin relative mb-10 lg:mb-20 xl:mb-30">
         <div className="mx-auto max-w-container grid-cols-theme">
           <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
-            About Touchpoint
+            What to expect
           </h2>
-          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[1em] -col-end-1 md:-col-end-1 lg:-col-end-1">
-            Touchpoint is an annual design conference for the creative
-            community, that serves as a space for design practitioners,
-            students, and like-minded individuals where bright ideas form the
-            most inspired minds.
-          </p>
-          <p className="col-span-full md:col-span-5 lg:col-span-8 mb-[1em] -col-end-1 md:-col-end-1 lg:-col-end-1">
-            Designed to spark dialogue and collaboration, it offers a platform
-            to discuss opportunities, confront challenges, and form connections.
-          </p>
+          <ul className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[1em] space-y-[0.75em] -col-end-1 md:-col-end-1 lg:-col-end-1">
+            <li>A 20-30 minute 1:1 portfolio review</li>
+            <li>Direct, constructive feedback from an industry professional</li>
+            <li>
+              Feedback focused on clarity, presentation, and professional
+              readiness
+            </li>
+          </ul>
         </div>
       </section>
       <section className="px-margin relative mb-10 lg:mb-20 xl:mb-30">
         <div className="mx-auto max-w-container grid-cols-theme">
           <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
-            The theme
+            Requirements
           </h2>
-          <p className="col-span-full md:col-span-5 lg:col-span-8 mb-[1em] -col-end-1 md:-col-end-1 lg:-col-end-1">
-            Everything we make continues designing and affecting people,
-            cultures, and environments — often in ways we don’t fully
-            acknowledge. When we see design in this more expansive,
-            transformative way, we inevitably arrive at community: design does
-            not happen in isolation.
+
+          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1">
+            Due to the event format, students must be available for the full
+            duration of the event.
           </p>
           <p className="col-span-full md:col-span-5 lg:col-span-8 mb-[1em] -col-end-1 md:-col-end-1 lg:-col-end-1">
-            In these turbulent times, we keep our sense of drive, hope, and
-            responsibility alive by showing up for one another. This ongoing
-            creative process involves growing, negotiating, and reimagining the
-            roles of design in making critical change.
-          </p>
-          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mt-[0.5em] mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1">
-            Touchpoint 2026 creates space for these alternative modes of design
-            to be seen, shared, and valued.
+            Students may be matched with more than one mentor during the event.
+            Sessions will be approximately 20–30 minutes, and you may have
+            multiple reviews scheduled between 9:00 AM&ndash;1:00 PM.
           </p>
           <p className="col-span-full md:col-span-5 lg:col-span-8 mb-[1em] -col-end-1 md:-col-end-1 lg:-col-end-1">
-            It is a reminder that design is bigger than screens or a single
-            individual, and it aims to spark inspiration in the next generation
-            of designers while highlighting the importance of collective action.
-          </p>
-          <p className="col-span-full md:col-span-5 lg:col-span-8 mb-[1em] -col-end-1 md:-col-end-1 lg:-col-end-1">
-            This is design rooted in community: real, grounded, collaborative,
-            human. No fluff, just the work, together.
+            Mentors will be matched based on expertise, availability, and your
+            portfolio focus.
           </p>
         </div>
       </section>
       <section className="px-margin relative">
         <div className="mx-auto max-w-container grid-cols-theme">
           <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
-            The team
+            Additional info
           </h2>
-          <ul className="col-span-full md:col-span-5 lg:col-span-8 -col-end-1 md:-col-end-1 lg:-col-end-1 grid grid-cols-subgrid">
-            {team.map((member) => (
-              <li
-                className="sm:grid grid-cols-subgrid col-span-full mb-[0.5em]"
-                key={member.name}
-              >
-                <h3 className="col-span-2 font-semibold">{member.name}</h3>
-                <p className="col-span-2">{member.role}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="col-span-full md:col-span-5 lg:col-span-8 -col-end-1 md:-col-end-1 lg:-col-end-1">
+            <p className="mb-[1em]">
+              These sessions are short-term reviews and are not guaranteed to
+              continue beyond the event. Ongoing mentorship is at the discretion
+              of the mentor.
+            </p>
+            <p className="mb-[1em]">
+              All confirmations and schedule details will be sent via email.
+            </p>
+            <p className="mb-[1em]">
+              Please monitor your inbox, including spam and trash folders, in
+              the days leading up to the event.
+            </p>
+          </div>
         </div>
       </section>
     </motion.div>

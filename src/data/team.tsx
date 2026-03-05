@@ -39,6 +39,10 @@ export const team: TeamMember[] = [
     role: "Web Developer",
   },
   {
+    name: "Jaden Lee",
+    role: "Motion Designer",
+  },
+  {
     name: "Joseph Lee",
     role: "Event Coordinator",
   },
