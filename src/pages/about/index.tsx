@@ -41,7 +41,7 @@ export default function Home() {
           </h1>
         </div>
       </section>
-      <section className="px-margin relative">
+      <section className="px-margin relative mb-10 lg:mb-20 xl:mb-30">
         <div className="mx-auto max-w-container grid-cols-theme">
           <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3">
             About Touchpoint
@@ -58,7 +58,7 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <section className="px-margin relative">
+      <section className="px-margin relative mb-10 lg:mb-20 xl:mb-30">
         <div className="mx-auto max-w-container grid-cols-theme">
           <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3">
             The theme
@@ -91,7 +91,7 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <section className="px-margin relative">
+      <section className="px-margin relative mb-10 lg:mb-20 xl:mb-30">
         <div className="mx-auto max-w-container grid-cols-theme">
           <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3">
             The team
