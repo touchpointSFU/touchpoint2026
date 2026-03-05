@@ -36,7 +36,7 @@ export default function Home() {
           height: `calc(100svh - var(--nav-height) - ${SPEAKER_OFFSET * speakers.length}rem)`,
         }}
       >
-        <h1 className="md:pt-8 mx-auto max-w-container sticky bottom-0 text-xl font-bold text-black mb-8 top-(--nav-height)">
+        <h1 className="md:pt-8 mx-auto max-w-container sticky bottom-0 text-2xl font-bold text-black mb-8 top-(--nav-height)">
           Speakers
         </h1>
       </section>
@@ -145,7 +145,7 @@ const SpeakerCard = ({
       ref={ref}
     >
       <div className="max-w-container mx-auto grid-cols-theme items-start">
-        <div className="col-span-full md:col-span-5 xl:col-span-8">
+        <div className="col-span-full md:col-span-5 lg:col-span-8">
           <motion.hgroup
             className="z-1 py-4 sticky flex flex-col top-(--nav-height)"
             initial={false}
@@ -184,7 +184,7 @@ const SpeakerCard = ({
             }
             uTargetColor={[0.83, 1, 0.49]}
             uSecondColor={[1, 0.22, 0.88]}
-            className="relative bg-background/1 col-span-full md:col-span-3 xl:col-span-4 col-start-1 md:mt-4 xl:mt-4 md:-col-end-1 xl:-col-end-1 max-md:mb-6"
+            className="relative bg-background/1 col-span-full md:col-span-3 lg:col-span-4 col-start-1 md:mt-4 lg:mt-4 md:-col-end-1 lg:-col-end-1 max-md:mb-6"
           />
         )}
       </div>

@@ -18,12 +18,16 @@
   /* Text size variables - mobile first */
   --text-base: 1rem;
   --text-base--line-height: 1.25;
-  --text-md: 1.125rem;
+  --text-md: 1.25rem;
   --text-md--line-height: 1;
-  --text-lg: min(2.5rem, 8vw);
+  --text-lg: min(2rem, 7.5vw);
   --text-lg--line-height: 1;
-  --text-xl: min(4rem, 12.5vw);
+  --text-xl: min(3.25rem, 10vw);
   --text-xl--line-height: 1;
+  --text-xl--letter-spacing: -0.02em;
+  --text-2xl: min(5.25rem, 10vw);
+  --text-2xl--line-height: 1;
+  --text-2xl--letter-spacing: -0.03em;
 
   --margin: 1rem;
   --gutter: 1rem;
@@ -31,16 +35,33 @@
   --container: 80rem;
 }
 
-@media (width >= 768px) {
+@media (width >= 420px) {
   :root {
     --text-base: 1rem;
     --text-base--line-height: 1.25;
-    --text-md: 1.125rem;
+    --text-md: 1.25rem;
     --text-md--line-height: 1;
-    --text-lg: 2.5rem;
+    --text-lg: 2rem;
     --text-lg--line-height: 1;
-    --text-xl: 4rem;
+    /* --text-xl: 2.25rem;
     --text-xl--line-height: 1;
+    --text-2xl: 2.25rem;
+    --text-2xl--line-height: 1; */
+  }
+}
+
+@media (width >= 812px) {
+  :root {
+    --text-base: 1rem;
+    --text-base--line-height: 1.25;
+    --text-md: 2rem;
+    --text-md--line-height: 1;
+    --text-lg: 2.25rem;
+    --text-lg--line-height: 1;
+    --text-xl: 3.5rem;
+    --text-xl--line-height: 1;
+    --text-2xl: 5.25rem;
+    --text-2xl--line-height: 1;
 
     --margin: 2.5rem;
     --gutter: 1.25rem;
@@ -52,15 +73,32 @@
   :root {
     --text-base: 1.25rem;
     --text-base--line-height: 1.2;
-    --text-md: 3rem;
+    --text-md: 2rem;
     --text-md--line-height: 1;
-    --text-lg: 4rem;
+    --text-lg: 3rem;
     --text-lg--line-height: 1;
-    --text-xl: 6rem;
+    --text-xl: 4rem;
     --text-xl--line-height: 1;
+    --text-2xl: 6.125rem;
+    --text-2xl--line-height: 1;
 
     --margin: 5rem;
     --gutter: 1.25rem;
+  }
+}
+
+@media (width >= 1920px) {
+  :root {
+    --text-base: 1.5rem;
+    --text-base--line-height: 1.2;
+    --text-md: 2.25rem;
+    --text-md--line-height: 1;
+    --text-lg: 3rem;
+    --text-lg--line-height: 1;
+    --text-xl: 5.25rem;
+    --text-xl--line-height: 1;
+    --text-2xl: 7rem;
+    --text-2xl--line-height: 1;
   }
 }
 
@@ -85,6 +123,24 @@
   --spacing-margin: var(--margin);
   --spacing-gutter: var(--gutter);
   --spacing-container: var(--container);
+
+  --breakpoint-sm: 420px;
+  --breakpoint-md: 812px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1920px;
+
+  --text-base: var(--text-base);
+  --text-base--line-height: var(--text-base--line-height);
+  --text-md: var(--text-md);
+  --text-md--line-height: var(--text-md--line-height);
+  --text-lg: var(--text-lg);
+  --text-lg--line-height: var(--text-lg--line-height);
+  --text-xl: var(--text-xl);
+  --text-xl--line-height: var(--text-xl--line-height);
+  --text-xl--letter-spacing: var(--text-xl--letter-spacing);
+  --text-2xl: var(--text-2xl);
+  --text-2xl--line-height: var(--text-2xl--line-height);
+  --text-2xl--letter-spacing: var(--text-2xl--letter-spacing);
 }
 
 html {
@@ -100,7 +156,7 @@ body {
 }
 
 @utility grid-cols-theme {
-  @apply grid gap-x-gutter grid-cols-4 md:grid-cols-8 xl:grid-cols-12 auto-rows-min;
+  @apply grid gap-x-gutter grid-cols-4 md:grid-cols-8 lg:grid-cols-12 auto-rows-min;
 }
 
 /* Infinite marquee animation */

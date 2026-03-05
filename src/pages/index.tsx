@@ -21,18 +21,18 @@ export default function Testing({ theme }: { theme: string }) {
         {/* headers and body copy */}
         <article className="w-full max-w-container z-1 mx-auto">
           <hgroup>
-            <h1 className="uppercase text-xl font-extrabold text-theme-pink-800 mb-[0.1em]">
+            <h1 className="uppercase text-2xl font-extrabold text-theme-pink-800 mb-[0.1em]">
               Touchpoint 2026
             </h1>
-            <h2 className="text-lg font-semibold text-theme-pink-800">
+            <h2 className="text-xl font-semibold text-theme-pink-800">
               Design, rooted in community
             </h2>
           </hgroup>
 
-          <div className="flex justify-between flex-wrap gap-8 md:flex-row lg:items-center mt-12">
+          <div className="flex justify-between flex-wrap gap-x-8 gap-y-4 md:flex-row lg:items-center mt-12">
             <a
               href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
-              className="group text-2xl text-theme-green block underline  w-fit"
+              className="group text-lg text-theme-green block underline  w-fit"
             >
               <h3>SFU Engineering Building</h3>
               <p className="inline-flex underline">
@@ -45,7 +45,7 @@ export default function Testing({ theme }: { theme: string }) {
             </a>
             <a
               href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
-              className="group text-2xl text-theme-green block underline  w-fit"
+              className="group text-lg text-theme-green block underline  w-fit"
             >
               <time dateTime="2026-03-21">
                 Saturday
