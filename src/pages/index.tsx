@@ -11,11 +11,11 @@ import Arrow from "@/assets/arrow.svg";
 
 export default function Page({ theme }: { theme: string }) {
   return (
-    <div className="min-h-[calc(100dvh-var(--nav-height))] flex flex-col gap-8 overflow-hidden relative">
+    <div className="min-h-[calc(100dvh)] flex flex-col gap-8 overflow-hidden relative">
       <div className="absolute inset-0">
-        {/* <Canvas>
+        <Canvas>
           <Shader />
-        </Canvas> */}
+        </Canvas>
       </div>
       <main className="flex-1 flex flex-col justify-center px-margin">
         {/* headers and body copy */}

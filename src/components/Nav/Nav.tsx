@@ -59,11 +59,11 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
     <nav
       className={clsx(
         theme && !isOpen ? "text-background" : "text-foreground",
-        "sticky top-0 left-0 w-full z-50 pl-margin md:px-margin h-(--nav-height) flex items-center",
+        "fixed top-0 left-0 w-full z-50 pl-margin md:px-margin h-(--nav-height) flex items-center",
       )}
-      style={{
-        background: background,
-      }}
+      // style={{
+      //   background: background,
+      // }}
       key="nav"
     >
       <div className="max-w-container mx-auto w-full flex items-center">

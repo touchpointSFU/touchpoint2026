@@ -33,7 +33,7 @@ export default function Page() {
       <section
         className="px-margin relative "
         style={{
-          height: `calc(100svh - var(--nav-height) - ${SPEAKER_OFFSET * speakers.length}rem)`,
+          height: `calc(100svh - ${SPEAKER_OFFSET * speakers.length}rem)`,
         }}
       >
         <h1 className="md:pt-8 mx-auto max-w-container sticky bottom-0 text-2xl font-bold mb-12 md:mb-20 top-(--nav-height)">
