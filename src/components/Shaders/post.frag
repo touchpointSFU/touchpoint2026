@@ -2,13 +2,14 @@ precision highp float;
 varying vec2 vUv;
 
 uniform vec2 uResolution;
+uniform float uDPR;
 uniform sampler2D uTexture;
 uniform sampler2D uTilesheet;
 uniform vec3 uTargetColor;
 uniform vec3 uSecondColor;
 uniform vec3 uBackground;
 
-#define pixelSize 48.0
+// #define pixelSize 48.0
 
 vec3 cell10(vec2 cellUV, vec3 uTargetColor, vec3 uSecondColor){
     // vec2 uv = fragCoord/iResolution.xy;
@@ -329,19 +330,20 @@ vec3 cellVal(float uvGray, vec2 cellUV, vec3 uTargetColor, vec3 uSecondColor){
 
 
 void main() {
-  
+  float pixelSize = 24. * uDPR;
   vec2 uv = vUv;
   vec2 pix = gl_FragCoord.xy;
   vec2 pixelmap = fract(pix / pixelSize);
-//   pixelmap.x *= 0.1;
+  pixelmap.x *= 0.1;
   // vec2 grouping = mod(floor(pix / pixelSize), 2.0);
 //   vec3 col = texture2D(uTilesheet, pixelmap).rgb;
+  vec3 gray2 = texture2D(uTexture, uv).rgb;
   float gray = texture2D(uTexture, floor(pix / pixelSize) * pixelSize / uResolution.xy).r;
-  float binnedGray = floor(gray * 10.0) / 10.0;
+  float binnedGray = floor(gray * 11.0) / 11.0;
 //  vec3 tex = col;
-//   pixelmap.x += binnedGray - 0.1;
-  vec3 final = cellVal(gray, pixelmap, uTargetColor, uSecondColor);
-//   vec3 final = texture2D(uTilesheet, pixelmap).rgb;
+  pixelmap.x += (binnedGray *= 10. / 9.) - 0.2;
+  vec3 final = texture2D(uTilesheet, pixelmap).rgb;
+    // vec3 final = cellVal(binnedGray, pixelmap, uTargetColor, uSecondColor);
   // vec2 ratio = vec2(uResolution.x / uResolution.y, 1.0);
   // vec2 roundedUV = floor(vUv * 40.0) / 40.0;
   // roundedUV *= ratio;
@@ -349,6 +351,6 @@ void main() {
   // vec3 grid = vec3(fract(uv * 40.0 * ratio), 0.0);
 //   vec3 col = texture2D(uTexture, floor(pix / 16.0) * 16.0 / uResolution.xy).rgb;
 //   gl_FragColor = vec4(col, 1.0);
-
+// gl_FragColor = vec4(vec3(gray), 1.0);
   gl_FragColor = vec4(final, 1.0);
 }

@@ -29,9 +29,12 @@ export function FinalScene({ texture }: { texture: any }) {
 
   const testUniforms = useMemo(
     () => ({
+      // targetColor: "#FF39E1",
+      // secondColor: "#0a0a0a",
+      // background: "#0a0a0a",
       targetColor: "#FF39E1",
       secondColor: "#0a0a0a",
-      background: "#0a0a0a",
+      background: "#ffffff",
       speed: 1.0,
     }),
     [],
@@ -49,18 +52,18 @@ export function FinalScene({ texture }: { texture: any }) {
     );
   });
 
-  const { gl, size } = useOGL();
+  const { gl, size, renderer } = useOGL();
 
   const [tiles, setTiles] = useState<Texture>(
     new Texture(gl, {
-      generateMipmaps: false,
+      // generateMipmaps: false,
     }),
   );
 
   useEffect(() => {
     console.log(gl);
     const tex = new Texture(gl, {
-      generateMipmaps: false,
+      // generateMipmaps: false,
     });
     const img = new Image();
     img.src = tilesheet.src;
@@ -85,6 +88,7 @@ export function FinalScene({ texture }: { texture: any }) {
           uTilesheet: {
             value: tiles,
           },
+          uDPR: { value: renderer.dpr },
           uTargetColor: { value: hexToFloatArray(testUniforms.targetColor) },
           uSecondColor: { value: hexToFloatArray(testUniforms.secondColor) },
           uBackground: { value: hexToFloatArray(testUniforms.background) },

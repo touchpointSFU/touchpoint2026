@@ -69,11 +69,15 @@ export default function Page({ theme }: { theme: string }) {
 
 const Shader = () => {
   const { gl, canvas, renderer } = useOGL();
+  useEffect(() => {
+    console.log(canvas);
+    console.log(renderer);
+  }, []);
 
   const renderTarget = useMemo(() => new RenderTarget(gl), []);
 
   const mousePos = useRef({ old: { x: 0, y: 0 }, new: { x: 0, y: 0 } });
-  const mouseAccel = useRef(0);
+  const mouseDir = useRef({ x: 1, y: 1 });
 
   const mesh = new Mesh(gl, {
     geometry: new Triangle(gl),
@@ -83,9 +87,10 @@ const Shader = () => {
       uniforms: {
         uTime: { value: 0.0 },
         uMouse: { value: [0.0, 0.0] },
-        uResolution: { value: [gl.canvas.width, gl.canvas.height] },
+        uDisplacement: { value: [0.0, 0.0] },
+        uResolution: { value: [renderer.width, renderer.height] },
         uMetablobs: { value: [] },
-        uSpeed: { value: matchMedia("(pointer:fine)").matches ? 4 : 4 },
+        uSpeed: { value: matchMedia("(pointer:fine)").matches ? 1 : 1 },
         uMobile: { value: matchMedia("(pointer:fine)").matches ? false : true },
       },
     }),
@@ -110,9 +115,15 @@ const Shader = () => {
         const mO = mousePos.current.old;
         const mN = mousePos.current.new;
 
-        if (mouseAccel.current < 50)
-          mouseAccel.current +=
-            10 * Math.sqrt(Math.pow(mN.x - mO.x, 2) + Math.pow(mN.y - mO.y, 2));
+        const deltaX = (mN.x - mO.x) * renderer.width;
+        const deltaY = (mN.y - mO.y) * renderer.height;
+
+        console.log("Deltas:", deltaX, deltaY);
+        if (deltaX !== 0 && deltaY !== 0) {
+          mouseDir.current.x = Math.abs(deltaX) > 1 ? Math.sign(deltaX) : 0;
+          mouseDir.current.y = Math.abs(deltaY) > 1 ? Math.sign(deltaY) : 0;
+        }
+
         const rect = gl.canvas.getBoundingClientRect();
         const x = e.clientX / rect.width - 0.5;
         // const y = 1.0 - e.clientY / gl.canvas.height;
@@ -131,12 +142,47 @@ const Shader = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const rect = gl.canvas.getBoundingClientRect();
+      console.log(renderer.dpr);
+      console.log("Rect", rect.width, rect.height);
+      console.log("Canvas", gl.canvas.width, gl.canvas.height);
+      console.log("Renderer", renderer.width, renderer.height);
+      mesh.program.uniforms.uResolution.value = [
+        renderer.width,
+        renderer.height,
+      ];
+    };
+    window.addEventListener("resize", () => {
+      handleResize();
+    });
+    return () => {
+      window.removeEventListener("resize", () => {
+        handleResize();
+      });
+    };
+  }, []);
+
   useFrame((root, time) => {
     mesh.program.uniforms.uTime.value = time * 0.001;
-    mesh.program.uniforms.uMouse.value = [
-      mousePos.current.old.x,
-      mousePos.current.old.y,
-    ];
+    const deltaX =
+      (mousePos.current.new.x - mousePos.current.old.x) * renderer.width;
+    const deltaY =
+      (mousePos.current.new.y - mousePos.current.old.y) * renderer.height;
+
+    mesh.program.uniforms.uDisplacement.value[0] += 0.01 * mouseDir.current.x;
+    mesh.program.uniforms.uDisplacement.value[1] += 0.01 * mouseDir.current.y;
+    // console.log(deltaX, deltaY);
+    // if (deltaX !== 0 || deltaY !== 0) {
+    //   mesh.program.uniforms.uMouse.value = [deltaX, deltaY];
+    // }
+    if (deltaX !== 0 || deltaY !== 0) {
+      mesh.program.uniforms.uMouse.value = [
+        mousePos.current.new.x,
+        mousePos.current.new.y,
+      ];
+    }
     // if (mouseAccel.current > 0.5) mouseAccel.current *= 0.9; // Apply damping to decelerate more naturally
     // if (matchMedia("(pointer:fine)").matches)
     //   mesh.program.uniforms.uSpeed.value = mouseAccel.current;
@@ -152,11 +198,7 @@ const Shader = () => {
     renderer.render({ scene: mesh, target: renderTarget });
   });
 
-  return (
-    <Fragment>
-      <FinalScene texture={renderTarget.texture} />
-    </Fragment>
-  );
+  return <FinalScene texture={renderTarget.texture} />;
 };
 
 export async function getStaticProps() {
