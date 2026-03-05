@@ -29,7 +29,7 @@ export default function Page() {
   };
 
   return (
-    <motion.div key="speakers" className="pb-20 lg:pb-40 xl:pb-60">
+    <motion.div key="speakers">
       <section
         className="px-margin relative "
         style={{
