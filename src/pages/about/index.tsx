@@ -33,12 +33,7 @@ export default function Home() {
       key="home-page"
       className={`font-sans relative bg-theme-green text-background`}
     >
-      <section
-        className="px-margin relative "
-        style={{
-          height: `calc(100svh - var(--nav-height) - ${SPEAKER_OFFSET * speakers.length}rem)`,
-        }}
-      >
+      <section className="px-margin relative ">
         <div className="mx-auto max-w-container">
           <h1 className="md:pt-8 sticky bottom-0 text-xl font-bold  mb-8 top-(--nav-height)">
             Design is far more than just pixels and interfaces. It is a way of
