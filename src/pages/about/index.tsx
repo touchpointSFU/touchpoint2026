@@ -33,7 +33,7 @@ export default function Page() {
     <motion.div key="about" className="pb-20 lg:pb-40 xl:pb-60">
       <section className="px-margin relative ">
         <div className="mx-auto max-w-container">
-          <h1 className="md:pt-8 sticky bottom-0 text-2xl font-bold mb-12 md:mb-20 top-(--nav-height)">
+          <h1 className="md:pt-8 sticky bottom-0 text-2xl font-bold mb-12 md:mb-20 top-(--nav-height) blur-[1px]">
             Design is far more than just pixels and interfaces. It is a way of
             seeing and shaping the world.
           </h1>
@@ -41,10 +41,10 @@ export default function Page() {
       </section>
       <section className="px-margin relative mb-10 lg:mb-20 xl:mb-30">
         <div className="mx-auto max-w-container grid-cols-theme">
-          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
+          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4 text-theme-pink-400">
             About Touchpoint
           </h2>
-          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1">
+          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1 blur-[1px]">
             Touchpoint is an annual design conference for the creative
             community, that serves as a space for design practitioners,
             students, and like-minded individuals where bright ideas form the
@@ -58,8 +58,8 @@ export default function Page() {
       </section>
       <section className="px-margin relative mb-10 lg:mb-20 xl:mb-30">
         <div className="mx-auto max-w-container grid-cols-theme">
-          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
-            The theme
+          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4 text-theme-pink-400">
+            About the theme
           </h2>
           <p className="col-span-full md:col-span-5 lg:col-span-8 mb-[1em] -col-end-1 md:-col-end-1 lg:-col-end-1">
             Everything we make continues designing and affecting people,
@@ -74,7 +74,7 @@ export default function Page() {
             creative process involves growing, negotiating, and reimagining the
             roles of design in making critical change.
           </p>
-          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mt-[0.5em] mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1">
+          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mt-[0.5em] mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1 blur-[1px]">
             Touchpoint 2026 creates space for these alternative modes of design
             to be seen, shared, and valued.
           </p>
@@ -91,20 +91,25 @@ export default function Page() {
       </section>
       <section className="px-margin relative">
         <div className="mx-auto max-w-container grid-cols-theme">
-          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
-            The team
+          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4 text-theme-pink-400">
+            The team that shaped this year
           </h2>
-          <ul className="col-span-full md:col-span-5 lg:col-span-8 -col-end-1 md:-col-end-1 lg:-col-end-1 grid grid-cols-subgrid">
+          <ul className="col-span-full md:col-span-5 lg:col-span-8 -col-end-1 md:-col-end-1 lg:-col-end-1 mb-[1em] grid grid-cols-subgrid">
             {team.map((member) => (
               <li
                 className="sm:grid grid-cols-subgrid col-span-full mb-[0.5em]"
                 key={member.name}
               >
-                <h3 className="col-span-2 font-semibold">{member.name}</h3>
+                <h3 className="col-span-2 font-semibold  text-theme-pink-400">
+                  {member.name}
+                </h3>
                 <p className="col-span-2">{member.role}</p>
               </li>
             ))}
           </ul>
+          <p className="col-span-full md:col-span-5 lg:col-span-8 mb-[1em] -col-end-1 md:-col-end-1 lg:-col-end-1">
+            And a special thank you to all the volunteers for their support.
+          </p>
         </div>
       </section>
     </motion.div>

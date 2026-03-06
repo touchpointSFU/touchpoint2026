@@ -36,7 +36,7 @@ export const speakers: Speaker[] = [
   },
   {
     names: ["Dave Swanson", "Marina Martin", "Breanne Lewis"],
-    company: "EA",
+    company: "Electronic Arts (EA)",
     alum: [false, false, true],
   },
   {
@@ -64,7 +64,9 @@ export const speakers: Speaker[] = [
     alum: false,
     bio: (
       <>
-       Danny Farra (he/him) is a Syrian-American artist and designer based in Seattle. He works as a product designer specializing in accessibility and assistive technology.
+        Danny Farra (he/him) is a Syrian-American artist and designer based in
+        Seattle. He works as a product designer specializing in accessibility
+        and assistive technology.
       </>
     ),
     img: danny,
