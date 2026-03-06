@@ -120,8 +120,12 @@ const Shader = () => {
 
         // console.log("Deltas:", deltaX, deltaY);
         if (deltaX !== 0 && deltaY !== 0) {
-          mouseDir.current.x = Math.abs(deltaX) > 1 ? Math.sign(deltaX) : 0;
-          mouseDir.current.y = Math.abs(deltaY) > 1 ? Math.sign(deltaY) : 0;
+          if (Math.abs(mouseDir.current.x) < 5)
+            mouseDir.current.x +=
+              Math.abs(deltaX) > 0.5 ? Math.sign(deltaX) : 0;
+          if (Math.abs(mouseDir.current.y) < 5)
+            mouseDir.current.y +=
+              Math.abs(deltaY) > 0.5 ? Math.sign(deltaY) : 0;
         }
 
         const rect = gl.canvas.getBoundingClientRect();
@@ -170,7 +174,8 @@ const Shader = () => {
       (mousePos.current.new.x - mousePos.current.old.x) * renderer.width;
     const deltaY =
       (mousePos.current.new.y - mousePos.current.old.y) * renderer.height;
-
+    if (Math.abs(mouseDir.current.x) > 1) mouseDir.current.x *= 0.95;
+    if (Math.abs(mouseDir.current.y) > 1) mouseDir.current.y *= 0.95;
     mesh.program.uniforms.uDisplacement.value[0] += 0.01 * mouseDir.current.x;
     mesh.program.uniforms.uDisplacement.value[1] += 0.01 * mouseDir.current.y;
     // console.log(deltaX, deltaY);
