@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="mx-auto w-full max-w-container flex flex-col md:flex-row gap-4 items-center text-body justify-between">
         <a
           href="https://2025.touchpointsfu.ca"
-          className="max-md:order-1 text-base uppercase"
+          className="max-md:order-1 text-base uppercase underline"
         >
           2025 site
         </a>

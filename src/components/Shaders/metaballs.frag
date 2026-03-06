@@ -48,7 +48,7 @@ void main() {
 
     //Get the gray value for noise based on current XY
     // float d3 = uMobile ? snoise(vec3(uv, uTime * 0.5))  + 0.1 : snoise(floor(uv * uResolution / pxSize) * pxSize);
-    float d3 = snoise(vec3(uv - uDisplacement, sin(uTime) * 0.5 + 0.5));
+    float d3 = snoise(vec3(uv - uDisplacement, sin(uTime * 2.0) * 0.5 + 0.5));
     
     // float d3 = snoise(vec3(uv * 0.5, uTime * 0.5))  + 0.1;
 

@@ -11,7 +11,7 @@ import Arrow from "@/assets/arrow.svg";
 
 export default function Page({ theme }: { theme: string }) {
   return (
-    <div className="min-h-[calc(100dvh)] flex flex-col gap-8 overflow-hidden relative">
+    <div className="min-h-[calc(100dvh)] flex flex-col overflow-hidden relative">
       <div className="absolute inset-0">
         <Canvas>
           <Shader />
@@ -21,10 +21,10 @@ export default function Page({ theme }: { theme: string }) {
         {/* headers and body copy */}
         <article className="w-full max-w-container z-1 mx-auto">
           <hgroup>
-            <h1 className="uppercase text-2xl font-extrabold text-theme-pink-800 mb-[m0.5em]">
+            <h1 className="uppercase text-2xl font-extrabold text-theme-pink-800 mb-[0.1em] blur-[1px]">
               Touchpoint 2026
             </h1>
-            <h2 className="text-xl font-semibold text-theme-pink-800 mt-4">
+            <h2 className="text-xl font-semibold text-theme-pink-800 mt-4 blur-[1px]">
               Design, rooted in community
             </h2>
           </hgroup>
@@ -32,7 +32,7 @@ export default function Page({ theme }: { theme: string }) {
           <div className="flex justify-between flex-wrap gap-x-8 gap-y-4 md:flex-row lg:items-center mt-12">
             <a
               href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
-              className="group text-lg text-theme-green block underline  w-fit"
+              className="group text-md text-theme-green block underline  w-fit"
             >
               <h3>SFU Engineering Building</h3>
               <p className="inline-flex underline">
@@ -44,8 +44,8 @@ export default function Page({ theme }: { theme: string }) {
               </p>
             </a>
             <a
-              href="https://maps.app.goo.gl/zwD9oCXdacCJeGEz6"
-              className="group text-lg text-theme-green block underline  w-fit"
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Touchpoint+2026&dates=20260321T153000Z/20260321T233000Z&location=Surrey+Engineering+Building%2C+Surrey%2C+BC%2C+Canada&details=Touchpoint+2026%0A%0ARSVP%3A+https%3A%2F%2Fwww.eventbrite.ca%2Fe%2Ftouchpoint-2026-tickets-1981807024158%3Faff%3Doddtdtcreator"
+              className="group text-md text-theme-green block underline w-fit"
             >
               <time dateTime="2026-03-21">
                 Saturday

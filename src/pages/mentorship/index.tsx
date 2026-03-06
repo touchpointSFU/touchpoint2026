@@ -34,7 +34,7 @@ export default function Page() {
     <motion.div key="mentorship" className="pb-20 lg:pb-40 xl:pb-60">
       <section className="px-margin relative ">
         <div className="mx-auto max-w-container mb-12 md:mb-40">
-          <h1 className="md:pt-8 text-2xl font-bold top-(--nav-height) mb-12 md:mb-20">
+          <h1 className="md:pt-8 text-2xl font-bold top-(--nav-height) mb-12 md:mb-20 blur-[1px]">
             On Sunday, March 29 (9am&ndash;1pm), students will meet 1:1 with
             industry professionals for focused, short-form portfolio feedback
             sessions.
@@ -59,10 +59,10 @@ export default function Page() {
       </section>
       <section className="px-margin relative mb-10 lg:mb-20 xl:mb-30">
         <div className="mx-auto max-w-container grid-cols-theme">
-          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
+          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4 text-theme-pink-400">
             What to expect
           </h2>
-          <ul className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[1em] space-y-[0.75em] -col-end-1 md:-col-end-1 lg:-col-end-1">
+          <ul className="text-md font-bold col-span-full md:col-span-5 lg:col-span-8 mb-[1em] space-y-[0.75em] -col-end-1 md:-col-end-1 lg:-col-end-1 blur-[1px]">
             <li>A 20-30 minute 1:1 portfolio review</li>
             <li>Direct, constructive feedback from an industry professional</li>
             <li>
@@ -74,11 +74,11 @@ export default function Page() {
       </section>
       <section className="px-margin relative mb-10 lg:mb-20 xl:mb-30">
         <div className="mx-auto max-w-container grid-cols-theme">
-          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
+          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4 text-theme-pink-400">
             Requirements
           </h2>
 
-          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1">
+          <p className="text-md font-bold col-span-full md:col-span-5 lg:col-span-8 mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1 blur-[1px]">
             Due to the event format, students must be available for the full
             duration of the event.
           </p>
@@ -95,7 +95,7 @@ export default function Page() {
       </section>
       <section className="px-margin relative">
         <div className="mx-auto max-w-container grid-cols-theme">
-          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4">
+          <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4 text-theme-pink-400">
             Additional info
           </h2>
           <div className="col-span-full md:col-span-5 lg:col-span-8 -col-end-1 md:-col-end-1 lg:-col-end-1">

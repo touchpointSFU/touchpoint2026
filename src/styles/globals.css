@@ -31,7 +31,7 @@
 
   --margin: 1rem;
   --gutter: 1rem;
-  --nav-height: 3rem;
+  --nav-height: 3.75rem;
   --container: 80rem;
 }
 
@@ -65,7 +65,7 @@
 
     --margin: 2.5rem;
     --gutter: 1.25rem;
-    /* --nav-height: 3.5rem; */
+    --nav-height: 4.25rem;
   }
 }
 
