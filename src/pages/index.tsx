@@ -174,10 +174,12 @@ const Shader = () => {
       (mousePos.current.new.x - mousePos.current.old.x) * renderer.width;
     const deltaY =
       (mousePos.current.new.y - mousePos.current.old.y) * renderer.height;
-    if (Math.abs(mouseDir.current.x) > 1) mouseDir.current.x *= 0.95;
-    if (Math.abs(mouseDir.current.y) > 1) mouseDir.current.y *= 0.95;
-    mesh.program.uniforms.uDisplacement.value[0] += 0.01 * mouseDir.current.x;
-    mesh.program.uniforms.uDisplacement.value[1] += 0.01 * mouseDir.current.y;
+    if (Math.abs(mouseDir.current.x) > 1.5) mouseDir.current.x *= 0.95;
+    if (Math.abs(mouseDir.current.y) > 1.5) mouseDir.current.y *= 0.95;
+    mesh.program.uniforms.uDisplacement.value[0] +=
+      0.01 * mouseDir.current.x + 0.01 * (Math.random() - 0.5);
+    mesh.program.uniforms.uDisplacement.value[1] +=
+      0.01 * mouseDir.current.y + 0.01 * (Math.random() - 0.5);
     // console.log(deltaX, deltaY);
     // if (deltaX !== 0 || deltaY !== 0) {
     //   mesh.program.uniforms.uMouse.value = [deltaX, deltaY];

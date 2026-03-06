@@ -17,7 +17,7 @@ varying vec2 vUv;
 void main() {
     vec2 uv = vUv;
     vec2 center = vec2(0.5);
-    float mult = 1.0;
+    float mult = 4.0;
     float timeBounce = (0.5 + sin(uTime - PI / 2.0) / 2.);
     vec2 ratio = vec2(uResolution.x / uResolution.y, 1.0);
     // vec2 ratio = vec2(1.0);
@@ -48,7 +48,7 @@ void main() {
 
     //Get the gray value for noise based on current XY
     // float d3 = uMobile ? snoise(vec3(uv, uTime * 0.5))  + 0.1 : snoise(floor(uv * uResolution / pxSize) * pxSize);
-    float d3 = snoise(vec3(uv - uDisplacement, sin(uTime / 3.0) * 0.5 + 0.5));
+    float d3 = snoise(vec3(uv - (uDisplacement * mult), sin(uTime)) * 0.5 + 0.5);
     
     // float d3 = snoise(vec3(uv * 0.5, uTime * 0.5))  + 0.1;
 
