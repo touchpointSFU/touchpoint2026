@@ -1,7 +1,5 @@
 import mischa from "@/assets/speakers/mischa.jpg";
-import dave from "@/assets/speakers/dave.jpg";
-import marina from "@/assets/speakers/marina.jpg";
-import breanne from "@/assets/speakers/breanne.jpg";
+import ea from "@/assets/speakers/ea.jpg";
 import ryan from "@/assets/speakers/ryan.jpg";
 import danny from "@/assets/speakers/danny.jpg";
 import steven from "@/assets/speakers/steven.jpg";
@@ -22,7 +20,7 @@ export const speakers: Speaker[] = [
     company: "London Borough of Hounslow",
     alum: true,
     bio: (
-      <>
+      <p>
         Mischa Price is a service designer with experience in social services
         and the public sector in B.C. and the U.K., currently working for the
         London Borough of Hounslow. They approach design as a tool for building
@@ -30,21 +28,49 @@ export const speakers: Speaker[] = [
         accessibility and community. Mischa holds a BA in Interactive Arts and
         Technology with a minor in Dialogue from SFU, as well as an MA in Smart
         Urban Futures from the University of Plymouth.
-      </>
+      </p>
     ),
     img: mischa,
   },
   {
-    names: ["Dave Swanson", "Marina Martin", "Breanne Lewis"],
+    names: ["Dave Swanson", "Breanne Lewis", "Marina Martin"],
     company: "Electronic Arts (EA)",
-    alum: [false, false, true],
+    alum: [false, true, true],
+    bio: (
+      <>
+        <p className="mb-[0.75em]">
+          Dave, Breanne, and Marina are Experience Designers on the EA Sports
+          NHL team shaping the future of sports entertainment. Specializing in
+          translating complex gameplay systems into intuitive, engaging player
+          experiences, they bridge the gap between game design and
+          implementation.
+        </p>
+        <p className="mb-[0.75em]">
+          Dave Swanson (left) is a UX design leader with 12+ years of experience
+          across AAA PC, console and mobile video games. He hates Eric Sparrow
+          (IYKYK).
+        </p>
+        <p className="mb-[0.75em]">
+          SFU students may know Breanne (middle) as a teaching assistant and
+          guest for courses taught by Paul Brokenshire and the late Russell
+          Taylor. Previously she worked with IBM, independent agencies, and
+          local businesses.
+        </p>
+        <p className="mb-[0.75em]">
+          Prior to EA, Marina (right) worked on the WWE2K franchise and began
+          her UX career at SAP shortly after earning her Bachelor of Arts from
+          SFU SIAT.
+        </p>
+      </>
+    ),
+    img: ea,
   },
   {
     names: "Ryan Romero",
     company: "Monday Creative",
     alum: false,
     bio: (
-      <>
+      <p>
         Ryan Romero steers brands toward deeper, more resonant connections with
         their audiences. His role as Creative Director at Monday Creative has
         been about aligning creativity with purpose—not just directing creative
@@ -54,7 +80,7 @@ export const speakers: Speaker[] = [
         weaving together story, strategy, and impact, making the work he does
         not just about moving the needle but about creating loyalty that goes
         both ways between brands and their fans.
-      </>
+      </p>
     ),
     img: ryan,
   },
@@ -63,11 +89,11 @@ export const speakers: Speaker[] = [
     company: "Google",
     alum: false,
     bio: (
-      <>
+      <p>
         Danny Farra (he/him) is a Syrian-American artist and designer based in
         Seattle. He works as a product designer specializing in accessibility
         and assistive technology.
-      </>
+      </p>
     ),
     img: danny,
   },
@@ -76,7 +102,7 @@ export const speakers: Speaker[] = [
     company: "Cause+Affect",
     alum: false,
     bio: (
-      <>
+      <p>
         Steven Cox is Co-Founder and Executive Creative Director of
         Cause+Affect, a brand consultancy focused on mission-driven
         organizations. Over two decades, Cause+Affect have developed "The
@@ -84,7 +110,7 @@ export const speakers: Speaker[] = [
         relationship design, based on the belief that the strength of an
         organization’s identity isn't measured only by what you say about
         yourself, but by who says it with you.
-      </>
+      </p>
     ),
     img: steven,
   },
@@ -93,7 +119,7 @@ export const speakers: Speaker[] = [
     company: "Microsoft",
     alum: true,
     bio: (
-      <>
+      <p>
         Amanda Poh is a product designer at Microsoft, where she focuses on
         building agentic experiences across Windows and shaping accessibility
         and inclusive design practices. She is a co‑author of Microsoft’s
@@ -102,7 +128,7 @@ export const speakers: Speaker[] = [
         Nations. Her work is rooted in building more equitable futures through
         gender and racial equity, disability justice, and trauma‑informed
         practices.
-      </>
+      </p>
     ),
     img: amanda,
   },
