@@ -36,9 +36,15 @@ export default function Page() {
           height: `calc(100svh - var(--navHeight) ${SPEAKER_OFFSET * speakers.length}rem)`,
         }}
       >
-        <h1 className="md:pt-8 mx-auto max-w-container sticky bottom-0 text-2xl font-bold mb-12 md:mb-20 top-(--nav-height) blur-[1px]">
-          Speakers
-        </h1>
+        <hgroup className="md:pt-8 mx-auto max-w-container sticky bottom-0  font-bold mb-12 md:mb-20 top-(--nav-height)">
+          <h1 className="text-2xl font-bold blur-[1px] mb-[min(0.5em,1rem)]">
+            Speakers & Schedule
+          </h1>
+          <h2 className="text-md font-bold">
+            Door opens @ 8:30AM & Lunch @ 11:30AM&mdash;meal is included in
+            ticket price
+          </h2>
+        </hgroup>
       </section>
       <ul className="z-10 w-full flex flex-col bg-[#FFCEF9]">
         {speakers.map((speaker, index) => (

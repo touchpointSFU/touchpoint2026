@@ -44,7 +44,7 @@ export default function Page() {
           <h2 className="text-md font-bold col-span-full md:col-span-2 lg:col-span-3 mb-4 text-theme-pink-400">
             About Touchpoint
           </h2>
-          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1 blur-[1px]">
+          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1">
             Touchpoint is an annual design conference for the creative
             community, that serves as a space for design practitioners,
             students, and like-minded individuals where bright ideas form the
@@ -74,7 +74,7 @@ export default function Page() {
             creative process involves growing, negotiating, and reimagining the
             roles of design in making critical change.
           </p>
-          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mt-[0.5em] mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1 blur-[1px]">
+          <p className="text-md font-semibold col-span-full md:col-span-5 lg:col-span-8 mt-[0.5em] mb-[0.5em] -col-end-1 md:-col-end-1 lg:-col-end-1">
             Touchpoint 2026 creates space for these alternative modes of design
             to be seen, shared, and valued.
           </p>
