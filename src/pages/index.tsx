@@ -69,10 +69,6 @@ export default function Page({ theme }: { theme: string }) {
 
 const Shader = () => {
   const { gl, canvas, renderer } = useOGL();
-  useEffect(() => {
-    console.log(canvas);
-    console.log(renderer);
-  }, []);
 
   const renderTarget = useMemo(() => new RenderTarget(gl), []);
 
@@ -148,11 +144,6 @@ const Shader = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const rect = gl.canvas.getBoundingClientRect();
-      console.log(renderer.dpr);
-      console.log("Rect", rect.width, rect.height);
-      console.log("Canvas", gl.canvas.width, gl.canvas.height);
-      console.log("Renderer", renderer.width, renderer.height);
       mesh.program.uniforms.uResolution.value = [
         renderer.width,
         renderer.height,

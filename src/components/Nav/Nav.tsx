@@ -91,12 +91,13 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
             {[
               { name: "Home", href: "/", desktop: false },
               { name: "About", href: "/about", desktop: true },
+              { name: "Schedule", href: "/schedule", desktop: true },
               { name: "Speakers", href: "/speakers", desktop: true },
               { name: "Mentorship", href: "/mentorship", desktop: true },
             ].map((item, index) => (
               <li
                 key={index}
-                className="py-3 px-4 max-md:border-t border-theme-pink relative"
+                className={clsx("py-3 px-4 max-md:border-t border-theme-pink relative", !item.desktop && "md:hidden")}
               >
                 <Link
                   href={item.href}
