@@ -38,7 +38,7 @@ export default function Page() {
       >
         <hgroup className="md:pt-8 mx-auto max-w-container sticky bottom-0  font-bold mb-12 md:mb-20 top-(--nav-height)">
           <h1 className="text-2xl font-bold blur-[1px] mb-[min(0.5em,1rem)]">
-            Speakers & Schedule
+            Speakers
           </h1>
           <h2 className="text-md font-bold">
             Door opens @ 8:30AM & Lunch @ 11:30AM&mdash;meal is included in
