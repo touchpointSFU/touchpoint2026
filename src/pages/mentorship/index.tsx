@@ -40,20 +40,9 @@ export default function Page() {
             sessions.
           </h1>
           <div>
-            <h3 className="text-md font-bold mb-4 md:mb-6">
-              Apply by March 18 to be matched with a mentor.
+            <h3 className="text-md font-bold mb-4 md:mb-6 text-center">
+              Applications are now closed as of Thursday, March 19th.
             </h3>
-            <a
-              className={clsx(
-                "bg-theme-pink text-foreground w-fit",
-                "transition-transform ease-in-out hover:scale-105 focus:scale-110 active:scale-95 max-md:bg-theme-pink max-md:text-foreground py-3 px-4 block text-md font-bold leading-none",
-              )}
-              href="https://airtable.com/appmpksCP16ngJAnZ/pag4OZVxVCbcykqSS/form"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Start applying
-            </a>
           </div>
         </div>
       </section>
