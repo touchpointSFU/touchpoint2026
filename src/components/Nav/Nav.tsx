@@ -93,6 +93,7 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
               { name: "About", href: "/about", desktop: true },
               { name: "Schedule", href: "/schedule", desktop: true },
               { name: "Speakers", href: "/speakers", desktop: true },
+              { name: "Mentorship", href: "/mentorship", desktop: true },
             ].map((item, index) => (
               <li
                 key={index}
