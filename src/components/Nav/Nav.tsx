@@ -59,7 +59,7 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
     <nav
       className={clsx(
         theme && !isOpen ? "text-background" : "text-foreground",
-        "top-0 left-0 w-full z-50 pl-margin md:px-margin flex items-end pt-4 pb-1",
+        "top-0 left-0 w-full z-50 pl-margin lg:px-margin flex items-end pt-4 pb-1",
       )}
       style={{
         position: page === "/" ? "fixed" : "sticky",
@@ -81,13 +81,13 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
         <div
           data-active={isOpen ? "" : undefined}
           className={clsx(
-            "ml-auto max-md:h-[calc(100dvh)] top-0 left-0 max-md:w-full max-md:fixed  max-md:flex-col justify-end max-md:py-8 px-4 max-md:bg-background/90  max-md:transition-discrete max-md:data-active:flex  max-md:hidden",
+            "ml-auto max-lg:h-[calc(100dvh)] top-0 left-0 max-lg:w-full max-lg:fixed  max-lg:flex-col justify-end max-lg:py-8 px-4 max-lg:bg-background/90  max-lg:transition-discrete max-lg:data-active:flex  max-lg:hidden",
           )}
         >
-          <h2 className="text-base font-bold  mb-4 md:hidden uppercase">
+          <h2 className="text-base font-bold  mb-4 lg:hidden uppercase">
             Menu
           </h2>
-          <ul className={clsx("flex gap-4 -mx-4 max-md:flex-col")}>
+          <ul className={clsx("flex gap-4 -mx-4 max-lg:flex-col")}>
             {[
               { name: "Home", href: "/", desktop: false },
               { name: "About", href: "/about", desktop: true },
@@ -97,7 +97,10 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
             ].map((item, index) => (
               <li
                 key={index}
-                className={clsx("py-3 px-4 max-md:border-t border-theme-pink relative", !item.desktop && "md:hidden")}
+                className={clsx(
+                  "py-3 px-4 max-lg:border-t border-theme-pink relative",
+                  !item.desktop && "lg:hidden",
+                )}
               >
                 <Link
                   href={item.href}
@@ -115,14 +118,14 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
                     setTab(page);
                   }}
                   className={clsx(
-                    "active:opacity-50 flex text-lg md:text-base font-bold leading-none ",
-                    !item.desktop && "md:hidden",
+                    "active:opacity-50 flex text-lg lg:text-base font-bold leading-none ",
+                    !item.desktop && "lg:hidden",
                   )}
                 >
                   {item.name}
                   {tab === item.href && (
                     <span
-                      className="max-md:hidden absolute size-[0.5em] top-1/2 left-0 -translate-y-1/2"
+                      className="max-lg:hidden absolute size-[0.5em] top-1/2 left-0 -translate-y-1/2"
                       style={{
                         background: theme
                           ? "var(--background)"
@@ -139,19 +142,19 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
                   theme
                     ? `bg-background text-foreground`
                     : "bg-theme-pink text-foreground",
-                  "transition-transform ease-in-out hover:scale-105 focus:scale-110 active:scale-95 max-md:bg-theme-pink max-md:text-foreground py-3 px-4 block text-lg md:text-base font-bold leading-none",
+                  "transition-transform ease-in-out lg:pointer-fine:hover:scale-105 focus:scale-110 active:scale-95 max-lg:bg-theme-pink max-lg:text-foreground py-3 px-4 block text-lg lg:text-base font-bold leading-none",
                 )}
-                href="https://www.eventbrite.ca/e/1981807024158?aff=oddtdtcreator"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfHHJ7URi5wxR1KahShfcdjUn81k6PkeeYXTSdPMfJ0vH-N7A/viewform?usp=sharing&ouid=112899170593529987201"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Get tickets
+                Ask questions
               </a>
             </li>
           </ul>
         </div>
         <button
-          className="md:hidden relative ml-auto size-12 transition-transform hover:scale-110 focus:scale-110 active:scale-95 z-50 flex items-center justify-center cursor-pointer"
+          className="lg:hidden relative ml-auto size-12 transition-transform hover:scale-110 focus:scale-110 active:scale-95 z-50 flex items-center justify-center cursor-pointer"
           onClick={toggleMenu}
         >
           <NavIcon isOpen={isOpen} theme={theme} />
