@@ -61,34 +61,6 @@ export default function Page({ theme }: { theme: string }) {
               </time>
             </a>
           </div>
-          <div className="flex gap-4">
-            <a
-              className={clsx(
-                theme
-                  ? `bg-background text-foreground`
-                  : "bg-theme-pink text-foreground",
-                "transition-transform ease-in-out lg:pointer-fine:hover:scale-105 focus:scale-110 active:scale-95 max-lg:bg-theme-pink max-lg:text-foreground py-3 px-4 block text-md lg:text-base font-bold leading-none",
-              )}
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfHHJ7URi5wxR1KahShfcdjUn81k6PkeeYXTSdPMfJ0vH-N7A/viewform?usp=sharing&ouid=112899170593529987201"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Ask questions
-            </a>
-            <a
-              className={clsx(
-                theme
-                  ? `bg-background text-foreground`
-                  : "border border-theme-pink text-foreground bg-background/80",
-                "transition-transform ease-in-out lg:pointer-fine:hover:scale-105 focus:scale-110 active:scale-95 py-3 px-4 block text-md lg:text-base font-bold leading-none",
-              )}
-              href="https://sfu.zoom.us/j/81488374457?pwd=Dz2fwQwXOWmwQF8lOYS0JhbE4yOhub.1"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Join on Zoom
-            </a>
-          </div>
         </article>
       </main>
       <Footer />

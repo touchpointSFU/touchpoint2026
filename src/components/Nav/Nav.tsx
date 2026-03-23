@@ -136,21 +136,6 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
                 </Link>
               </li>
             ))}
-            <li>
-              <a
-                className={clsx(
-                  theme
-                    ? `bg-background text-foreground`
-                    : "bg-theme-pink text-foreground",
-                  "transition-transform ease-in-out lg:pointer-fine:hover:scale-105 focus:scale-110 active:scale-95 max-lg:bg-theme-pink max-lg:text-foreground py-3 px-4 block text-lg lg:text-base font-bold leading-none",
-                )}
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfHHJ7URi5wxR1KahShfcdjUn81k6PkeeYXTSdPMfJ0vH-N7A/viewform?usp=sharing&ouid=112899170593529987201"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Ask questions
-              </a>
-            </li>
           </ul>
         </div>
         <button
