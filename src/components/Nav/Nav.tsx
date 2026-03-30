@@ -94,6 +94,7 @@ export const Nav = ({ theme, page }: { theme: string; page: string }) => {
               { name: "Schedule", href: "/schedule", desktop: true },
               { name: "Speakers", href: "/speakers", desktop: true },
               { name: "Mentorship", href: "/mentorship", desktop: true },
+              { name: "Photos", href: "https://drive.google.com/drive/folders/1dHtw9IqF77_DPT_sdLSPj6-oTLVLXYWF?usp=drive_link", desktop: true },
             ].map((item, index) => (
               <li
                 key={index}
